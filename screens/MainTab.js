@@ -39,7 +39,7 @@ const MainTab = () => (
     }}
   >
     <Tab.Screen
-      name="Home"
+      name="Overview"
       component={HomeStackScreen}
       options={{
         tabBarLabel: "Home",
@@ -55,7 +55,7 @@ const MainTab = () => (
       }}
     />
     <Tab.Screen
-      name="Pantry"
+      name="PantryScreen"
       component={PantryStackScreen}
       options={{
         labelStyle: { paddingTop: 10 },
@@ -72,7 +72,7 @@ const MainTab = () => (
       }}
     />
     <Tab.Screen
-      name="Profile"
+      name="ProfileScreen"
       component={ProfileStackScreen}
       options={{
         tabBarLabel: "Profile",
@@ -88,7 +88,7 @@ const MainTab = () => (
       }}
     />
     <Tab.Screen
-      name="Explore"
+      name="ExploreScreen"
       component={ExploreStackScreen}
       options={{
         tabBarLabel: "Explore",

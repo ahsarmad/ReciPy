@@ -4,15 +4,20 @@ import {
   View,
   Button,
   Dimensions,
+  KeyboardAvoidingView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   ScrollView,
   TextInput,
   Image,
+  Platform,
+  Keyboard,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
+import { AuthContext } from "../components/context";
 
 import {
   AntDesign,
@@ -23,9 +28,10 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
 
 const SignIn = ({ navigation }) => {
+  const { signIn } = useContext(AuthContext);
+
   /* useState to set parameters to be checked through input */
   const [data, setData] = useState({
     email: "",
@@ -71,6 +77,10 @@ const SignIn = ({ navigation }) => {
     });
   };
 
+  const loginHandle = (email, password) => {
+    signIn(email, password);
+  };
+
   /* Using hook to load in custom font  */
   const [loaded] = useFonts({
     Quicksand: require("../assets/fonts/Quicksand-SemiBold.ttf"),
@@ -89,113 +99,129 @@ const SignIn = ({ navigation }) => {
    */
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Animatable.View animation="fadeInUpBig">
-          <Text style={styles.text_header}> Sign In </Text>
-        </Animatable.View>
-
-        <Animatable.View style={styles.pie_container} animation="fadeInUpBig">
-          <Image
-            source={require("../assets/img/Pie-V2-Vector.png")}
-            style={styles.pie}
-            resizeMode="contain"
-          />
-        </Animatable.View>
-        <Animatable.View style={styles.salad_container} animation="fadeInUpBig">
-          <Image
-            source={require("../assets/img/Salad-V2-Vector.png")}
-            style={styles.salad}
-            resizeMode="contain"
-          />
-        </Animatable.View>
-        <Animatable.View style={styles.apple_container} animation="fadeInUpBig">
-          <Image
-            source={require("../assets/img/Apple-Vector.png")}
-            style={styles.apple}
-            resizeMode="contain"
-          />
-        </Animatable.View>
-      </View>
-
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <KeyboardAvoidingView>
-          <Text style={[styles.text_footer, { marginBottom: 10 }]}>Email</Text>
-          <View style={styles.action}>
-            <AntDesign name="mail" color="black" size={20} />
-            <TextInput
-              placeholder="Please enter your email"
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <AntDesign name="checkcircleo" color="#2694F9" size={18} />
-              </Animatable.View>
-            ) : null}
-          </View>
-          <Text
-            style={[styles.text_footer, { marginTop: 35, marginBottom: 10 }]}
-          >
-            Password
-          </Text>
-
-          <View style={styles.action}>
-            <Ionicons name="lock-closed-outline" color="black" size={20} />
-            <TextInput
-              placeholder="Please enter your password"
-              secureTextEntry={data.secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => handlePasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Ionicons name="md-eye-off-outline" color="#2694F9" size={20} />
-              ) : (
-                <Ionicons name="md-eye-outline" color="#2694F9" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <Animatable.View animation="fadeInUp">
-            <TouchableOpacity
-              onPress={() => alert("click")}
-              style={[styles.signInButton, styles.shadowProp]}
-            >
-              <LinearGradient
-                colors={["#2694F9", "#2694F9"]}
-                style={styles.signIn}
-              >
-                <Text style={styles.textSign}>Sign In </Text>
-                <MaterialIcons name="navigate-next" color="#fff" size={20} />
-              </LinearGradient>
-            </TouchableOpacity>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <View style={styles.header}>
+          <Animatable.View animation="fadeInUpBig">
+            <Text style={styles.text_header}> Sign In </Text>
           </Animatable.View>
-          <View style={styles.registerMessageContainer}>
-            <Text style={styles.registerMessage}>
-              Don't have an account yet? Register
+          <Animatable.View style={styles.pie_container} animation="fadeInUpBig">
+            <Image
+              source={require("../assets/img/Pie-V2-Vector.png")}
+              style={styles.pie}
+              resizeMode="contain"
+            />
+          </Animatable.View>
+          <Animatable.View
+            style={styles.salad_container}
+            animation="fadeInUpBig"
+          >
+            <Image
+              source={require("../assets/img/Salad-V2-Vector.png")}
+              style={styles.salad}
+              resizeMode="contain"
+            />
+          </Animatable.View>
+          <Animatable.View
+            style={styles.apple_container}
+            animation="fadeInUpBig"
+          >
+            <Image
+              source={require("../assets/img/Apple-Vector.png")}
+              style={styles.apple}
+              resizeMode="contain"
+            />
+          </Animatable.View>
+        </View>
+
+        <ScrollView style={styles.footer}>
+          <Animatable.View animation="fadeInUpBig">
+            <Text style={[styles.text_footer, { marginBottom: 10 }]}>
+              Email
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-              <Text style={styles.registerHereButton}> here</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
-      </Animatable.View>
-    </View>
+            <View style={styles.action}>
+              <AntDesign name="mail" color="black" size={20} />
+              <TextInput
+                placeholder="Please enter your email"
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => textInputChange(val)}
+              />
+              {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <AntDesign name="checkcircleo" color="#2694F9" size={18} />
+                </Animatable.View>
+              ) : null}
+            </View>
+            <Text
+              style={[styles.text_footer, { marginTop: 35, marginBottom: 10 }]}
+            >
+              Password
+            </Text>
+
+            <View style={styles.action}>
+              <Ionicons name="lock-closed-outline" color="black" size={20} />
+              <TextInput
+                placeholder="Please enter your password"
+                secureTextEntry={data.secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handlePasswordChange(val)}
+              />
+              <TouchableOpacity onPress={updateSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Ionicons
+                    name="md-eye-off-outline"
+                    color="#2694F9"
+                    size={20}
+                  />
+                ) : (
+                  <Ionicons name="md-eye-outline" color="#2694F9" size={20} />
+                )}
+              </TouchableOpacity>
+            </View>
+            <Animatable.View animation="fadeInUp">
+              <TouchableOpacity
+                onPress={() => {
+                  loginHandle(data.email, data.password);
+                }}
+                style={[styles.signInButton, styles.shadowProp]}
+              >
+                <LinearGradient
+                  colors={["#2694F9", "#2694F9"]}
+                  style={styles.signIn}
+                >
+                  <Text style={styles.textSign}>Sign In </Text>
+                  <MaterialIcons name="navigate-next" color="#fff" size={20} />
+                </LinearGradient>
+              </TouchableOpacity>
+            </Animatable.View>
+            <View style={styles.registerMessageContainer}>
+              <Text style={styles.registerMessage}>
+                Don't have an account yet? Sign up
+              </Text>
+              <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+                <Text style={styles.registerHereButton}> here</Text>
+              </TouchableOpacity>
+            </View>
+          </Animatable.View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
 export default SignIn;
 
-const { height } = Dimensions.get("screen");
-const height_logo = height * 0.28;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#2694F9",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
   header: {
     flex: 1,
@@ -207,7 +233,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 50,
+    paddingVertical: 160,
     paddingHorizontal: 30,
     shadowColor: "#171717",
     shadowOffset: { width: -3, height: 5 },
@@ -228,6 +254,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     fontFamily: "Quicksand",
+    marginTop: -110,
   },
   action: {
     flexDirection: "row",

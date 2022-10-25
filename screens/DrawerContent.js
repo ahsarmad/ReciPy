@@ -1,5 +1,5 @@
 import { StyleSheet, View, Button } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Avatar,
   Title,
@@ -17,11 +17,14 @@ import {
   AntDesign,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { AuthContext } from "../components/context";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export function DrawerContent(props) {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const { signOut } = useContext(AuthContext);
 
   const toggleSwitch = (value) => {
     setIsDarkMode(value);
@@ -151,7 +154,9 @@ export function DrawerContent(props) {
             <Ionicons name="exit-outline" color={color} size={size} />
           )}
           label="Sign Out"
-          onPress={() => {}}
+          onPress={() => {
+            signOut();
+          }}
         />
       </Drawer.Section>
     </View>
