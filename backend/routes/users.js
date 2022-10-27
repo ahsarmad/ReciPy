@@ -52,7 +52,11 @@ router.post("/login", async (req, res) => {
     return res.status(400).send("This user has not been found");
   }
 
-  return res.status(200).send(user);
+  if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+    res.status(200).send("User Authenticated");
+  } else {
+    res.status(400).send("Wrong Password");
+  }
 });
 
 module.exports = router;
