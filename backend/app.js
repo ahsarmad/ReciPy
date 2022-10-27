@@ -1,24 +1,25 @@
 const express = require("express");
+const app = express();
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const app = express();
-require("dotenv/config");
 const cors = require("cors");
-const User = require("./models/User");
-const usersRouter = require("./routers/User");
+require("dotenv/config");
 
-app.use("cors");
-app.options("*,", cors());
+app.use(cors());
+app.options("*", cors());
 
-const api = process.env.API_URL;
-
-//Middleware -> allowing data to be understood by express
+//middleware
 app.use(express.json());
 app.use(morgan("tiny"));
 
-//Routers
-app.use(`${api}/users`, usersRouter);
+//Routes
+const usersRoutes = require("./routes/users");
 
+const api = process.env.API_URL;
+
+app.use(`${api}/users`, usersRoutes);
+
+//Database
 mongoose
   .connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
@@ -26,12 +27,13 @@ mongoose
     dbName: "test-db",
   })
   .then(() => {
-    console.log("Connection to database successful...");
+    console.log("Database Connection is ready...");
   })
   .catch((err) => {
     console.log(err);
   });
 
+//Server
 app.listen(3000, () => {
   console.log("server is running http://localhost:3000");
 });

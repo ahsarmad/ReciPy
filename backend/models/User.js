@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 
@@ -27,11 +27,11 @@ userSchema.set("toJson", {
   virtuals: true,
 });
 
-module.exports = mongoose.model("user", UserSchema);
-
 //!side note about exporting :
 /**
  * if you want to export it as an object,
  * you need to add {}, because of es6 object instruction
  * e.g. {User} = require(./models/User)
  */
+
+exports.User = mongoose.model("user", userSchema);
