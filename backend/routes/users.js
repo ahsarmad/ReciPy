@@ -34,10 +34,11 @@ router.get("/:id", async (req, res) => {
 // ! post user
 
 router.post("/", async (req, res) => {
+  const salt = bcrypt.genSaltSync(10);
   let user = new User({
     name: req.body.name,
     email: req.body.email,
-    passwordHash: bcrypt.hashSync(req.body.password, 10),
+    passwordHash: bcrypt.hashSync(req.body.password, salt),
   });
 
   user = await user.save();
@@ -61,7 +62,7 @@ router.post("/login", async (req, res) => {
         userId: user.id,
       },
       secret,
-      { expiresIn: "1d" } // can change to 1w, 1y.. etc
+      { expiresIn: "1d" } // can change to 1w, 1m.. etc
     );
 
     res.status(200).send({ user: user.email, token: token });

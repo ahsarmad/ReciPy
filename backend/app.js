@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv/config");
+const authJwt = require("./helpers/jwt");
 
 app.use(cors());
 app.options("*", cors());
@@ -11,13 +12,16 @@ app.options("*", cors());
 //middleware
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(authJwt());
 
 //Routes
 const usersRoutes = require("./routes/users");
+const productsRoutes = require("./routes/product");
 
 const api = process.env.API_URL;
 
 app.use(`${api}/users`, usersRoutes);
+app.use(`${api}/products`, productsRoutes);
 
 //Database
 mongoose
