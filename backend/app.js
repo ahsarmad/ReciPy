@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(authJwt());
 app.use(errorHandler);
-
 //Routes
 const usersRoutes = require("./routes/users");
 const productsRoutes = require("./routes/product");

@@ -39,6 +39,7 @@ router.post("/", async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     passwordHash: bcrypt.hashSync(req.body.password, salt),
+    isAdmin: req.body.isAdmin,
   });
 
   user = await user.save();
@@ -47,7 +48,7 @@ router.post("/", async (req, res) => {
 });
 
 // ! making sure that user is in the system based on their identifying element (this case the email)
-
+// * user login
 router.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   const secret = process.env.secret;
@@ -60,6 +61,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       {
         userId: user.id,
+        isAdmin: user.isAdmin,
       },
       secret,
       { expiresIn: "1d" } // can change to 1w, 1m.. etc
@@ -69,6 +71,22 @@ router.post("/login", async (req, res) => {
   } else {
     res.status(400).send("Wrong Password");
   }
+});
+
+// ! registering a new user
+
+router.post("/register", async (req, res) => {
+  const salt = bcrypt.genSaltSync(10);
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    isAdmin: req.body.isAdmin,
+    passwordHash: bcrypt.hashSync(req.body.password, salt),
+  });
+
+  user = await user.save();
+  if (!user) return res.status(400).send("User cannot be registered");
+  res.send(user);
 });
 
 module.exports = router;

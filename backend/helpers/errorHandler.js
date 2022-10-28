@@ -1,4 +1,4 @@
-function errorHandler(err, res, req, next) {
+function errorHandler(err, req, res, next) {
   if (err.name === "UnauthorizedError") {
     //* jwt auth error
     return res.status(401).json({ message: "This user is not authorized" });
