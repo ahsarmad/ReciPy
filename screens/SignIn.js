@@ -12,12 +12,14 @@ import {
   Image,
   Platform,
   Keyboard,
+  Alert,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
 import { AuthContext } from "../components/context";
+import Users from "../models/users";
 
 import {
   AntDesign,
@@ -30,46 +32,60 @@ import {
 } from "@expo/vector-icons";
 
 const SignIn = ({ navigation }) => {
-  const { signIn } = useContext(AuthContext);
-
   /* useState to set parameters to be checked through input */
-  const [data, setData] = useState({
-    email: "",
+  const [data, setData] = React.useState({
+    username: "",
     password: "",
     check_textInputChange: false,
     secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
   });
 
-  /*  */
+  const { signIn } = React.useContext(AuthContext);
+
+  /**
+   * If email field has more than 7 characters inputted:
+   * set check_textInputChange to true --> update state  -> reveal icon
+   * */
   const textInputChange = (val) => {
-    /**
-     * If email field has more than 7 characters inputted:
-     * set check_textInputChange to true --> update state  -> reveal icon
-     * */
-    if (val.length > 7) {
+    if (val.trim().length >= 4) {
       setData({
         ...data,
-        email: val,
+        username: val,
         check_textInputChange: true,
+        isValidUser: true,
       });
     } else {
       setData({
         ...data,
-        email: val,
+        username: val,
         check_textInputChange: false,
+        isValidUser: false,
       });
     }
   };
 
   /* use array destructuring to get existing state */
+
   const handlePasswordChange = (val) => {
-    setData({
-      ...data,
-      password: val,
-    });
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: false,
+      });
+    }
   };
 
   /* get existing state and change secureTextEntry to !secureTextEntry */
+
   const updateSecureTextEntry = () => {
     setData({
       ...data,
@@ -77,9 +93,44 @@ const SignIn = ({ navigation }) => {
     });
   };
 
-  const loginHandle = (email, password) => {
-    signIn(email, password);
+  const handleValidUser = (val) => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        isValidUser: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidUser: false,
+      });
+    }
   };
+
+  const loginHandle = (email, password) => {
+    const foundUser = Users.filter((item) => {
+      return email == item.username && password == item.password;
+    });
+
+    if (data.username.length == 0 || data.password.length == 0) {
+      Alert.alert(
+        "Wrong Input!",
+        "Username or password field cannot be empty.",
+        [{ text: "Okay" }]
+      );
+      return;
+    }
+
+    if (foundUser.length == 0) {
+      Alert.alert("Invalid User!", "Username or password is incorrect.", [
+        { text: "Okay" },
+      ]);
+      return;
+    }
+    signIn(foundUser);
+  };
+
+  // ----------------------------------------------------------------
 
   /* Using hook to load in custom font  */
   const [loaded] = useFonts({
@@ -137,6 +188,8 @@ const SignIn = ({ navigation }) => {
           </Animatable.View>
         </View>
 
+        {/*------------------------------- Footer content ------------------------------- */}
+
         <ScrollView style={styles.footer}>
           <Animatable.View animation="fadeInUpBig">
             <Text style={[styles.text_footer, { marginBottom: 10 }]}>
@@ -148,7 +201,8 @@ const SignIn = ({ navigation }) => {
                 placeholder="Please enter your email"
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val) => textInputChange(val)}
+                onChangeText={(val) => [textInputChange(val)]}
+                onEndEditing={(e) => [handleValidUser(e.nativeEvent.text)]}
               />
               {data.check_textInputChange ? (
                 <Animatable.View animation="bounceIn">
@@ -156,12 +210,18 @@ const SignIn = ({ navigation }) => {
                 </Animatable.View>
               ) : null}
             </View>
+            {data.isValidUser ? null : (
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorMessage}>
+                  Email must be at least 4 characters
+                </Text>
+              </Animatable.View>
+            )}
             <Text
               style={[styles.text_footer, { marginTop: 35, marginBottom: 10 }]}
             >
               Password
             </Text>
-
             <View style={styles.action}>
               <Ionicons name="lock-closed-outline" color="black" size={20} />
               <TextInput
@@ -169,7 +229,7 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={data.secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                onChangeText={(val) => [handlePasswordChange(val)]}
               />
               <TouchableOpacity onPress={updateSecureTextEntry}>
                 {data.secureTextEntry ? (
@@ -183,6 +243,13 @@ const SignIn = ({ navigation }) => {
                 )}
               </TouchableOpacity>
             </View>
+            {data.isValidPassword ? null : (
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorMessage}>
+                  Password must be at least 8 characters
+                </Text>
+              </Animatable.View>
+            )}
             <Animatable.View animation="fadeInUp">
               <TouchableOpacity
                 onPress={() => {
@@ -268,6 +335,19 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: "black",
     fontFamily: "Quicksand",
+  },
+  errorMessage: {
+    color: "red",
+    fontFamily: "Quicksand",
+    paddingTop: 10,
+  },
+  errorMessageCreds: {
+    color: "red",
+    marginTop: 5,
+    marginLeft: 90,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   pie_container: {

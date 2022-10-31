@@ -3,11 +3,13 @@ import React, { useState, useContext } from "react";
 import {
   Avatar,
   Title,
+  useTheme,
   Caption,
   Paragraph,
   Drawer,
   Text,
   Switch,
+  Colors,
 } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import {
@@ -22,13 +24,13 @@ import { AuthContext } from "../components/context";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export function DrawerContent(props) {
+  const paperTheme = useTheme();
+
+  const { colors } = useTheme();
+
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const { signOut } = useContext(AuthContext);
-
-  const toggleSwitch = (value) => {
-    setIsDarkMode(value);
-  };
+  const { signOut, toggleTheme } = useContext(AuthContext);
 
   return (
     /**  Creating a base user profile display in a drawer menu
@@ -76,10 +78,10 @@ export function DrawerContent(props) {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (
-                <AntDesign name="home" color={"black"} size={size} />
+                <AntDesign name="home" color={colors.text} size={24} />
               )}
               label="Home"
-              inactiveTintColor="black"
+              labelStyle={{ fontSize: 17, color: colors.text }}
               onPress={() => {
                 props.navigation.navigate("Home");
               }}
@@ -87,10 +89,10 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
-                <AntDesign name="user" color={"black"} size={size} />
+                <AntDesign name="user" color={colors.text} size={size} />
               )}
               label="Profile"
-              inactiveTintColor="black"
+              labelStyle={{ fontSize: 17, color: colors.text }}
               onPress={() => {
                 props.navigation.navigate("Profile");
               }}
@@ -100,11 +102,12 @@ export function DrawerContent(props) {
               icon={({ color, size }) => (
                 <Ionicons
                   name="bookmarks-outline"
-                  color={"black"}
+                  color={colors.text}
                   size={size}
                 />
               )}
               label="Favorites"
+              labelStyle={{ fontSize: 17, color: colors.text }}
               inactiveTintColor="black"
               onPress={() => {
                 props.navigation.navigate("Favorites");
@@ -113,9 +116,14 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
-                <SimpleLineIcons name="settings" color={"black"} size={size} />
+                <SimpleLineIcons
+                  name="settings"
+                  color={colors.text}
+                  size={size}
+                />
               )}
               label="Settings"
+              labelStyle={{ fontSize: 17, color: colors.text }}
               inactiveTintColor="black"
               onPress={() => {
                 props.navigation.navigate("Settings");
@@ -124,9 +132,10 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
-                <Ionicons name="ios-help" color={"black"} size={size} />
+                <Ionicons name="ios-help" color={colors.text} size={size} />
               )}
               label="Contact Us"
+              labelStyle={{ fontSize: 17, color: colors.text }}
               inactiveTintColor="black"
               onPress={() => {
                 props.navigation.navigate("Contact");
@@ -136,11 +145,13 @@ export function DrawerContent(props) {
 
           <Drawer.Section title="Theme">
             <View style={styles.preference}>
-              <Text>Dark Mode</Text>
+              <Text style={{ fontSize: 17, color: colors.text }}>
+                Dark Mode
+              </Text>
               <View>
                 <Switch
-                  onValueChange={toggleSwitch}
-                  value={isDarkMode}
+                  onValueChange={toggleTheme}
+                  value={paperTheme.dark}
                   trackColor={{ false: "#f4f3f4", true: "#81b0ff" }}
                 />
               </View>
@@ -151,9 +162,10 @@ export function DrawerContent(props) {
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
           icon={({ color, size }) => (
-            <Ionicons name="exit-outline" color={color} size={size} />
+            <Ionicons name="exit-outline" color={colors.text} size={size} />
           )}
           label="Sign Out"
+          labelStyle={{ fontSize: 17, color: colors.text }}
           onPress={() => {
             signOut();
           }}
@@ -177,8 +189,8 @@ const styles = StyleSheet.create({
   },
   caption: {
     marginLeft: 1,
-    fontSize: 14,
-    lineHeight: 14,
+    fontSize: 16,
+    lineHeight: 16,
   },
   row: {
     marginTop: 20,

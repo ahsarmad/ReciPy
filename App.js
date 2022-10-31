@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useMemo, useReducer, useRef } from "react";
 import { View, Text, Button, StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  DefaultTheme as NavigationDefaultTheme,
+  DarkTheme as NavigationDarkTheme,
+} from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Lottie from "lottie-react-native";
 
@@ -16,6 +20,11 @@ import MainTab from "./screens/MainTab";
 import Contact from "./screens/Contact";
 import Settings from "./screens/Settings";
 import Favorites from "./screens/Favorites";
+import {
+  Provider as PaperProvider,
+  DefaultTheme as PaperDefaultTheme,
+  DarkTheme as PaperDarkTheme,
+} from "react-native-paper";
 
 import { DrawerContent } from "./screens/DrawerContent";
 
@@ -27,6 +36,8 @@ import { ActivityIndicator } from "react-native-paper";
 const Drawer = createDrawerNavigator();
 
 const App = () => {
+  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+
   const [isLoading, setisLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
 
@@ -35,6 +46,30 @@ const App = () => {
     email: null,
     userToken: null,
   };
+
+  const CustomDefaultTheme = {
+    ...NavigationDefaultTheme,
+    ...PaperDefaultTheme,
+    colors: {
+      ...NavigationDefaultTheme.colors,
+      ...PaperDefaultTheme.colors,
+      background: "#ffffff",
+      text: "#333333",
+    },
+  };
+
+  const CustomDarkTheme = {
+    ...NavigationDarkTheme,
+    ...PaperDarkTheme,
+    colors: {
+      ...NavigationDarkTheme.colors,
+      ...PaperDarkTheme.colors,
+      background: "#333333",
+      text: "#ffffff",
+    },
+  };
+
+  const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
   const loginReducer = (prevState, action) => {
     switch (action.type) {
@@ -72,17 +107,15 @@ const App = () => {
 
   const authContext = useMemo(
     () => ({
-      signIn: async (email, password) => {
+      signIn: async (foundUser) => {
         //! Integrate with backend system here, fetch from database
-        let userToken;
-        userToken = null;
-        if (email == "temp@aol.com" && password == "pass123") {
-          userToken = "temp";
-          try {
-            await AsyncStorage.setItem("userToken", userToken);
-          } catch (e) {
-            console.log(e);
-          }
+        const userToken = String(foundUser[0].userToken);
+        const email = foundUser[0].email;
+
+        try {
+          await AsyncStorage.setItem("userToken", userToken);
+        } catch (e) {
+          console.log(e);
         }
         dispatch({ type: "LOGIN", id: email, token: userToken });
       },
@@ -100,6 +133,10 @@ const App = () => {
 
         // setisLoading(false);
         // setUserToken(null);
+      },
+
+      toggleTheme: () => {
+        setIsDarkTheme((isDarkTheme) => !isDarkTheme);
       },
     }),
     []
@@ -156,31 +193,37 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        {loginState.userToken !== null ? (
-          <Drawer.Navigator
-            drawerContent={(props) => <DrawerContent {...props} />}
-          >
-            <Drawer.Screen
-              name="HomeDrawer"
-              component={MainTab}
-              options={{ headerShown: false }}
-            />
-            <Drawer.Screen name="Contact" component={Contact} options={{}} />
-            <Drawer.Screen name="Settings" component={Settings} options={{}} />
-            <Drawer.Screen
-              name="Favorites"
-              component={Favorites}
-              options={{}}
-            />
-          </Drawer.Navigator>
-        ) : (
-          <RootStack />
-        )}
-        {/*  */}
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <PaperProvider theme={theme}>
+      <AuthContext.Provider value={authContext}>
+        <NavigationContainer theme={theme}>
+          {loginState.userToken !== null ? (
+            <Drawer.Navigator
+              drawerContent={(props) => <DrawerContent {...props} />}
+            >
+              <Drawer.Screen
+                name="HomeDrawer"
+                component={MainTab}
+                options={{ headerShown: false }}
+              />
+              <Drawer.Screen name="Contact" component={Contact} options={{}} />
+              <Drawer.Screen
+                name="Settings"
+                component={Settings}
+                options={{}}
+              />
+              <Drawer.Screen
+                name="Favorites"
+                component={Favorites}
+                options={{}}
+              />
+            </Drawer.Navigator>
+          ) : (
+            <RootStack />
+          )}
+          {/*  */}
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </PaperProvider>
   );
 };
 
