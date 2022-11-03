@@ -33,8 +33,8 @@ const MainTab = () => (
     activeColor="#fff"
     barStyle={{
       overflow: "hidden",
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
+      borderTopLeftRadius: 35,
+      borderTopRightRadius: 35,
       background: "transparent",
     }}
   >
@@ -112,9 +112,6 @@ const HomeStackScreen = ({ navigation }) => (
     screenOptions={{
       headerStyle: {
         backgroundColor: "#2694F9",
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        overflow: "hidden",
         background: "transparent",
       },
       headerTintColor: "#fff",

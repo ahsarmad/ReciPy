@@ -17,6 +17,9 @@ import React, { useState } from "react";
 import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
+import Toast from "react-native-toast-message";
+import axios from "axios";
+import baseURL from "../assets/common/baseUrl";
 
 import {
   AntDesign,
@@ -27,7 +30,43 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 
-const SignUp = ({ navigation }) => {
+const SignUp = (props) => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const register = () => {
+    let user = {
+      name: name,
+      email: email,
+      password: password,
+      isAdmin: false,
+    };
+
+    axios
+      .post("http://localhost:3000/api/v1/users/register", user)
+      .then((res) => {
+        if (res.status == 200) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Registration Succeeded",
+            text2: "Please Login into your account",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("Login");
+          }, 500);
+        }
+      })
+      .catch((error) => {
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Something went wrong",
+          text2: "Please try again",
+        });
+      });
+  };
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -38,49 +77,49 @@ const SignUp = ({ navigation }) => {
     confirm_secureTextEntry: true,
   });
 
-  const emailInputChange = (val) => {
-    if (val.length > 7) {
+  const emailInputChange = (text) => {
+    if (text.length > 7) {
       setData({
         ...data,
-        email: val,
+        email: text,
         check_emailInputChange: true,
       });
     } else {
       setData({
         ...data,
-        email: val,
+        email: text,
         check_emailInputChange: false,
       });
     }
   };
 
-  const nameInputChange = (val) => {
-    if (val.length > 0) {
+  const nameInputChange = (text) => {
+    if (text.length > 0) {
       setData({
         ...data,
-        name: val,
+        name: text,
         check_nameInputChange: true,
       });
     } else {
       setData({
         ...data,
-        name: val,
+        name: text,
         check_nameInputChange: false,
       });
     }
   };
 
-  const handlePasswordChange = (val) => {
+  const handlePasswordChange = (text) => {
     setData({
       ...data,
-      password: val,
+      password: text,
     });
   };
 
-  const handleConfirmPasswordChange = (val) => {
+  const handleConfirmPasswordChange = (text) => {
     setData({
       ...data,
-      confirm_password: val,
+      confirm_password: text,
     });
   };
 
@@ -154,7 +193,9 @@ const SignUp = ({ navigation }) => {
               <TextInput
                 placeholder="Please enter your name"
                 style={styles.textInput}
-                onChangeText={(val) => nameInputChange(val)}
+                name={"name"}
+                id={"name"}
+                onChangeText={(text) => [setName(text)]}
                 autoCorrect={false}
               />
               {data.check_nameInputChange ? (
@@ -174,7 +215,12 @@ const SignUp = ({ navigation }) => {
                 placeholder="Please enter your email"
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val) => emailInputChange(val)}
+                name={"email"}
+                id={"email"}
+                onChangeText={(text) => [
+                  emailInputChange(text),
+                  setEmail(text),
+                ]}
               />
               {data.check_emailInputChange ? (
                 <Animatable.View animation="bounceIn">
@@ -195,7 +241,12 @@ const SignUp = ({ navigation }) => {
                 secureTextEntry={data.secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val) => handlePasswordChange(val)}
+                name={"password"}
+                id={"password"}
+                onChangeText={(text) => [
+                  handlePasswordChange(text),
+                  setPassword(text),
+                ]}
               />
               <TouchableOpacity onPress={updateSecureTextEntry}>
                 {data.secureTextEntry ? (
@@ -210,7 +261,7 @@ const SignUp = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <Text
+            {/* <Text
               style={[styles.text_footer, { marginTop: 35, marginBottom: 10 }]}
             >
               Confirm Password
@@ -223,7 +274,7 @@ const SignUp = ({ navigation }) => {
                 secureTextEntry={data.confirm_secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val) => handleConfirmPasswordChange(val)}
+                onChangeText={(text) => handleConfirmPasswordChange(text)}
               />
               <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
                 {data.confirm_secureTextEntry ? (
@@ -236,11 +287,11 @@ const SignUp = ({ navigation }) => {
                   <Ionicons name="md-eye-outline" color="#2694F9" size={20} />
                 )}
               </TouchableOpacity>
-            </View>
+            </View> */}
 
             <Animatable.View animation="fadeInUp">
               <TouchableOpacity
-                onPress={() => alert("click")}
+                onPress={() => register()}
                 style={[styles.signUpButton, styles.shadowProp]}
               >
                 <LinearGradient
@@ -256,7 +307,9 @@ const SignUp = ({ navigation }) => {
               <Text style={styles.signInMessage}>
                 Already have an account? Sign in
               </Text>
-              <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate("SignIn")}
+              >
                 <Text style={styles.signInHereButton}> here</Text>
               </TouchableOpacity>
             </View>

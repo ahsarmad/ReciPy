@@ -142,7 +142,8 @@ const SignIn = ({ navigation }) => {
   }
 
   /**
-   * ! Structure:  Different components grouped in terms of nested capabilities + usability
+   * ! Structure
+   * ! Different components grouped in terms of nested capabilities + usability
    * ! Easily format components from header and footer aspects of screen independently
    * ! Header (Including Sign In message + Vector icons allotted 1/2.7 of screen )
    * ! Footer (Including Text inputs -> Email.. Passwors fields allotted 1.7.2.7 of screen )

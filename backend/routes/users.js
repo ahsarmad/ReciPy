@@ -76,12 +76,12 @@ router.post("/login", async (req, res) => {
 // ! registering a new user
 
 router.post("/register", async (req, res) => {
-  const salt = bcrypt.genSaltSync(10);
+  const salt = await bcrypt.genSaltSync(10);
   let user = new User({
     name: req.body.name,
     email: req.body.email,
     isAdmin: req.body.isAdmin,
-    passwordHash: bcrypt.hashSync(req.body.password, salt),
+    passwordHash: await bcrypt.hashSync(req.body.password, salt),
   });
 
   user = await user.save();

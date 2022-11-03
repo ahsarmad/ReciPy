@@ -94,7 +94,7 @@ export function DrawerContent(props) {
               label="Profile"
               labelStyle={{ fontSize: 17, color: colors.text }}
               onPress={() => {
-                props.navigation.navigate("Profile");
+                props.navigation.navigate("ProfileScreen");
               }}
             />
 
