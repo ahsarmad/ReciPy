@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useReducer, useRef } from "react";
-import { View, Text, Button, StatusBar } from "react-native";
+import { View, Text, Button, StatusBar, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
@@ -36,6 +37,41 @@ import { ActivityIndicator } from "react-native-paper";
 const Drawer = createDrawerNavigator();
 
 const App = () => {
+  const toastConfig = {
+    /*
+      Overwrite 'success' type,
+      by modifying the existing `BaseToast` component
+    */
+    success: (props) => (
+      <ErrorToast
+        {...props}
+        style={{ borderLeftColor: "#3DBE29", borderLeftWidth: 15 }}
+        text1Style={{
+          fontSize: 17,
+        }}
+        text2Style={{
+          fontSize: 12,
+        }}
+      />
+    ),
+    /*
+      Overwrite 'error' type,
+      by modifying the existing `ErrorToast` component
+    */
+    error: (props) => (
+      <ErrorToast
+        {...props}
+        style={{ borderLeftColor: "red", borderLeftWidth: 15 }}
+        text1Style={{
+          fontSize: 17,
+        }}
+        text2Style={{
+          fontSize: 12,
+        }}
+      />
+    ),
+  };
+
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   const [isLoading, setisLoading] = useState(true);
@@ -221,6 +257,7 @@ const App = () => {
             <RootStack />
           )}
           {/*  */}
+          <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
         </NavigationContainer>
       </AuthContext.Provider>
     </PaperProvider>

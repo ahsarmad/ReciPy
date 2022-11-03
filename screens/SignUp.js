@@ -43,17 +43,17 @@ const SignUp = (props) => {
     };
 
     axios
-      .post("http://localhost:3000/api/v1/users/register", user)
+      .post(`${baseURL}users/register`, user)
       .then((res) => {
         if (res.status == 200) {
           Toast.show({
             topOffset: 60,
             type: "success",
-            text1: "Registration Succeeded",
-            text2: "Please Login into your account",
+            text1: "Registration Successful",
+            text2: "Please sign in to your account",
           });
           setTimeout(() => {
-            props.navigation.navigate("Login");
+            props.navigation.navigate("SignIn");
           }, 500);
         }
       })
