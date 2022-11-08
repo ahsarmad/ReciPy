@@ -20,7 +20,6 @@ import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
 import { AuthProvider } from "../Context/AuthContext";
 import { AuthContext } from "../Context/AuthContext";
-import Users from "../models/users";
 
 import {
   AntDesign,

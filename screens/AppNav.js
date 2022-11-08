@@ -6,6 +6,7 @@ import React, {
   useRef,
   useContext,
 } from "react";
+import { useFonts } from "expo-font";
 import { View, Text, Button, StatusBar, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
@@ -43,7 +44,7 @@ import { ActivityIndicator } from "react-native-paper";
 
 const Drawer = createDrawerNavigator();
 
-const AppNav = () => {
+const AppNav = (props) => {
   const { isLoading, setIsLoading, userToken, setUserToken } =
     useContext(AuthContext);
 
@@ -82,7 +83,7 @@ const AppNav = () => {
     ),
   };
 
-  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const initLoginState = {
     isLoading: true,
@@ -162,7 +163,7 @@ const AppNav = () => {
           console.log(e);
         }
         dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
-      }, 4000);
+      }, 6000);
     }, []);
 
   const cmAnimation = useRef();
@@ -191,8 +192,8 @@ const AppNav = () => {
       >
         <Lottie
           ref={cmAnimation}
-          source={require("../assets/img/pizza-lottie.json")} // source={require("./assets/img/cooking-lottie-updated.json")}
-          style={{ width: 400, height: 300 }}
+          source={require("../assets/img/spinning-plate-darkblue.json")} // source={require("./assets/img/spinning-plate.json")}
+          style={{ width: 400, height: 400 }} // 400 x 300
           loop={true}
           speed={1}
           renderMode={"SOFTWARE"}
@@ -225,8 +226,9 @@ const AppNav = () => {
           <RootStack />
         )}
         {/*  */}
-        <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
       </NavigationContainer>
+
+      <Toast config={toastConfig} />
     </PaperProvider>
   );
 };
