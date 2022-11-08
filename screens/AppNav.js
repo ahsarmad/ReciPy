@@ -44,29 +44,8 @@ import { ActivityIndicator } from "react-native-paper";
 const Drawer = createDrawerNavigator();
 
 const AppNav = () => {
-  const { isLoading, userToken } = useContext(AuthContext);
-
-  if (isLoading) {
-    return (
-      <View
-        style={{
-          backgroundColor: "#2694f9",
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Lottie
-          ref={cmAnimation}
-          source={require("../assets/img/pizza-lottie.json")} // source={require("./assets/img/cooking-lottie-updated.json")}
-          style={{ width: 400, height: 300 }}
-          loop={true}
-          speed={1}
-          renderMode={"SOFTWARE"}
-        />
-      </View>
-    );
-  }
+  const { isLoading, setIsLoading, userToken, setUserToken } =
+    useContext(AuthContext);
 
   const toastConfig = {
     /*
@@ -105,9 +84,6 @@ const AppNav = () => {
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
-  // const [isLoading, setisLoading] = useState(true);
-  // const [userToken, setUserToken] = useState(null);
-
   const initLoginState = {
     isLoading: true,
     email: null,
@@ -138,73 +114,39 @@ const AppNav = () => {
 
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
-  // const loginReducer = (prevState, action) => {
-  //   switch (action.type) {
-  //     case "RETRIEVE_TOKEN":
-  //       return {
-  //         ...prevState,
-  //         userToken: action.token,
-  //         isLoading: false,
-  //       };
-  //     case "LOGIN":
-  //       return {
-  //         ...prevState,
-  //         email: action.id,
-  //         userToken: action.token,
-  //         isLoading: false,
-  //       };
-  //     case "LOGOUT":
-  //       return {
-  //         ...prevState,
-  //         email: null,
-  //         userToken: null,
-  //         isLoading: false,
-  //       };
-  //     case "REGISTER":
-  //       return {
-  //         ...prevState,
-  //         email: action.id,
-  //         userToken: action.token,
-  //         isLoading: false,
-  //       };
-  //   }
-  // };
+  const loginReducer = (prevState, action) => {
+    switch (action.type) {
+      case "RETRIEVE_TOKEN":
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case "LOGIN":
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case "LOGOUT":
+        return {
+          ...prevState,
+          userName: null,
+          userToken: null,
+          isLoading: false,
+        };
+      case "REGISTER":
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+    }
+  };
 
-  // const [loginState, dispatch] = useReducer(loginReducer, initLoginState);
-
-  // const authContext = useMemo(
-  //   () => ({
-  //     signIn: async (foundUser) => {
-  //       //! Integrate with backend system here, fetch from database
-  //       const userToken = String(foundUser[0].userToken);
-  //       const email = foundUser[0].email;
-
-  //       try {
-  //         await AsyncStorage.setItem("userToken", userToken);
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //       dispatch({ type: "LOGIN", id: email, token: userToken });
-  //     },
-  //     signUp: () => {
-  //       setisLoading(false);
-  //       setUserToken("temp");
-  //     },
-  //     signOut: async () => {
-  //       try {
-  //         await AsyncStorage.removeItem("userToken");
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //       dispatch({ type: "LOGOUT" });
-
-  //       // setisLoading(false);
-  //       // setUserToken(null);
-  //     },
-
-  //   }),
-  //   []
-  // );
+  const [loginState, dispatch] = React.useReducer(loginReducer, initLoginState);
 
   toggleTheme: () => {
     setIsDarkTheme((isDarkTheme) => !isDarkTheme);
@@ -237,27 +179,27 @@ const AppNav = () => {
       }, 0);
     }
   }, [cmAnimation.current]);
-  // if (loginState.isLoading) {
-  //   return (
-  //     <View
-  //       style={{
-  //         backgroundColor: "#2694f9",
-  //         flex: 1,
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}
-  //     >
-  //       <Lottie
-  //         ref={cmAnimation}
-  //         source={require("../assets/img/pizza-lottie.json")} // source={require("./assets/img/cooking-lottie-updated.json")}
-  //         style={{ width: 400, height: 300 }}
-  //         loop={true}
-  //         speed={1}
-  //         renderMode={"SOFTWARE"}
-  //       />
-  //     </View>
-  //   );
-  // }
+  if (loginState.isLoading) {
+    return (
+      <View
+        style={{
+          backgroundColor: "#2694f9",
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Lottie
+          ref={cmAnimation}
+          source={require("../assets/img/pizza-lottie.json")} // source={require("./assets/img/cooking-lottie-updated.json")}
+          style={{ width: 400, height: 300 }}
+          loop={true}
+          speed={1}
+          renderMode={"SOFTWARE"}
+        />
+      </View>
+    );
+  }
 
   return (
     <PaperProvider theme={theme}>
