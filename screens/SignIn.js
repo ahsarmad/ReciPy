@@ -40,7 +40,7 @@ const SignIn = ({ navigation }) => {
 
   /* useState to set parameters to be checked through input */
   const [data, setData] = React.useState({
-    username: "",
+    email: "",
     password: "",
     check_textInputChange: false,
     secureTextEntry: true,
@@ -58,14 +58,14 @@ const SignIn = ({ navigation }) => {
     if (text.trim().length >= 4) {
       setData({
         ...data,
-        username: text,
+        email: text,
         check_textInputChange: true,
         isValidUser: true,
       });
     } else {
       setData({
         ...data,
-        username: text,
+        email: text,
         check_textInputChange: false,
         isValidUser: false,
       });
@@ -114,25 +114,21 @@ const SignIn = ({ navigation }) => {
   };
 
   const loginHandle = (email, password) => {
-    const foundUser = Users.filter((item) => {
-      return email == item.username && password == item.password;
-    });
-
-    if (data.username.length == 0 || data.password.length == 0) {
+    if (data.email.length == 0 || data.password.length == 0) {
       Alert.alert(
         "Wrong Input!",
-        "Username or password field cannot be empty.",
+        "Email or Password fields cannot be left empty",
         [{ text: "Okay" }]
       );
       return;
     }
 
-    if (foundUser.length == 0) {
-      Alert.alert("Intextid User!", "Username or password is incorrect.", [
-        { text: "Okay" },
-      ]);
-      return;
-    }
+    // if (foundUser.length == 0) {
+    //   Alert.alert("Intextid User!", "email or password is incorrect.", [
+    //     { text: "Okay" },
+    //   ]);
+    //   return;
+    // }
     // signIn(foundUser);
   };
 
@@ -240,7 +236,7 @@ const SignIn = ({ navigation }) => {
                 autoCapitalize="none"
                 value={password}
                 onChangeText={(text) => [
-                  textInputChange(text),
+                  handlePasswordChange(text),
                   setPassword(text),
                 ]}
               />
@@ -266,7 +262,7 @@ const SignIn = ({ navigation }) => {
             <Animatable.View animation="fadeInUp">
               <TouchableOpacity
                 onPress={() => {
-                  login(email, password);
+                  [login(email, password), loginHandle()];
                 }}
                 style={[styles.signInButton, styles.shadowProp]}
               >
