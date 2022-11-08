@@ -18,7 +18,8 @@ import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
-import { AuthContext } from "../components/context";
+import { AuthProvider } from "../Context/AuthContext";
+import { AuthContext } from "../Context/AuthContext";
 import Users from "../models/users";
 
 import {
@@ -32,6 +33,11 @@ import {
 } from "@expo/vector-icons";
 
 const SignIn = ({ navigation }) => {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const { login } = useContext(AuthContext);
+
   /* useState to set parameters to be checked through input */
   const [data, setData] = React.useState({
     username: "",
@@ -42,24 +48,24 @@ const SignIn = ({ navigation }) => {
     isValidPassword: true,
   });
 
-  const { signIn } = React.useContext(AuthContext);
+  // const { signIn } = React.useContext(AuthContext);
 
   /**
    * If email field has more than 7 characters inputted:
    * set check_textInputChange to true --> update state  -> reveal icon
    * */
-  const textInputChange = (val) => {
-    if (val.trim().length >= 4) {
+  const textInputChange = (text) => {
+    if (text.trim().length >= 4) {
       setData({
         ...data,
-        username: val,
+        username: text,
         check_textInputChange: true,
         isValidUser: true,
       });
     } else {
       setData({
         ...data,
-        username: val,
+        username: text,
         check_textInputChange: false,
         isValidUser: false,
       });
@@ -68,17 +74,17 @@ const SignIn = ({ navigation }) => {
 
   /* use array destructuring to get existing state */
 
-  const handlePasswordChange = (val) => {
-    if (val.trim().length >= 8) {
+  const handlePasswordChange = (text) => {
+    if (text.trim().length >= 8) {
       setData({
         ...data,
-        password: val,
+        password: text,
         isValidPassword: true,
       });
     } else {
       setData({
         ...data,
-        password: val,
+        password: text,
         isValidPassword: false,
       });
     }
@@ -93,8 +99,8 @@ const SignIn = ({ navigation }) => {
     });
   };
 
-  const handleValidUser = (val) => {
-    if (val.trim().length >= 4) {
+  const handleValidUser = (text) => {
+    if (text.trim().length >= 4) {
       setData({
         ...data,
         isValidUser: true,
@@ -122,12 +128,12 @@ const SignIn = ({ navigation }) => {
     }
 
     if (foundUser.length == 0) {
-      Alert.alert("Invalid User!", "Username or password is incorrect.", [
+      Alert.alert("Intextid User!", "Username or password is incorrect.", [
         { text: "Okay" },
       ]);
       return;
     }
-    signIn(foundUser);
+    // signIn(foundUser);
   };
 
   // ----------------------------------------------------------------
@@ -196,13 +202,15 @@ const SignIn = ({ navigation }) => {
             <Text style={[styles.text_footer, { marginBottom: 10 }]}>
               Email
             </Text>
+
             <View style={styles.action}>
               <AntDesign name="mail" color="black" size={20} />
               <TextInput
                 placeholder="Please enter your email"
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val) => [textInputChange(val)]}
+                value={email}
+                onChangeText={(text) => [textInputChange(text), setEmail(text)]}
                 onEndEditing={(e) => [handleValidUser(e.nativeEvent.text)]}
               />
               {data.check_textInputChange ? (
@@ -230,7 +238,11 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={data.secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val) => [handlePasswordChange(val)]}
+                value={password}
+                onChangeText={(text) => [
+                  textInputChange(text),
+                  setPassword(text),
+                ]}
               />
               <TouchableOpacity onPress={updateSecureTextEntry}>
                 {data.secureTextEntry ? (
@@ -254,7 +266,7 @@ const SignIn = ({ navigation }) => {
             <Animatable.View animation="fadeInUp">
               <TouchableOpacity
                 onPress={() => {
-                  loginHandle(data.email, data.password);
+                  login(email, password);
                 }}
                 style={[styles.signInButton, styles.shadowProp]}
               >

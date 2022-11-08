@@ -19,8 +19,7 @@ import {
   AntDesign,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { AuthContext } from "../components/context";
-
+import { AuthContext } from "../Context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export function DrawerContent(props) {
@@ -30,7 +29,7 @@ export function DrawerContent(props) {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const { signOut, toggleTheme } = useContext(AuthContext);
+  const { logout, toggleTheme } = useContext(AuthContext);
 
   return (
     /**  Creating a base user profile display in a drawer menu
@@ -167,7 +166,7 @@ export function DrawerContent(props) {
           label="Sign Out"
           labelStyle={{ fontSize: 17, color: colors.text }}
           onPress={() => {
-            signOut();
+            logout();
           }}
         />
       </Drawer.Section>
