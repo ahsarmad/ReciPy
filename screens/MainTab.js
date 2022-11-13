@@ -5,6 +5,8 @@ import HomeScreen from "./Home";
 import Pantry from "./Pantry";
 import Explore from "./Explore";
 import Profile from "./Profile";
+import AddIngredient from "./addIngredient";
+import Category from "./category";
 import Settings from "./Settings";
 import Contact from "./Contact";
 import Favorites from "./Favorites";
@@ -16,6 +18,7 @@ import {
   AntDesign,
   Fontisto,
 } from "@expo/vector-icons";
+import { Colors } from "react-native-paper";
 
 /**
  *
@@ -25,23 +28,27 @@ const HomeStack = createNativeStackNavigator();
 const PantryStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const ExploreStack = createNativeStackNavigator();
+const AddIngredientStack = createNativeStackNavigator();
+const CategoryStack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTab = () => (
   <Tab.Navigator
     initialRouteName="Home"
-    activeColor="#fff"
-    barStyle={{
-      overflow: "hidden",
-      borderTopLeftRadius: 35,
-      borderTopRightRadius: 35,
-      background: "transparent",
-    }}
+    barStyle={
+      {
+        // overflow: "hidden",
+        // borderTopLeftRadius: 35,
+        // borderTopRightRadius: 35,
+        // background: Colors.transparent,
+      }
+    }
   >
     <Tab.Screen
       name="Overview"
       component={HomeStackScreen}
       options={{
+        barStyle: { background: "transparent" },
         tabBarLabel: "Home",
         tabBarColor: "#2694F9",
         tabBarIcon: ({ color }) => (
@@ -58,6 +65,7 @@ const MainTab = () => (
       name="PantryScreen"
       component={PantryStackScreen}
       options={{
+        tabBarStyle: { background: "transparent" },
         labelStyle: { paddingTop: 10 },
         tabBarLabel: "Pantry",
         tabBarColor: "#ff5349",
@@ -110,6 +118,7 @@ const MainTab = () => (
 const HomeStackScreen = ({ navigation }) => (
   <HomeStack.Navigator
     screenOptions={{
+      // headerShown: false,
       headerStyle: {
         backgroundColor: "#2694F9",
         background: "transparent",
@@ -125,6 +134,36 @@ const HomeStackScreen = ({ navigation }) => (
       component={HomeScreen}
       options={{
         title: "Home",
+        headerLeft: () => (
+          <AntDesign.Button
+            name="menu-fold"
+            size={23}
+            backgroundColor="#2694F9"
+            onPress={() => navigation.openDrawer()}
+          ></AntDesign.Button>
+        ),
+      }}
+    />
+    <AddIngredientStack.Screen
+      name="AddIngredient"
+      component={AddIngredient}
+      options={{
+        title: "Add Ingredient",
+        headerLeft: () => (
+          <AntDesign.Button
+            name="menu-fold"
+            size={23}
+            backgroundColor="#2694F9"
+            onPress={() => navigation.openDrawer()}
+          ></AntDesign.Button>
+        ),
+      }}
+    />
+    <CategoryStack.Screen
+      name="Category"
+      component={Category}
+      options={{
+        title: "Category",
         headerLeft: () => (
           <AntDesign.Button
             name="menu-fold"

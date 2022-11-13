@@ -1,29 +1,24 @@
-import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
+import { Text, View, StyleSheet } from "react-native";
+import styles from "../styles/favorite-styles";
+import { useStoreState, useStoreActions } from "easy-peasy";
 
-/**
- * Created base functional component with basic button functionality for testing purposes
- * Set navigation button to navigate to home screen
- * */
+export default function Favorites() {
+  /* -------------------- Redux State Variables -------------------- */
 
-const Favorites = ({ navigation }) => {
+  /* -------------------- Redux State Colors -------------------- */
+  const headerColor = useStoreState((state) => state.headerColor);
+  const pageColor = useStoreState((state) => state.pageColor);
+  const bannerColor = useStoreState((state) => state.bannerColor);
+
+  /* -------------------- Render Method -------------------- */
   return (
-    <View style={styles.container}>
-      <Button
-        title="Click me!"
-        onPress={() => alert("Favorites page pending!")}
-      />
-      <Button title="Go to home" onPress={() => navigation.navigate("Home")} />
+    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
+      <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
+
+      <View style={[styles.header, { backgroundColor: headerColor }]}>
+        <Text style={[styles.headerText]}>Favorites</Text>
+      </View>
     </View>
   );
-};
-
-export default Favorites;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+}

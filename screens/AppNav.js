@@ -163,7 +163,7 @@ const AppNav = (props) => {
           console.log(e);
         }
         dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
-      }, 6000);
+      }, 4000);
     }, []);
 
   const cmAnimation = useRef();
@@ -192,7 +192,7 @@ const AppNav = (props) => {
       >
         <Lottie
           ref={cmAnimation}
-          source={require("../assets/img/spinning-plate-darkblue.json")} // source={require("./assets/img/spinning-plate.json")}
+          source={require("../assets/img/pizza-lottie.json")}
           style={{ width: 400, height: 400 }} // 400 x 300
           loop={true}
           speed={1}
