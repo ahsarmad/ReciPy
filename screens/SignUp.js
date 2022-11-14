@@ -28,16 +28,19 @@ import {
   FontAwesome5,
   Ionicons,
   MaterialIcons,
+  Entypo,
 } from "@expo/vector-icons";
 
 const SignUp = (props) => {
   const [email, setEmail] = useState("");
+  const [username, setusername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const register = () => {
     let user = {
       name: name,
       email: email,
+      username: username,
       password: password,
       isAdmin: false,
     };
@@ -70,8 +73,8 @@ const SignUp = (props) => {
   const [data, setData] = useState({
     name: "",
     email: "",
+    username: "",
     password: "",
-    confirm_password: "",
     check_emailInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
@@ -228,6 +231,30 @@ const SignUp = (props) => {
                 </Animatable.View>
               ) : null}
             </View>
+
+            <Text
+              style={[styles.text_footer, { marginTop: 35, marginBottom: 10 }]}
+            >
+              Username
+            </Text>
+            <View style={styles.action}>
+              <MaterialIcons name="alternate-email" size={22} color="black" />
+              <TextInput
+                placeholder="Please enter a username"
+                style={styles.textInput}
+                autoCapitalize="none"
+                name={"username"}
+                id={"username"}
+                onChangeText={(text) => [setusername(text)]}
+                autoCorrect={false}
+              />
+              {data.check_emailInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <AntDesign name="checkcircleo" color="#2694F9" size={18} />
+                </Animatable.View>
+              ) : null}
+            </View>
+
             <Text
               style={[styles.text_footer, { marginTop: 35, marginBottom: 10 }]}
             >

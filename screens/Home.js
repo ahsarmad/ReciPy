@@ -184,9 +184,9 @@ export default function Home({ navigation }) {
               <LinearGradient
                 style={styles.helloMessageContainer}
                 // Background Linear Gradient
-                colors={["white", "#2694f9", "white"]}
+                colors={["#2694f9", "lightblue", "#2694f9"]}
               >
-                <Text style={styles.helloMessage}>Hello {userInfo.name}!</Text>
+                <Text style={styles.helloMessage}>Hi {userInfo.name}!</Text>
               </LinearGradient>
             </ImageBackground>
 

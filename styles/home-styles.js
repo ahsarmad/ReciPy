@@ -36,7 +36,8 @@ export default StyleSheet.create({
   },
   helloMessageContainer: {
     position: "absolute",
-    borderBottomRightRadius: 20,
+    borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
     marginTop: -8,
   },
   helloMessage: {
@@ -44,8 +45,8 @@ export default StyleSheet.create({
     fontFamily: "Quicksand-SemiBold",
     fontSize: 25,
     color: "#ffffff",
-    marginLeft: 10,
-    marginRight: 10,
+    // marginLeft: 10,
+    marginRight: 5,
     padding: 15,
   },
   /* -------------- Images --------------*/
