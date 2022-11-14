@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -12,10 +12,14 @@ import {
   FlatList,
 } from "react-native";
 import { useStoreState, useStoreActions } from "easy-peasy";
+import { LinearGradient } from "expo-linear-gradient";
+import { AuthContext } from "../Context/AuthContext";
 
 import styles from "../styles/home-styles";
 
 export default function Home({ navigation }) {
+  const { userInfo } = useContext(AuthContext);
+
   /* -------------------- Local State Variables -------------------- */
   let Recipes = [];
   const [isLoading, setLoading] = useState(true);
@@ -176,6 +180,14 @@ export default function Home({ navigation }) {
                   style={[styles.accountIcon]}
                 />
               </TouchableOpacity> */}
+
+              <LinearGradient
+                style={styles.helloMessageContainer}
+                // Background Linear Gradient
+                colors={["white", "#2694f9", "white"]}
+              >
+                <Text style={styles.helloMessage}>Hello {userInfo.name}!</Text>
+              </LinearGradient>
             </ImageBackground>
 
             <View style={[styles.container]}>
