@@ -1,3 +1,6 @@
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 import React, { useState, useEffect, useMemo, useReducer, useRef } from "react";
 import { AuthProvider } from "./Context/AuthContext";
 import AppNav from "./screens/AppNav";
