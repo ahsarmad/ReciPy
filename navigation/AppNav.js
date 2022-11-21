@@ -26,9 +26,9 @@ import { AuthContext } from "../Context/AuthContext";
  */
 
 import MainTab from "./MainTab";
-import Contact from "./Contact";
-import Settings from "./Settings";
-import Favorites from "./Favorites";
+import Settings from "../screens/Settings";
+import Favorites from "../screens/Favorites";
+import ShoppingList from "../screens/shoppingList";
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
@@ -39,7 +39,7 @@ import { DrawerContent } from "./DrawerContent";
 
 // Implementing Root Stack Structure for splash - sign in - sign up navigation
 
-import RootStack from "./RootStack";
+import RootStack from "../screens/RootStack";
 import { ActivityIndicator } from "react-native-paper";
 
 const Drawer = createDrawerNavigator();
@@ -214,12 +214,16 @@ const AppNav = (props) => {
               component={MainTab}
               options={{ headerShown: false }}
             />
-            <Drawer.Screen name="Contact" component={Contact} options={{}} />
-            <Drawer.Screen name="Settings" component={Settings} options={{}} />
+
+            <Drawer.Screen
+              name="Settings"
+              component={Settings}
+              options={{ headerShown: false }}
+            />
             <Drawer.Screen
               name="Favorites"
               component={Favorites}
-              options={{}}
+              options={{ headerShown: false }}
             />
           </Drawer.Navigator>
         ) : (

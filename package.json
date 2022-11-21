@@ -34,7 +34,13 @@
     "react-native-reanimated": "~2.9.1",
     "react-native-safe-area-context": "4.3.1",
     "react-native-screens": "~3.15.0",
+    "react-native-expo-pie-chart": "^1.0.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-pie": "^1.1.2",
     "react-native-toast-message": "^2.1.5",
+    "react-native-select-dropdown": "^3.0.3",
+    "react-native-svg": "12.3.0",
+    "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.18.7",
     "react-native-vector-icons": "^9.2.0",
     "expo-barcode-scanner": "~11.4.0"

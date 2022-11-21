@@ -17,6 +17,8 @@ import {
   MaterialIcons,
   SimpleLineIcons,
   AntDesign,
+  Entypo,
+  Feather,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { AuthContext } from "../Context/AuthContext";
@@ -44,10 +46,8 @@ export function DrawerContent(props) {
             <View style={{ flexDirection: "row", marginTop: 15 }}>
               {/* Placeholder image taken from Pexels.com --> Free stock image provider */}
               <Avatar.Image
-                source={{
-                  uri: "data:image/png;base64,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",
-                }}
-                size={75}
+                source={require("../assets/img/chef-profile.png")}
+                size={85}
                 backgroundColor={"#rgb(0, 230, 230)"}
               />
               <View
@@ -93,17 +93,6 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
-                <AntDesign name="user" color={colors.text} size={size} />
-              )}
-              label="Profile"
-              labelStyle={{ fontSize: 17, color: colors.text }}
-              onPress={() => {
-                props.navigation.navigate("ProfileScreen");
-              }}
-            />
-
-            <DrawerItem
-              icon={({ color, size }) => (
                 <Ionicons
                   name="bookmarks-outline"
                   color={colors.text}
@@ -120,6 +109,18 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
+                <Feather name="list" size={size} color="black" />
+              )}
+              label="Grocery List"
+              labelStyle={{ fontSize: 17, color: colors.text }}
+              inactiveTintColor="black"
+              onPress={() => {
+                props.navigation.navigate("ShoppingListScreen");
+              }}
+            />
+
+            <DrawerItem
+              icon={({ color, size }) => (
                 <SimpleLineIcons
                   name="settings"
                   color={colors.text}
@@ -131,18 +132,6 @@ export function DrawerContent(props) {
               inactiveTintColor="black"
               onPress={() => {
                 props.navigation.navigate("Settings");
-              }}
-            />
-
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Ionicons name="ios-help" color={colors.text} size={size} />
-              )}
-              label="Contact Us"
-              labelStyle={{ fontSize: 17, color: colors.text }}
-              inactiveTintColor="black"
-              onPress={() => {
-                props.navigation.navigate("Contact");
               }}
             />
           </Drawer.Section>

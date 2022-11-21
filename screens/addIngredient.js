@@ -101,7 +101,7 @@ export default function AddIngredient({ navigation }) {
             >
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("HomeScreen");
+                  navigation.goBack();
                 }}
                 style={[styles.backIconTouch]}
               >

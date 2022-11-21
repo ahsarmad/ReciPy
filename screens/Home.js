@@ -181,13 +181,13 @@ export default function Home({ navigation }) {
                 />
               </TouchableOpacity> */}
 
-              <LinearGradient
+              {/* <LinearGradient
                 style={styles.helloMessageContainer}
                 // Background Linear Gradient
                 colors={["#2694f9", "lightblue", "#2694f9"]}
               >
                 <Text style={styles.helloMessage}>Hi {userInfo.name}!</Text>
-              </LinearGradient>
+              </LinearGradient> */}
             </ImageBackground>
 
             <View style={[styles.container]}>

@@ -17,6 +17,15 @@ const SearchBar = ({ selectedIngredients, setSelectedIngredients }) => {
   /* -------------------- Redux State Variables -------------------- */
   const refresh = useStoreState((state) => state.refresh);
   const setRefresh = useStoreActions((actions) => actions.setRefresh);
+  const setHaveIngredients = useStoreActions(
+    (actions) => actions.setHaveIngredients
+  );
+  const setGenerateRecipes = useStoreActions(
+    (actions) => actions.setGenerateRecipes
+  );
+
+  const recentlyUsed = useStoreState((state) => state.recentlyUsed);
+  const setRecentlyUsed = useStoreActions((actions) => actions.setRecentlyUsed);
 
   /* -------------------- State Variables -------------------- */
   const ingredients = useStoreState((state) => state.ingredients);
@@ -26,16 +35,25 @@ const SearchBar = ({ selectedIngredients, setSelectedIngredients }) => {
   const [filteredArray, setFilteredArray] = useState([]);
 
   /* -------------------- Handler Functions -------------------- */
-  const pressHandler = (name, key) => {
-    if (selectedIngredients.find((ingredient) => ingredient.name === name)) {
+  const searchPressHandler = (ingredientObj) => {
+    if (
+      selectedIngredients.find(
+        (ingredient) => ingredient.name === ingredientObj.name
+      )
+    ) {
       return;
     }
     let newList = selectedIngredients;
-    newList.push({ name: name, key: key });
+    newList.push({ ...ingredientObj });
     setSelectedIngredients(newList);
+    setRecentlyUsed({ ...ingredientObj });
+    setHaveIngredients();
     setSearchText("");
     setSearching(false);
     setRefresh(!refresh);
+    console.log(
+      `added: ${ingredientObj.name} num ingredients: ${newList.length}`
+    );
   };
 
   return (
@@ -73,13 +91,16 @@ const SearchBar = ({ selectedIngredients, setSelectedIngredients }) => {
           <Text>Searching : False</Text>
         )}
         {searching ? (
-          <ScrollView style={[styles.searchBar]}>
+          <ScrollView
+            style={[styles.searchBar]}
+            keyboardShouldPersistTaps={"always"}
+          >
             {filteredArray.map((ingredient) => {
               return (
                 <View key={ingredient.id}>
                   <TouchableOpacity
                     onPress={() => {
-                      pressHandler(ingredient.name, ingredient.id);
+                      searchPressHandler({ ...ingredient });
                     }}
                     style={[styles.outline, styles.searchResult]}
                   >

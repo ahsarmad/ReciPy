@@ -1,24 +1,28 @@
 import React from "react";
+import { Image, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import HomeScreen from "./Home";
-import Pantry from "./Pantry";
-import Explore from "./Explore";
-import Profile from "./Profile";
-import AddIngredient from "./addIngredient";
-import Category from "./category";
-import Settings from "./Settings";
-import Contact from "./Contact";
-import Favorites from "./Favorites";
+import HomeScreen from "../screens/Home";
+import Pantry from "../screens/Pantry";
+import Explore from "../screens/Explore";
+import AddIngredient from "../screens/addIngredient";
+import Category from "../screens/category";
+import Settings from "../screens/Settings";
+import Favorites from "../screens/Favorites";
+import ShoppingList from "../screens/shoppingList";
+
 import {
   MaterialCommunityIcons,
   Ionicons,
   FontAwesome5,
   MaterialIcons,
   AntDesign,
+  Feather,
   Fontisto,
 } from "@expo/vector-icons";
 import { Colors } from "react-native-paper";
+import ProfilePic from "../components/ProfilePic";
+import styles from "../components/Social-Feed/styles";
 
 /**
  *
@@ -26,7 +30,7 @@ import { Colors } from "react-native-paper";
 
 const HomeStack = createNativeStackNavigator();
 const PantryStack = createNativeStackNavigator();
-const ProfileStack = createNativeStackNavigator();
+const ShoppingListStack = createNativeStackNavigator();
 const ExploreStack = createNativeStackNavigator();
 const AddIngredientStack = createNativeStackNavigator();
 const CategoryStack = createNativeStackNavigator();
@@ -80,16 +84,16 @@ const MainTab = () => (
       }}
     />
     <Tab.Screen
-      name="ProfileScreen"
-      component={ProfileStackScreen}
+      name="ShoppingListScreen"
+      component={ShoppingListStackScreen}
       options={{
-        tabBarLabel: "Profile",
+        tabBarLabel: "Grocery List",
         tabBarColor: "#3DBE29",
         tabBarIcon: ({ color }) => (
-          <Ionicons
-            name="ios-person"
+          <Feather
+            name="list"
             color={color}
-            size={26}
+            size={27}
             style={{ marginRight: -3, marginTop: -3, paddingTop: 2 }}
           />
         ),
@@ -135,12 +139,18 @@ const HomeStackScreen = ({ navigation }) => (
       options={{
         title: "Home",
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#2694F9"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -150,12 +160,18 @@ const HomeStackScreen = ({ navigation }) => (
       options={{
         title: "Add Ingredient",
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#2694F9"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -165,12 +181,18 @@ const HomeStackScreen = ({ navigation }) => (
       options={{
         title: "Category",
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#2694F9"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -194,19 +216,25 @@ const PantryStackScreen = ({ navigation }) => (
       component={Pantry}
       options={{
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#ff5349"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#ff5349"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
   </PantryStack.Navigator>
 );
-const ProfileStackScreen = ({ navigation }) => (
-  <ProfileStack.Navigator
+const ShoppingListStackScreen = ({ navigation }) => (
+  <ShoppingListStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: "#3DBE29",
@@ -217,21 +245,27 @@ const ProfileStackScreen = ({ navigation }) => (
       },
     }}
   >
-    <ProfileStack.Screen
-      name="Profile"
-      component={Profile}
+    <ShoppingListStack.Screen
+      name="Shopping List"
+      component={ShoppingList}
       options={{
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#3DBE29"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#3DBE29"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
-  </ProfileStack.Navigator>
+  </ShoppingListStack.Navigator>
 );
 const ExploreStackScreen = ({ navigation }) => (
   <ExploreStack.Navigator
@@ -250,12 +284,18 @@ const ExploreStackScreen = ({ navigation }) => (
       component={Explore}
       options={{
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#6a0dad"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#6a0dad"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
