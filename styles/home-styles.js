@@ -86,6 +86,8 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: "row",
+    // marginLeft: -2,
   },
   absolute: {
     position: "absolute",
@@ -143,7 +145,7 @@ export default StyleSheet.create({
   /* -------------- Buttons --------------*/
   addButton: {
     marginVertical: height / 80,
-    width: wp("50%"),
+    width: wp("49.2%"),
     borderWidth: 1,
     borderRadius: 20,
     marginLeft: 2,

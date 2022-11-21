@@ -10,6 +10,8 @@ import Category from "./category";
 import Settings from "./Settings";
 import Contact from "./Contact";
 import Favorites from "./Favorites";
+import ShoppingList from "./shoppingList";
+
 import {
   MaterialCommunityIcons,
   Ionicons,

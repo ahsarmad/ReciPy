@@ -17,6 +17,8 @@ import {
   MaterialIcons,
   SimpleLineIcons,
   AntDesign,
+  Entypo,
+  Feather,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { AuthContext } from "../Context/AuthContext";
@@ -115,6 +117,18 @@ export function DrawerContent(props) {
               inactiveTintColor="black"
               onPress={() => {
                 props.navigation.navigate("Favorites");
+              }}
+            />
+
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Feather name="list" size={size} color="black" />
+              )}
+              label="Grocery List"
+              labelStyle={{ fontSize: 17, color: colors.text }}
+              inactiveTintColor="black"
+              onPress={() => {
+                props.navigation.navigate("ShoppingList");
               }}
             />
 

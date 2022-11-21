@@ -29,6 +29,7 @@ import MainTab from "./MainTab";
 import Contact from "./Contact";
 import Settings from "./Settings";
 import Favorites from "./Favorites";
+import ShoppingList from "./shoppingList";
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
@@ -214,12 +215,25 @@ const AppNav = (props) => {
               component={MainTab}
               options={{ headerShown: false }}
             />
-            <Drawer.Screen name="Contact" component={Contact} options={{}} />
-            <Drawer.Screen name="Settings" component={Settings} options={{}} />
+            <Drawer.Screen
+              name="ShoppingList"
+              component={ShoppingList}
+              options={{ headerShown: false }}
+            />
+            <Drawer.Screen
+              name="Contact"
+              component={Contact}
+              options={{ headerShown: false }}
+            />
+            <Drawer.Screen
+              name="Settings"
+              component={Settings}
+              options={{ headerShown: false }}
+            />
             <Drawer.Screen
               name="Favorites"
               component={Favorites}
-              options={{}}
+              options={{ headerShown: false }}
             />
           </Drawer.Navigator>
         ) : (
