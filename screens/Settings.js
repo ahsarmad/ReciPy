@@ -9,6 +9,7 @@ import {
   Keyboard,
   FlatList,
   TouchableOpacity,
+  Image,
   KeyboardAvoidingView,
 } from "react-native";
 import styles from "../styles/settings-styles";
@@ -19,7 +20,7 @@ import matchFunction from "../components/matchFunction";
 import { SearchBar } from "react-native-screens";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export default function Settings() {
+export default function Settings({ navigation }) {
   /* -------------------- Local State Variables -------------------- */
   const [searchText, setSearchText] = useState("");
   const [searching, setSearching] = useState(false);
@@ -111,6 +112,23 @@ export default function Settings() {
 
           <View style={[styles.header, { backgroundColor: headerColor }]}>
             <Text style={[styles.headerText]}>Settings</Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+              style={[styles.backIconTouch]}
+            >
+              <Image
+                source={require("../assets/icons/go-back.png")}
+                style={[styles.backIcon, { tintColor: bannerColor }]}
+              />
+              {/* <Ionicons
+              name="ios-home"
+              color={"white"}
+              size={35}
+              style={styles.backIcon}
+            /> */}
+            </TouchableOpacity>
           </View>
 
           {/* -------------------------------- Display Settings -------------------------------- */}

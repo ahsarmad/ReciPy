@@ -146,4 +146,11 @@ export default StyleSheet.create({
     width: width / 2,
     height: height / 2,
   },
+  backIcon: {
+    width: width / 9,
+    height: width / 9,
+    tintColor: "white",
+    marginLeft: 10,
+    marginTop: -75,
+  },
 });
