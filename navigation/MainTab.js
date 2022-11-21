@@ -1,4 +1,5 @@
 import React from "react";
+import { Image, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HomeScreen from "../screens/Home";
@@ -20,6 +21,8 @@ import {
   Fontisto,
 } from "@expo/vector-icons";
 import { Colors } from "react-native-paper";
+import ProfilePic from "../components/ProfilePic";
+import styles from "../components/Social-Feed/styles";
 
 /**
  *
@@ -136,12 +139,18 @@ const HomeStackScreen = ({ navigation }) => (
       options={{
         title: "Home",
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#2694F9"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -151,12 +160,18 @@ const HomeStackScreen = ({ navigation }) => (
       options={{
         title: "Add Ingredient",
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#2694F9"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -166,12 +181,18 @@ const HomeStackScreen = ({ navigation }) => (
       options={{
         title: "Category",
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#2694F9"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -195,12 +216,18 @@ const PantryStackScreen = ({ navigation }) => (
       component={Pantry}
       options={{
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#ff5349"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#ff5349"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -223,12 +250,18 @@ const ShoppingListStackScreen = ({ navigation }) => (
       component={ShoppingList}
       options={{
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#3DBE29"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#3DBE29"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
@@ -251,12 +284,18 @@ const ExploreStackScreen = ({ navigation }) => (
       component={Explore}
       options={{
         headerLeft: () => (
-          <AntDesign.Button
-            name="menu-fold"
-            size={23}
-            backgroundColor="#6a0dad"
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#6a0dad"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-          ></AntDesign.Button>
+            style={{ marginTop: -12 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
         ),
       }}
     />
