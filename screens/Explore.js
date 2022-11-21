@@ -1,14 +1,12 @@
 import { Text, StyleSheet, View, Button } from "react-native";
 import React from "react";
+import Post from "../components/Social-Feed";
+import posts from "../data/posts";
 
 const Explore = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Button
-        title="Click me!"
-        onPress={() => alert("Explore page pending!")}
-      />
-      <Button title="Go to home" onPress={() => navigation.navigate("Home")} />
+      <Post post={posts[0]} />
     </View>
   );
 };
