@@ -95,17 +95,6 @@ export function DrawerContent(props) {
 
             <DrawerItem
               icon={({ color, size }) => (
-                <AntDesign name="user" color={colors.text} size={size} />
-              )}
-              label="Profile"
-              labelStyle={{ fontSize: 17, color: colors.text }}
-              onPress={() => {
-                props.navigation.navigate("ProfileScreen");
-              }}
-            />
-
-            <DrawerItem
-              icon={({ color, size }) => (
                 <Ionicons
                   name="bookmarks-outline"
                   color={colors.text}
@@ -128,7 +117,7 @@ export function DrawerContent(props) {
               labelStyle={{ fontSize: 17, color: colors.text }}
               inactiveTintColor="black"
               onPress={() => {
-                props.navigation.navigate("ShoppingList");
+                props.navigation.navigate("ShoppingListScreen");
               }}
             />
 
@@ -145,18 +134,6 @@ export function DrawerContent(props) {
               inactiveTintColor="black"
               onPress={() => {
                 props.navigation.navigate("Settings");
-              }}
-            />
-
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Ionicons name="ios-help" color={colors.text} size={size} />
-              )}
-              label="Contact Us"
-              labelStyle={{ fontSize: 17, color: colors.text }}
-              inactiveTintColor="black"
-              onPress={() => {
-                props.navigation.navigate("Contact");
               }}
             />
           </Drawer.Section>

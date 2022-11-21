@@ -3,7 +3,7 @@ LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 import React, { useState, useEffect, useMemo, useReducer, useRef } from "react";
 import { AuthProvider } from "./Context/AuthContext";
-import AppNav from "./screens/AppNav";
+import AppNav from "./navigation/AppNav";
 import model from "./state/model";
 import * as Font from "expo-font";
 import { StoreProvider, createStore } from "easy-peasy";

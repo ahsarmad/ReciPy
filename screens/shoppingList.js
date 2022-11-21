@@ -86,9 +86,9 @@ export default function ShoppingList({ navigation }) {
   /* -------------------- Render Method -------------------- */
   return (
     <View style={[styles.wholeScreen]}>
-      <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
+      {/* <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View> */}
 
-      <View
+      {/* <View
         style={[styles.backButtonSection, { backgroundColor: headerColor }]}
       >
         <ImageBackground
@@ -107,15 +107,9 @@ export default function ShoppingList({ navigation }) {
               source={require("../assets/icons/go-back.png")}
               style={[styles.backIcon, { tintColor: bannerColor }]}
             />
-            {/* <Ionicons
-              name="ios-home"
-              color={"white"}
-              size={35}
-              style={styles.backIcon}
-            /> */}
           </TouchableOpacity>
         </ImageBackground>
-      </View>
+      </View> */}
 
       <ScrollView
         style={[styles.smallMargins]}

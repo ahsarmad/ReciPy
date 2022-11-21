@@ -1,16 +1,14 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import HomeScreen from "./Home";
-import Pantry from "./Pantry";
-import Explore from "./Explore";
-import Profile from "./Profile";
-import AddIngredient from "./addIngredient";
-import Category from "./category";
-import Settings from "./Settings";
-import Contact from "./Contact";
-import Favorites from "./Favorites";
-import ShoppingList from "./shoppingList";
+import HomeScreen from "../screens/Home";
+import Pantry from "../screens/Pantry";
+import Explore from "../screens/Explore";
+import AddIngredient from "../screens/addIngredient";
+import Category from "../screens/category";
+import Settings from "../screens/Settings";
+import Favorites from "../screens/Favorites";
+import ShoppingList from "../screens/shoppingList";
 
 import {
   MaterialCommunityIcons,
@@ -18,6 +16,7 @@ import {
   FontAwesome5,
   MaterialIcons,
   AntDesign,
+  Feather,
   Fontisto,
 } from "@expo/vector-icons";
 import { Colors } from "react-native-paper";
@@ -28,7 +27,7 @@ import { Colors } from "react-native-paper";
 
 const HomeStack = createNativeStackNavigator();
 const PantryStack = createNativeStackNavigator();
-const ProfileStack = createNativeStackNavigator();
+const ShoppingListStack = createNativeStackNavigator();
 const ExploreStack = createNativeStackNavigator();
 const AddIngredientStack = createNativeStackNavigator();
 const CategoryStack = createNativeStackNavigator();
@@ -82,16 +81,16 @@ const MainTab = () => (
       }}
     />
     <Tab.Screen
-      name="ProfileScreen"
-      component={ProfileStackScreen}
+      name="ShoppingListScreen"
+      component={ShoppingListStackScreen}
       options={{
-        tabBarLabel: "Profile",
+        tabBarLabel: "Grocery List",
         tabBarColor: "#3DBE29",
         tabBarIcon: ({ color }) => (
-          <Ionicons
-            name="ios-person"
+          <Feather
+            name="list"
             color={color}
-            size={26}
+            size={27}
             style={{ marginRight: -3, marginTop: -3, paddingTop: 2 }}
           />
         ),
@@ -207,8 +206,8 @@ const PantryStackScreen = ({ navigation }) => (
     />
   </PantryStack.Navigator>
 );
-const ProfileStackScreen = ({ navigation }) => (
-  <ProfileStack.Navigator
+const ShoppingListStackScreen = ({ navigation }) => (
+  <ShoppingListStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: "#3DBE29",
@@ -219,9 +218,9 @@ const ProfileStackScreen = ({ navigation }) => (
       },
     }}
   >
-    <ProfileStack.Screen
-      name="Profile"
-      component={Profile}
+    <ShoppingListStack.Screen
+      name="Shopping List"
+      component={ShoppingList}
       options={{
         headerLeft: () => (
           <AntDesign.Button
@@ -233,7 +232,7 @@ const ProfileStackScreen = ({ navigation }) => (
         ),
       }}
     />
-  </ProfileStack.Navigator>
+  </ShoppingListStack.Navigator>
 );
 const ExploreStackScreen = ({ navigation }) => (
   <ExploreStack.Navigator
