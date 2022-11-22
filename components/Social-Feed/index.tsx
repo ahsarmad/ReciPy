@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
-import MainContainer from "./MainContainer.tsx";
-import LeftContainer from "./MainContainer.tsx";
+import LeftContainer from "./LeftContainer";
+import MainContainer from "./MainContainer";
 
 import { PostType } from "../../types";
 import styles from "./styles";

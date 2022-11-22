@@ -48,7 +48,9 @@ export function DrawerContent(props) {
               <Avatar.Image
                 source={require("../assets/img/chef-profile.png")}
                 size={85}
-                backgroundColor={"#rgb(0, 230, 230)"}
+                // backgroundColor={"#2694f9"}
+                backgroundColor={"#b1f2ff"}
+                // backgroundColor={"gray"}
               />
               <View
                 style={{
