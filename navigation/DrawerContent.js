@@ -50,6 +50,7 @@ export function DrawerContent(props) {
                 size={85}
                 // backgroundColor={"#2694f9"}
                 backgroundColor={"#b1f2ff"}
+                // backgroundColor={"gray"}
               />
               <View
                 style={{
