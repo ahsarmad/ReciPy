@@ -8,7 +8,7 @@ export type ProfilePicProps = {
 };
 
 // Image taken from free png icon site: https://www.pngrepo.com/svg/275204/chef
-const ProfilePic = ({ image, size = 65, color }: ProfilePicProps) => (
+const ProfilePic = ({ image, size = 60, color }: ProfilePicProps) => (
   <Image
     source={require("../../assets/img/chef-profile.png")}
     style={{
