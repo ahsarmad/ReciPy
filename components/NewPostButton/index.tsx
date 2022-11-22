@@ -1,6 +1,11 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { Ionicons, AntDesign, SimpleLineIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  AntDesign,
+  SimpleLineIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import styles from "./styles";
 
 const NewPostButton = () => {
@@ -10,7 +15,7 @@ const NewPostButton = () => {
 
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <AntDesign name="pluscircle" size={60} color="#6a0dad" />
+      <FontAwesome5 name="pen" size={30} color="#fff" />
     </TouchableOpacity>
   );
 };
