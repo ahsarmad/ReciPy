@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    opacity: 0.9,
+    opacity: 0.8,
   },
 });
 
