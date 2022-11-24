@@ -5719,17 +5719,14 @@ export default {
   selectedIngredients: [],
   refresh: false,
   categoryList: [],
-  pantryItems: [
-    { name: "apple", date: "11/1/22", key: "7" },
-    { name: "avacado", date: "11/2/22", key: "8" },
-  ],
+  pantryItems: [],
   category: "",
   haveIngredients: false,
   generateColor: "#2196F3",
   recentlyUsed: [],
 
   allRecipes: [],
-  dietOption: "Default",
+  dietOption: "default",
 
   /* -------------------- Actions -------------------- */
   setSelectedIngredients: action((state, list) => {
@@ -5789,6 +5786,7 @@ export default {
   ingredientsRequired: "",
   recipeDescription: "",
   steps: "",
+  recipeLink: "",
 
   setRecipes: action((state, list) => {
     state.Recipes = list;
@@ -5813,6 +5811,9 @@ export default {
   }),
   setSteps: action((state, steps) => {
     state.steps = steps;
+  }),
+  setRecipeLink: action((state, link) => {
+    state.recipeLink = link;
   }),
 
   /* -------------------- Display Settings -------------------- */

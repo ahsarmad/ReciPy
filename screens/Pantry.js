@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Button,
   View,
   TextInput,
   Text,
@@ -14,9 +15,12 @@ import {
 import styles from "../styles/pantry-styles";
 import matchFunction from "../components/matchFunction";
 import { useStoreState, useStoreActions } from "easy-peasy";
+import uuid from "react-native-uuid";
 
 /* -------------------- Components -------------------- */
 import { SearchBar } from "react-native-screens";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as Notifications from "expo-notifications";
 
 export default function Pantry() {
   /* -------------------- Local State Variables -------------------- */
@@ -24,9 +28,16 @@ export default function Pantry() {
   const [searching, setSearching] = useState(false);
   const [filteredArray, setFilteredArray] = useState([]);
   const match = matchFunction;
+  const [filler, setFiller] = useState("");
+  const [text, setText] = useState("change me");
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  // const [date,setDate] = useState(new Date(1666870995000));
+  const [date, setDate] = useState(new Date());
+  const [output, setOutput] = useState("");
+  const [time, setTime] = useState("");
 
-  let addIngredient = { name: "", key: "" };
-  let addDate = null;
+  const [addIngredient, setAddIngredient] = useState("");
+  const [addDate, setAddDate] = useState("");
 
   /* -------------------- Redux State Variables -------------------- */
   const refresh = useStoreState((state) => state.refresh);
@@ -42,21 +53,38 @@ export default function Pantry() {
   const bannerColor = useStoreState((state) => state.bannerColor);
 
   /* -------------------- Handler Functions -------------------- */
-  const ingredientPressHandler = (name, key) => {
+  const ingredientPressHandler = (name) => {
     Keyboard.dismiss();
-    addIngredient.name = name;
-    addIngredient.key = key;
+    setAddIngredient(name);
     setSearchText(name);
     setSearching(false);
     setRefresh(!refresh);
   };
 
   const enterPressHandler = () => {
-    let newPantryItems = pantryItems;
-    newPantryItems.push({ addIngredient, addDate });
-    setPantryItems(newPantryItems);
-    addIngredient = { name: "", key: "" };
-    addDate = null;
+    if (addIngredient != "" && addDate != "") {
+      if (pantryItems.find((ingredient) => ingredient.name === addIngredient)) {
+        setAddIngredient("");
+        setAddDate("");
+        setSearchText("");
+        setSearching(false);
+        return;
+      }
+      let newPantryItems = pantryItems;
+      console.log("adding: ", addIngredient, " ", addDate.toLocaleDateString());
+      newPantryItems.push({
+        name: addIngredient,
+        date: addDate,
+        key: uuid.v4(),
+      });
+      setPantryItems(newPantryItems);
+      schedulePushNotification(addIngredient, time);
+      setAddIngredient("");
+      setAddDate("");
+      setSearchText("");
+      setSearching(false);
+    }
+    return;
   };
 
   const pantryPressHandler = (key) => {
@@ -66,6 +94,52 @@ export default function Pantry() {
     setPantryItems(newPantryList);
   };
 
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    // console.warn("A date has been picked: ", date);
+    setDate(date);
+    setAddDate(date);
+    // setOutput(date.getTime());
+    // setTime(date.getTime()-Date.now()-(48*60*60*1000))
+    setTime(date.toLocaleDateString());
+    hideDatePicker();
+  };
+
+  const updateText = () => {
+    setText(filler);
+  };
+
+  async function schedulePushNotification(filler, time) {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Recipy notification! 📬",
+        body: `Your ${filler} is expiring in two days! Expiring on: ${date.toLocaleDateString()}`,
+        data: { data: "goes here" },
+      },
+      trigger: {
+        // repeats: false,
+        // weekday: 2,
+        // hour: 4,
+        // minute: 2,  //Date - Date.now()
+        seconds: 2,
+      },
+    });
+  }
   /* -------------------- Render Method -------------------- */
 
   return (
@@ -77,164 +151,203 @@ export default function Pantry() {
         }}
         style={[styles.wholeScreen]}
       >
-        {/* <View style={[styles.header, { backgroundColor: headerColor }]}>
-          <Image
-            source={require("../assets/img/bakeryV2.png")}
-            style={[styles.banner, { tintColor: bannerColor }]}
-          />
-          <Text style={[styles.headerText]}>Pantry</Text>
-        </View> */}
+        <ScrollView>
+          {/* <View
+            style={[styles.pushDown, { backgroundColor: headerColor }]}
+          ></View>
 
-        <Text style={[styles.fontSmall, styles.margins]}>
-          Add ingredients to your pantry:
-        </Text>
-        <SearchBar />
+          <View style={[styles.header, { backgroundColor: headerColor }]}>
+            <Image
+              source={require("../assets/img/bakeryV2.png")}
+              style={[styles.banner, { tintColor: bannerColor }]}
+            />
+            <Text style={[styles.headerText]}>Pantry</Text>
+          </View> */}
 
-        <View>
-          <View style={styles.container}>
-            <TextInput
-              placeholder=" add ingredient"
-              style={[styles.input, styles.outline]}
-              value={searchText}
-              onChangeText={(text) => {
-                setSearchText(text);
-                text === ""
-                  ? (setSearching(false),
-                    (addIngredient = { name: "", key: "" }))
-                  : setSearching(true);
-                text != ""
-                  ? setFilteredArray(match(text.toLowerCase(), ingredients))
-                  : setFilteredArray([]);
-              }}
-              searchText={searchText}
-              setSearchText={setSearchText}
-            />
-            <TextInput
-              placeholder=" add expiration"
-              style={[styles.input, styles.outline]}
-            />
-            <Pressable
-              style={styles.button}
-              onPress={() => {
-                setSearchText("");
-                setSearching(false);
-                enterPressHandler();
-              }}
+          {/* ------------------------------------ Input Fields ------------------------------------ */}
+
+          <View
+            style={{
+              paddingVertical: 15,
+            }}
+          >
+            {/* <Text style={[styles.fontSmall, styles.margins,]}> */}
+            <Text
+              style={[
+                {
+                  fontSize: 24,
+                  fontFamily: "Quicksand-SemiBold",
+                },
+                styles.margins,
+              ]}
             >
-              <Text style={styles.clear}>Enter</Text>
-            </Pressable>
+              Add ingredients to your pantry!
+            </Text>
+          </View>
+          <View>
+            <View style={styles.container}>
+              <TextInput
+                placeholder=" add ingredient"
+                style={[styles.input, styles.outline]}
+                value={searchText}
+                onChangeText={(text) => {
+                  setSearchText(text);
+                  text === ""
+                    ? (setSearching(false), setAddIngredient(""))
+                    : setSearching(true);
+                  text != ""
+                    ? setFilteredArray(match(text.toLowerCase(), ingredients))
+                    : setFilteredArray([]);
+                }}
+                searchText={searchText}
+                setSearchText={setSearchText}
+              />
+
+              <Pressable
+                style={[styles.input, styles.outline]}
+                onPress={showDatePicker}
+              >
+                <Text
+                  style={[
+                    styles.fontSmall,
+                    { color: addDate === "" ? "#9E9E9E" : "black" },
+                  ]}
+                >
+                  {" "}
+                  {addDate === ""
+                    ? "add expiration"
+                    : addDate.toLocaleDateString()}
+                </Text>
+              </Pressable>
+
+              <Pressable
+                style={styles.button}
+                onPress={() => {
+                  enterPressHandler();
+                }}
+              >
+                <Text style={styles.clear}>Enter</Text>
+              </Pressable>
+            </View>
           </View>
 
-          <View>
+          {/* ------------------------------------ Search Bar ------------------------------------ */}
+
+          <View style={[{ alignItems: "center", zIndex: 2 }]}>
             {searching ? (
               <Text>Searching : True</Text>
             ) : (
               <Text>Searching : False</Text>
             )}
             {searching ? (
-              <FlatList
-                keyboardShouldPersistTaps="always"
-                data={filteredArray}
-                renderItem={({ item }) => (
-                  <View>
-                    <TouchableOpacity
-                      onPress={() => {
-                        ingredientPressHandler(item.name, item.key);
-                      }}
-                    >
-                      <Text
-                        style={[
-                          styles.searchResult,
-                          styles.outline,
-                          styles.textCenter,
-                          styles.margins,
-                          styles.fontMedium,
-                        ]}
+              <ScrollView style={[]} keyboardShouldPersistTaps={"always"}>
+                {filteredArray.map((ingredient) => {
+                  return (
+                    <View key={ingredient.id}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          ingredientPressHandler(ingredient.name);
+                        }}
+                        style={[styles.outline, styles.searchResult]}
                       >
-                        {item.name.replace("_", " ")}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-              />
+                        <Text
+                          style={[
+                            styles.AmaticSCBold,
+                            styles.textCenter,
+                            styles.fontMedium,
+                          ]}
+                        >
+                          {ingredient.name.replace("_", " ")}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </ScrollView>
             ) : (
               <Text></Text>
             )}
           </View>
-        </View>
 
-        <View>
-          <ImageBackground
-            source={require("../assets/img/pantry.png")}
-            style={[styles.pantryImage]}
-          >
-            <ScrollView style={[styles.jarsMargin]}>
-              <View
-                style={[
-                  { display: "flex", flexDirection: "row", flexWrap: "wrap" },
-                ]}
-              >
-                {pantryItems.map((ingredient) => {
-                  return (
-                    <TouchableOpacity
-                      style={[styles.jar]}
-                      key={ingredient.key}
-                      onPress={() => {
-                        pantryPressHandler(ingredient.key);
-                      }}
-                    >
-                      <ImageBackground
-                        source={require("../assets/img/glassjar.png")}
-                        style={[styles.jar]}
+          {/* ------------------------------------ Date Picker ------------------------------------ */}
+
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+
+          {/* ------------------------------------ Visual Pantry ------------------------------------ */}
+
+          <View>
+            <View style={[]}></View>
+            <ImageBackground
+              source={require("../assets/img/pantry2.png")}
+              style={[styles.pantryImage]}
+            >
+              <ScrollView style={[]}>
+                <View
+                  style={[
+                    { display: "flex", flexDirection: "row", flexWrap: "wrap" },
+                  ]}
+                >
+                  {pantryItems.map((ingredient) => {
+                    return (
+                      <TouchableOpacity
+                        style={[]}
+                        key={ingredient.key}
+                        onPress={() => {
+                          pantryPressHandler(ingredient.key);
+                        }}
                       >
-                        <Text style={[styles.fontSmall, styles.jarLabel]}>
-                          {ingredient.name.replace("_", " ")}
-                        </Text>
-                        <Text style={[styles.fontSmall, styles.jarLabel]}>
-                          {ingredient.date.replace("_", " ")}
-                        </Text>
-                      </ImageBackground>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            </ScrollView>
-          </ImageBackground>
-        </View>
+                        <ImageBackground
+                          source={require("../assets/img/glassjar.png")}
+                          style={[styles.jar]}
+                        >
+                          <Text
+                            style={[
+                              styles.fontSmall,
+                              styles.jarLabel,
+                              {
+                                backgroundColor:
+                                  ingredient.date < Date.now()
+                                    ? "red"
+                                    : "#25AEF3",
+                              },
+                            ]}
+                          >
+                            {ingredient.name.length > 8
+                              ? ingredient.name.slice(0, 8).replace("_", " ") +
+                                ".."
+                              : ingredient.name.replace("_", " ")}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.fontSmall,
+                              styles.jarLabel,
+                              {
+                                backgroundColor:
+                                  ingredient.date < Date.now()
+                                    ? "red"
+                                    : "#25AEF3",
+                              },
+                            ]}
+                          >
+                            {ingredient.date.toLocaleDateString()}
+                          </Text>
+                        </ImageBackground>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </ScrollView>
+            </ImageBackground>
+          </View>
+
+          <View style={[styles.navView]}></View>
+        </ScrollView>
       </Pressable>
     </View>
   );
 }
-
-// import React from "react";
-// import { View, Text, Button, StyleSheet } from "react-native";
-
-// /**
-//  * Created base functional component with basic button functionality for testing purposes
-//  * Set navigation button to navigate to home screen, and added ability to push same screen onto stack
-//  * multiple times with traversing backwards enabled by back button
-//  * */
-
-// const Pantry = ({ navigation }) => {
-//   return (
-//     <View style={styles.container}>
-//       {/* Setting some basic navigation buttons for testing purposes */}
-//       <Button
-//         title="Go to pantry again"
-//         onPress={() => navigation.push("Pantry")}
-//       />
-//       <Button title="Go to home" onPress={() => navigation.navigate("Home")} />
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//     </View>
-//   );
-// };
-
-// export default Pantry;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
