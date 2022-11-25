@@ -105,7 +105,7 @@ export function DrawerContent(props) {
               labelStyle={{ fontSize: 17, color: colors.text }}
               inactiveTintColor="black"
               onPress={() => {
-                props.navigation.navigate("Favorites");
+                props.navigation.navigate("FavoritesScreen");
               }}
             />
 

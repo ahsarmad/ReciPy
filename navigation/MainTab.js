@@ -9,12 +9,13 @@ import AddIngredient from "../screens/addIngredient";
 import Category from "../screens/category";
 import Settings from "../screens/Settings";
 import Favorites from "../screens/Favorites";
+import LikedRecipe from "../screens/likedRecipe";
 import ShoppingList from "../screens/shoppingList";
 
 import {
   MaterialCommunityIcons,
   Ionicons,
-  FontAwesome5,
+  FontAwesome,
   MaterialIcons,
   AntDesign,
   Feather,
@@ -31,6 +32,8 @@ import styles from "../components/Social-Feed/styles";
 const HomeStack = createNativeStackNavigator();
 const PantryStack = createNativeStackNavigator();
 const ShoppingListStack = createNativeStackNavigator();
+const FavoritesStack = createNativeStackNavigator();
+const LikedRecipesStack = createNativeStackNavigator();
 const ExploreStack = createNativeStackNavigator();
 const AddIngredientStack = createNativeStackNavigator();
 const CategoryStack = createNativeStackNavigator();
@@ -78,6 +81,24 @@ const MainTab = () => (
             name="shopping-basket"
             color={color}
             size={25}
+            style={{ marginRight: -3, marginVertical: -3, paddingTop: 2 }}
+          />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="FavoritesScreen"
+      component={FavoritesStackScreen}
+      options={{
+        tabBarStyle: { background: "transparent" },
+        labelStyle: { paddingTop: 10 },
+        tabBarLabel: "Favorites",
+        tabBarColor: "#970449",
+        tabBarIcon: ({ color }) => (
+          <FontAwesome
+            name="heart"
+            color={color}
+            size={24}
             style={{ marginRight: -3, marginVertical: -3, paddingTop: 2 }}
           />
         ),
@@ -147,7 +168,7 @@ const HomeStackScreen = ({ navigation }) => (
           // ></AntDesign.Button>
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-            style={{ marginTop: -12 }}
+            style={{ marginTop: -5 }}
           >
             <ProfilePic size={40} />
           </TouchableOpacity>
@@ -168,7 +189,7 @@ const HomeStackScreen = ({ navigation }) => (
           // ></AntDesign.Button>
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-            style={{ marginTop: -12 }}
+            style={{ marginTop: -5 }}
           >
             <ProfilePic size={40} />
           </TouchableOpacity>
@@ -189,7 +210,7 @@ const HomeStackScreen = ({ navigation }) => (
           // ></AntDesign.Button>
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-            style={{ marginTop: -12 }}
+            style={{ marginTop: -5 }}
           >
             <ProfilePic size={40} />
           </TouchableOpacity>
@@ -224,7 +245,7 @@ const PantryStackScreen = ({ navigation }) => (
           // ></AntDesign.Button>
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-            style={{ marginTop: -12 }}
+            style={{ marginTop: -5 }}
           >
             <ProfilePic size={40} />
           </TouchableOpacity>
@@ -232,6 +253,61 @@ const PantryStackScreen = ({ navigation }) => (
       }}
     />
   </PantryStack.Navigator>
+);
+const FavoritesStackScreen = ({ navigation }) => (
+  <FavoritesStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: "#b71282",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "bold",
+      },
+    }}
+  >
+    <FavoritesStack.Screen
+      name="Favorites"
+      component={Favorites}
+      options={{
+        headerLeft: () => (
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#3DBE29"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            style={{ marginTop: -5 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
+        ),
+      }}
+    />
+    <LikedRecipesStack.Screen
+      name="LikedRecipe"
+      component={LikedRecipe}
+      options={{
+        title: "Liked Recipes",
+        headerLeft: () => (
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            style={{ marginTop: -5 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
+        ),
+      }}
+    />
+  </FavoritesStack.Navigator>
 );
 const ShoppingListStackScreen = ({ navigation }) => (
   <ShoppingListStack.Navigator
@@ -258,7 +334,7 @@ const ShoppingListStackScreen = ({ navigation }) => (
           // ></AntDesign.Button>
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-            style={{ marginTop: -12 }}
+            style={{ marginTop: -5 }}
           >
             <ProfilePic size={40} />
           </TouchableOpacity>
@@ -292,7 +368,7 @@ const ExploreStackScreen = ({ navigation }) => (
           // ></AntDesign.Button>
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
-            style={{ marginTop: -12 }}
+            style={{ marginTop: -5 }}
           >
             <ProfilePic size={40} />
           </TouchableOpacity>

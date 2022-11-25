@@ -22,6 +22,25 @@ export default StyleSheet.create({
     fontFamily: "Festive-Regular",
     fontSize: RFPercentage(7),
     textAlign: "center",
+    color: "white",
+  },
+  AmaticSCRegular: {
+    fontFamily: "AmaticSC-Regular",
+  },
+  AmaticSCBold: {
+    fontFamily: "AmaticSC-Bold",
+  },
+  textCenter: {
+    textAlignVertical: "center",
+    textAlign: "center",
+  },
+  recipePressableText: {
+    fontFamily: "AmaticSC-Bold",
+    fontSize: RFPercentage(4),
+    textAlign: "center",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderRadius: 10,
   },
 
   /* -------------- Headers --------------*/
@@ -40,6 +59,9 @@ export default StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  pageMargins: {
+    marginHorizontal: width / 20,
+  },
 
   /* -------------- Styling --------------*/
   outline: {
@@ -52,13 +74,49 @@ export default StyleSheet.create({
     width: width,
     height: height,
   },
+  likedRecipeScrollView: {
+    width: width / 1.12,
+    height: height / 3,
+    marginBottom: height / 30,
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  recommededScrollView: {
+    width: width / 1.1,
+    height: height / 5,
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  navView: {
+    width: width,
+    height: height / 8,
+  },
+
+  /* -------------- Images --------------*/
+  recipeBack: {
+    width: width / 2.25,
+    height: height / 5.2,
+    justifyContent: "center",
+    // backgroundColor: '#60DEF7'
+  },
+  recipeBack2: {
+    width: width / 1.12,
+    height: 190 * (width / 1200),
+    justifyContent: "center",
+    // backgroundColor: '#60DEF7'
+  },
+  bannerImage: {
+    width: width,
+    height: 460 * (width / 3043), // actual height * (width / actual width)
+    tintColor: "white",
+  },
 
   /* -------------- Custom  --------------*/
-  backIcon: {
-    width: width / 9,
-    height: width / 9,
-    tintColor: "white",
-    marginLeft: 10,
-    marginTop: -75,
+  card: {
+    width: width / 2.2,
+    height: height / 5.1,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: "black",
   },
 });
