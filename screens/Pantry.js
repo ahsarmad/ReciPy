@@ -169,6 +169,8 @@ export default function Pantry() {
           <View
             style={{
               paddingVertical: 15,
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             {/* <Text style={[styles.fontSmall, styles.margins,]}> */}
@@ -181,7 +183,7 @@ export default function Pantry() {
                 styles.margins,
               ]}
             >
-              Add ingredients to your pantry!
+              Add to Your Virtual Pantry!
             </Text>
           </View>
           <View>

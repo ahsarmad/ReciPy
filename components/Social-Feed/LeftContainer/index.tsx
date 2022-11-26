@@ -9,7 +9,7 @@ export type LeftContainerProps = {
 
 const LeftContainer = ({ user }: LeftContainerProps) => (
   <View>
-    <ProfilePic image={user.image} color={"#FE7979"} />
+    <ProfilePic image={user.image} color={"#b1f2ff"} />
   </View>
 );
 

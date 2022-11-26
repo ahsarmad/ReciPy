@@ -14,7 +14,6 @@ import PieChart from "react-native-expo-pie-chart";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import styles from "../styles/shoppingListStyles";
 import uuid from "react-native-uuid";
-import { Ionicons } from "@expo/vector-icons";
 
 export default function ShoppingList({ navigation }) {
   /* -------------------- Local State Variables -------------------- */
@@ -86,109 +85,148 @@ export default function ShoppingList({ navigation }) {
   /* -------------------- Render Method -------------------- */
   return (
     <View style={[styles.wholeScreen]}>
-      {/* <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View> */}
-
-      {/* <View
-        style={[styles.backButtonSection, { backgroundColor: headerColor }]}
-      >
-        <ImageBackground
-          source={require("../assets/img/banner8.png")}
-          style={[styles.banner, { overflow: "hidden" }]}
-          resizeMode="contain"
-          imageStyle={[{ tintColor: bannerColor }]}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-            style={[styles.backIconTouch]}
-          >
-            <Image
-              source={require("../assets/icons/go-back.png")}
-              style={[styles.backIcon, { tintColor: bannerColor }]}
-            />
-          </TouchableOpacity>
-        </ImageBackground>
-      </View> */}
-
       <ScrollView
         style={[styles.smallMargins]}
         keyboardShouldPersistTaps={"always"}
+        showsVerticalScrollIndicator={false}
       >
-        <View
-          style={[styles.outline, styles.settingOption, styles.centerItems]}
+        <Pressable
+          keyboardShouldPersistTaps="always"
+          onPress={() => {
+            Keyboard.dismiss();
+          }}
         >
-          <Text style={[styles.AmaticSCRegular, styles.fontLarge]}>
-            Shopping List
-          </Text>
-        </View>
-
-        <View style={[styles.flex, styles.verticalMargins]}>
-          <TextInput
-            placeholder=" add grocery items..."
-            style={[styles.input, styles.outline]}
-            value={searchText}
-            onChangeText={(text) => {
-              setSearchText(text);
-              text === "" ? setSearching(false) : setSearching(true);
-              text != "" ? setItemString(text) : setItemString("");
-            }}
-            searchText={searchText}
-            setSearchText={setSearchText}
-          />
-
-          <Pressable
-            style={[styles.clearButton]}
-            onPress={() => {
-              setSearchText("");
-              setSearching(false);
-              Keyboard.dismiss();
-            }}
+          <View
+            style={[styles.outline, styles.settingOption, styles.centerItems]}
           >
-            <Text style={[styles.AmaticSCBold, styles.fontMedium]}>Clear</Text>
-          </Pressable>
+            <Text style={[styles.AmaticSCRegular, styles.fontLarge]}>
+              Shopping List
+            </Text>
+          </View>
 
-          <Pressable
-            style={[styles.clearButton]}
-            onPress={() => {
-              setSearchText("");
-              setSearching(false);
-              enterPressHandler();
-              Keyboard.dismiss();
-            }}
-          >
-            <Text style={[styles.AmaticSCBold, styles.fontMedium]}>Enter</Text>
-          </Pressable>
-        </View>
+          <View style={[styles.flex, styles.verticalMargins]}>
+            <TextInput
+              placeholder=" add grocery items..."
+              style={[styles.input, styles.outline]}
+              value={searchText}
+              onChangeText={(text) => {
+                setSearchText(text);
+                text === "" ? setSearching(false) : setSearching(true);
+                text != "" ? setItemString(text) : setItemString("");
+              }}
+              searchText={searchText}
+              setSearchText={setSearchText}
+            />
 
-        <View>
-          <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
-            Not Purchased:
-          </Text>
-        </View>
+            <Pressable
+              style={[styles.clearButton]}
+              onPress={() => {
+                setSearchText("");
+                setSearching(false);
+                Keyboard.dismiss();
+              }}
+            >
+              <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
+                Clear
+              </Text>
+            </Pressable>
 
-        <View style={[styles.outline, styles.shoppingList]}>
-          <ScrollView>
-            {shoppingList.map((item) => {
-              return (
-                <View>
-                  <View style={[styles.flex]}>
-                    <Pressable
-                      style={[]}
-                      key={uuid.v4()}
-                      onPress={() => {
-                        uncheckPressHandler({ ...item });
-                      }}
-                    >
-                      <Image
-                        source={require("../assets/icons/uncheck.png")}
-                        style={[styles.uncheckIcon]}
-                      />
-                    </Pressable>
+            <Pressable
+              style={[styles.clearButton]}
+              onPress={() => {
+                setSearchText("");
+                setSearching(false);
+                enterPressHandler();
+                Keyboard.dismiss();
+              }}
+            >
+              <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
+                Enter
+              </Text>
+            </Pressable>
+          </View>
 
-                    <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
-                      {item.name}
-                    </Text>
+          <View>
+            <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
+              Not Purchased:
+            </Text>
+          </View>
+
+          <View style={[styles.outline, styles.shoppingList]}>
+            <ScrollView>
+              {shoppingList.map((item) => {
+                return (
+                  <View key={uuid.v4()}>
+                    <View style={[styles.flex]}>
+                      <Pressable
+                        style={[]}
+                        key={uuid.v4()}
+                        onPress={() => {
+                          uncheckPressHandler({ ...item });
+                        }}
+                      >
+                        <Image
+                          source={require("../assets/icons/uncheck.png")}
+                          style={[styles.uncheckIcon]}
+                        />
+                      </Pressable>
+
+                      <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
+                        {item.name}
+                      </Text>
+
+                      {deleteItems ? (
+                        <View style={[styles.deleteItem]}>
+                          <Pressable
+                            style={[]}
+                            key={uuid.v4()}
+                            onPress={() => {
+                              deleteUncheckPressHandler({ ...item });
+                            }}
+                          >
+                            <Image
+                              source={require("../assets/icons/delete.png")}
+                              style={[styles.deleteIcon]}
+                            />
+                          </Pressable>
+                        </View>
+                      ) : null}
+                    </View>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </View>
+
+          <View>
+            <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
+              Purchased:
+            </Text>
+          </View>
+
+          <View style={[styles.outline, styles.shoppingList]}>
+            <ScrollView>
+              {purchasedList.map((item) => {
+                return (
+                  <View key={uuid.v4()}>
+                    <View style={[styles.flex]}>
+                      <Pressable
+                        key={uuid.v4()}
+                        onPress={() => {
+                          checkPressHandler({ ...item });
+                        }}
+                      >
+                        <Image
+                          source={require("../assets/icons/check.png")}
+                          style={[styles.uncheckIcon]}
+                          tintColor="#40AAF2"
+                        />
+                      </Pressable>
+
+                      <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
+                        {item.name}
+                      </Text>
+                    </View>
 
                     {deleteItems ? (
                       <View style={[styles.deleteItem]}>
@@ -196,7 +234,7 @@ export default function ShoppingList({ navigation }) {
                           style={[]}
                           key={uuid.v4()}
                           onPress={() => {
-                            deleteUncheckPressHandler({ ...item });
+                            deleteCheckPressHandler({ ...item });
                           }}
                         >
                           <Image
@@ -207,74 +245,20 @@ export default function ShoppingList({ navigation }) {
                       </View>
                     ) : null}
                   </View>
-                </View>
-              );
-            })}
-          </ScrollView>
-        </View>
+                );
+              })}
+            </ScrollView>
+          </View>
 
-        <View>
-          <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
-            Purchased:
-          </Text>
-        </View>
-
-        <View style={[styles.outline, styles.shoppingList]}>
-          <ScrollView>
-            {purchasedList.map((item) => {
-              return (
-                <View>
-                  <View style={[styles.flex]}>
-                    <Pressable
-                      key={uuid.v4()}
-                      onPress={() => {
-                        checkPressHandler({ ...item });
-                      }}
-                    >
-                      <Image
-                        source={require("../assets/icons/check.png")}
-                        style={[styles.uncheckIcon]}
-                        tintColor="#40AAF2"
-                      />
-                    </Pressable>
-
-                    <Text style={[styles.AmaticSCBold, styles.fontMedium]}>
-                      {item.name}
-                    </Text>
-                  </View>
-
-                  {deleteItems ? (
-                    <View style={[styles.deleteItem]}>
-                      <Pressable
-                        style={[]}
-                        key={uuid.v4()}
-                        onPress={() => {
-                          deleteCheckPressHandler({ ...item });
-                        }}
-                      >
-                        <Image
-                          source={require("../assets/icons/delete.png")}
-                          style={[styles.deleteIcon]}
-                        />
-                      </Pressable>
-                    </View>
-                  ) : null}
-                </View>
-              );
-            })}
-          </ScrollView>
-        </View>
-
-        <Pressable
-          style={[
-            styles.deleteButton,
-            { backgroundColor: deleteItems ? "#40AAF2" : "#E42323" },
-          ]}
-          onPress={() => {
-            deleteItemsPressHandler();
-          }}
-        >
-          <View style={[styles.flex]}>
+          <Pressable
+            style={[
+              styles.deleteButton,
+              { backgroundColor: deleteItems ? "#40AAF2" : "#E42323" },
+            ]}
+            onPress={() => {
+              deleteItemsPressHandler();
+            }}
+          >
             <Text
               style={[
                 styles.fontMedium,
@@ -285,10 +269,10 @@ export default function ShoppingList({ navigation }) {
             >
               {deleteItems ? "Done!" : "Delete Items"}
             </Text>
-          </View>
-        </Pressable>
+          </Pressable>
 
-        <View style={[styles.navView]}></View>
+          <View style={[styles.navView]}></View>
+        </Pressable>
       </ScrollView>
     </View>
   );

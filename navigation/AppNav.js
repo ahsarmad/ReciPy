@@ -28,7 +28,6 @@ import { AuthContext } from "../Context/AuthContext";
 import MainTab from "./MainTab";
 import Settings from "../screens/Settings";
 import Favorites from "../screens/Favorites";
-import ShoppingList from "../screens/shoppingList";
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
@@ -220,11 +219,11 @@ const AppNav = (props) => {
               component={Settings}
               options={{ headerShown: false }}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
               name="Favorites"
               component={Favorites}
               options={{ headerShown: false }}
-            />
+            /> */}
           </Drawer.Navigator>
         ) : (
           <RootStack />

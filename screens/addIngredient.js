@@ -87,11 +87,11 @@ export default function AddIngredient({ navigation }) {
           }}
         >
           <View
-            style={[styles.pushDown, { backgroundColor: headerColor }]}
+            style={[styles.pushDown, { backgroundColor: "#2694f9" }]}
           ></View>
 
           <View
-            style={[styles.backButtonSection, { backgroundColor: headerColor }]}
+            style={[styles.backButtonSection, { backgroundColor: "#2694f9" }]}
           >
             <ImageBackground
               source={require("../assets/img/banner1.png")}

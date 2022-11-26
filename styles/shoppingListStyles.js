@@ -34,7 +34,8 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   deleteButtonText: {
-    width: width / 4,
+    width: width / 3,
+    textAlign: "center",
   },
 
   /* -------------- Headers --------------*/
@@ -58,8 +59,7 @@ export default StyleSheet.create({
     width: width / 9,
     height: width / 9,
     tintColor: "white",
-    marginBottom: 20,
-    marginLeft: 10,
+    top: height / 50,
   },
   banner: {
     width: width,
@@ -148,6 +148,8 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     width: width / 3,
+    height: height / 13,
+    alignItems: "center",
   },
   deleteItem: {
     width: wp("7%"),

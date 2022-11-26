@@ -92,12 +92,14 @@ export default StyleSheet.create({
     color: "black",
     fontSize: RFPercentage(2.2),
     borderRadius: 5,
+    overflow: "hidden",
   },
 
   /* -------------- Styling --------------*/
   outline: {
     borderWidth: 1,
     borderRadius: 5,
+    overflow: "hidden",
   },
 
   /* -------------- Size --------------*/
@@ -122,7 +124,7 @@ export default StyleSheet.create({
     backgroundColor: "#2196f3",
     width: width / 6.6,
     borderWidth: 1,
-    borderRadius: 5,
+    overflow: "hidden",
   },
   searchResult: {
     width: width / 2,
@@ -143,5 +145,12 @@ export default StyleSheet.create({
   navView: {
     width: width,
     height: height / 8,
+  },
+  datePicker: {
+    width: width / 1.1,
+    height: height / 5,
+    marginHorizontal: width / 20,
+    marginVertical: height / 10,
+    // backgroundColor: "white",
   },
 });
