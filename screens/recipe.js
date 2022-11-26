@@ -116,19 +116,19 @@ export default function Recipe({ navigation }) {
         style={[styles.backButtonSection, { backgroundColor: headerColor }]}
       >
         <ImageBackground
-          source={require("../img/banner1.png")}
+          source={require("../assets/img/banner1.png")}
           style={[styles.banner, { overflow: "hidden" }]}
           resizeMode="contain"
           imageStyle={[{ tintColor: bannerColor }]}
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("HomeScreen");
+              navigation.goBack();
             }}
             style={[styles.backIconTouch]}
           >
             <Image
-              source={require("../icons/go-back.png")}
+              source={require("../assets/icons/go-back.png")}
               style={[styles.backIcon, { tintColor: bannerColor }]}
             />
           </TouchableOpacity>
