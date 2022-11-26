@@ -34,7 +34,7 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   deleteButtonText: {
-    width: width / 4,
+    width: width / 3,
     textAlign: "center",
   },
 
@@ -149,6 +149,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     width: width / 3,
     height: height / 13,
+    alignItems: "center",
   },
   deleteItem: {
     width: wp("7%"),

@@ -85,31 +85,6 @@ export default function ShoppingList({ navigation }) {
   /* -------------------- Render Method -------------------- */
   return (
     <View style={[styles.wholeScreen]}>
-      {/* <View style={[styles.pushDown, { backgroundColor: "#3DBE29" }]}></View>
-
-      <View
-        style={[styles.backButtonSection, { backgroundColor: headerColor }]}
-      >
-        <ImageBackground
-          source={require("../assets/img/banner8.png")}
-          style={[styles.banner, { overflow: "hidden" }]}
-          resizeMode="contain"
-          imageStyle={[{ backgroundColor: "#3DBE29" }]}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("HomeScreen");
-            }}
-            style={[styles.backIconTouch]}
-          >
-            <Image
-              source={require("../assets/icons/go-back.png")}
-              style={[styles.backIcon, { tintColor: bannerColor }]}
-            />
-          </TouchableOpacity>
-        </ImageBackground>
-      </View> */}
-
       <ScrollView
         style={[styles.smallMargins]}
         keyboardShouldPersistTaps={"always"}
