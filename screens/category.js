@@ -22,13 +22,15 @@ export default function Category({ navigation }) {
   const setSelectedIngredients = useStoreActions(
     (actions) => actions.setSelectedIngredients
   );
+  const setHaveIngredients = useStoreActions(
+    (actions) => actions.setHaveIngredients
+  );
 
   const refresh = useStoreState((state) => state.refresh);
   const setRefresh = useStoreActions((actions) => actions.setRefresh);
 
-  const lightEnabled = useStoreState((state) => state.lightEnabled);
-  const darkEnabled = useStoreState((state) => state.darkEnabled);
-  const halloweenEnabled = useStoreState((state) => state.halloweenEnabled);
+  const dietOption = useStoreState((state) => state.dietOption);
+  const removedIngredients = useStoreState((state) => state.removedIngredients);
 
   /* -------------------- Redux State Colors -------------------- */
   const headerColor = useStoreState((state) => state.headerColor);
@@ -36,23 +38,33 @@ export default function Category({ navigation }) {
   const bannerColor = useStoreState((state) => state.bannerColor);
 
   /* -------------------- Handler Functions -------------------- */
-  const selectedListPress = (key) => {
-    console.log(`clicked ${key}`);
+  const selectedListPress = (ingredientObj) => {
     let newList = selectedIngredients.filter(
-      (ingredient) => ingredient.key != key
+      (ingredient) => ingredient.id != ingredientObj.id
     );
-    console.log(newList);
     setSelectedIngredients(newList);
+    setHaveIngredients();
+    console.log(
+      `removed ${ingredientObj.name} num ingredients: ${newList.length}`
+    );
   };
 
-  const pressHandler = (name, key) => {
-    if (selectedIngredients.find((ingredient) => ingredient.name === name)) {
+  const categoryPressHandler = (ingredientObj) => {
+    if (
+      selectedIngredients.find(
+        (ingredient) => ingredient.name === ingredientObj.name
+      )
+    ) {
       return;
     }
     let newList = selectedIngredients;
-    newList.push({ name: name, key: key });
+    newList.push({ ...ingredientObj });
     setSelectedIngredients(newList);
+    setHaveIngredients();
     setRefresh(!refresh);
+    console.log(
+      `added: ${ingredientObj.name} num ingredients: ${newList.length}`
+    );
   };
 
   const refreshPage = () => {
@@ -111,18 +123,7 @@ export default function Category({ navigation }) {
         </ImageBackground>
       </View>
 
-      <View
-        style={[
-          styles.header,
-          lightEnabled
-            ? { backgroundColor: "#2196F3" }
-            : darkEnabled
-            ? { backgroundColor: "#4A576F", color: "#A4A9AD" }
-            : halloweenEnabled
-            ? { backgroundColor: "#FF7739" }
-            : { backgroundColor: "#2196F3" },
-        ]}
-      >
+      <View style={[styles.header, { backgroundColor: headerColor }]}>
         <Text style={[styles.headerText]}>Category: {category}</Text>
       </View>
 
@@ -133,9 +134,9 @@ export default function Category({ navigation }) {
           {selectedIngredients.map((ingredient) => {
             return (
               <Pressable
-                key={ingredient.key}
+                key={ingredient.id}
                 style={[styles.roundBTN, styles.flex]}
-                onPress={() => selectedListPress(ingredient.key)}
+                onPress={() => selectedListPress(ingredient)}
               >
                 <Text
                   style={[
@@ -157,35 +158,48 @@ export default function Category({ navigation }) {
           source={require("../assets/img/searchItems.png")}
           style={[styles.backImage]}
           resizeMode="contain"
-          imageStyle={[{ tintColor: bannerColor }]}
+          imageStyle={[{ tintColor: headerColor }]}
         ></ImageBackground>
       </View>
 
       <ScrollView style={[styles.ingredientMargins]}>
         <View style={[styles.flexRow, styles.centerItems]}>
-          {categoryList.map((ingredient) => {
-            return (
-              <TouchableOpacity
-                key={ingredient.id}
-                style={[styles.roundBTN]}
-                onPress={() => {
-                  pressHandler(ingredient.name, ingredient.id);
-                }}
-                onPressIn={() => fadeIn}
-                onPressOut={() => fadeOut}
-              >
-                <Text
-                  style={[
-                    styles.fontSmall,
-                    styles.textCenter,
-                    { color: "black" },
-                  ]}
+          {categoryList
+            .filter((ingredient) => {
+              if (dietOption === "default") {
+                return true;
+              }
+              return ingredient[dietOption] === "TRUE";
+            })
+            .filter(
+              (ingredient) =>
+                removedIngredients.some(
+                  (item) => item.name === ingredient.name
+                ) === false
+            )
+            .map((ingredient) => {
+              return (
+                <TouchableOpacity
+                  key={ingredient.id}
+                  style={[styles.roundBTN]}
+                  onPress={() => {
+                    categoryPressHandler({ ...ingredient });
+                  }}
+                  onPressIn={() => fadeIn}
+                  onPressOut={() => fadeOut}
                 >
-                  {ingredient.name.replace("_", " ")}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+                  <Text
+                    style={[
+                      styles.fontSmall,
+                      styles.textCenter,
+                      { color: "black" },
+                    ]}
+                  >
+                    {ingredient.name.replace("_", " ")}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
         </View>
       </ScrollView>
     </View>

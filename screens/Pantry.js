@@ -20,6 +20,7 @@ import uuid from "react-native-uuid";
 /* -------------------- Components -------------------- */
 import { SearchBar } from "react-native-screens";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePicker from "react-native-modal-datetime-picker";
 import * as Notifications from "expo-notifications";
 
 export default function Pantry() {
@@ -140,18 +141,18 @@ export default function Pantry() {
       },
     });
   }
+
   /* -------------------- Render Method -------------------- */
 
   return (
     <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
-      <Pressable
-        keyboardShouldPersistTaps="always"
-        onPress={() => {
-          Keyboard.dismiss();
-        }}
-        style={[styles.wholeScreen]}
-      >
-        <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} style={[]}>
+        <Pressable
+          keyboardShouldPersistTaps="always"
+          onPress={() => {
+            Keyboard.dismiss();
+          }}
+        >
           {/* <View
             style={[styles.pushDown, { backgroundColor: headerColor }]}
           ></View>
@@ -165,27 +166,13 @@ export default function Pantry() {
           </View> */}
 
           {/* ------------------------------------ Input Fields ------------------------------------ */}
-
-          <View
-            style={{
-              paddingVertical: 15,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+          <View></View>
+          <Text
+            style={[styles.fontMedium, styles.margins, styles.AmaticSCBold]}
           >
-            {/* <Text style={[styles.fontSmall, styles.margins,]}> */}
-            <Text
-              style={[
-                {
-                  fontSize: 24,
-                  fontFamily: "Quicksand-SemiBold",
-                },
-                styles.margins,
-              ]}
-            >
-              Add to Your Virtual Pantry!
-            </Text>
-          </View>
+            Add to your virtual pantry!
+          </Text>
+
           <View>
             <View style={styles.container}>
               <TextInput
@@ -228,7 +215,11 @@ export default function Pantry() {
                   enterPressHandler();
                 }}
               >
-                <Text style={styles.clear}>Enter</Text>
+                <Text
+                  style={[styles.clear, styles.AmaticSCBold, styles.fontMedium]}
+                >
+                  Enter
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -278,6 +269,9 @@ export default function Pantry() {
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
+            minimumDate={new Date()}
+            modalStyleIOS={[styles.datePicker]}
+            display="default"
           />
 
           {/* ------------------------------------ Visual Pantry ------------------------------------ */}
@@ -348,8 +342,8 @@ export default function Pantry() {
           </View>
 
           <View style={[styles.navView]}></View>
-        </ScrollView>
-      </Pressable>
+        </Pressable>
+      </ScrollView>
     </View>
   );
 }

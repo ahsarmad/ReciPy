@@ -41,6 +41,10 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
   },
+  generateButtonText: {
+    fontFamily: "AmaticSC-Bold",
+    fontSize: RFPercentage(4),
+  },
 
   /* -------------- Headers --------------*/
   header: {
@@ -70,12 +74,13 @@ export default StyleSheet.create({
 
   /* -------------- Buttons --------------*/
   generateButton: {
-    width: width / 1.6,
+    width: width / 1.3,
     height: height / 16,
     justifyContent: "center",
     alignItems: "center",
     marginLeft: "auto",
     marginRight: "auto",
+    marginBottom: height / 80,
   },
 
   /* -------------- Size --------------*/
@@ -85,7 +90,7 @@ export default StyleSheet.create({
   },
   likedRecipeScrollView: {
     width: width / 1.12,
-    height: height / 3,
+    height: height / 3.6,
     marginBottom: height / 30,
     borderWidth: 2,
     borderRadius: 5,
@@ -98,7 +103,7 @@ export default StyleSheet.create({
   },
   navView: {
     width: width,
-    height: height / 8,
+    height: height / 15,
   },
 
   /* -------------- Images --------------*/
@@ -118,6 +123,10 @@ export default StyleSheet.create({
     width: width,
     height: 460 * (width / 3043), // actual height * (width / actual width)
     tintColor: "white",
+  },
+  tempLogo: {
+    width: width / 1.1,
+    height: height / 5,
   },
 
   /* -------------- Custom  --------------*/

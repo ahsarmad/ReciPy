@@ -13,7 +13,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 const { height, width } = Dimensions.get("window");
 import axios from "axios";
 
-export default function Favorites({ navigation }) {
+export default function Favorite({ navigation }) {
   /* -------------------- Local State Variables -------------------- */
   const [showRecommended, setShowRecommended] = useState(false);
 
@@ -93,7 +93,11 @@ export default function Favorites({ navigation }) {
   };
 
   const generateRecommended = () => {
-    if (likedRecipes.length > 0 && pantryItems.length > 0) {
+    if (
+      likedRecipes.length > 0 &&
+      pantryItems.length > 0 &&
+      showRecommended === false
+    ) {
       axios({
         method: "get",
         url: `http://recipy-ingredients-backend.herokuapp.com/recommend/${returnIngredientString(
@@ -116,12 +120,7 @@ export default function Favorites({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View
-      style={[
-        styles.wholeScreen,
-        { backgroundColor: pageColor, marginTop: 10 },
-      ]}
-    >
+    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
       {/* <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
 
       <View style={[styles.header, { backgroundColor: headerColor }]}>
@@ -188,16 +187,20 @@ export default function Favorites({ navigation }) {
 
           <Pressable
             onPress={generateRecommended}
-            style={[styles.generateButton, styles.outline]}
+            style={[
+              styles.generateButton,
+              styles.outline,
+              { backgroundColor: showRecommended ? "#4FC1FF" : "#2196F3" },
+            ]}
           >
-            <Text style={[styles.fontMedium, styles.AmaticSCBold]}>
+            <Text style={[styles.generateButtonText]}>
               Generate Recommended Recipes
             </Text>
           </Pressable>
 
           <View>
             <Text style={[styles.AmaticSCBold, styles.fontLarge]}>
-              Recommended Recipes: {renderedRecommended ? "TRUE" : "FALSE"}
+              Recommended Recipes:{" "}
             </Text>
           </View>
 
@@ -279,7 +282,12 @@ export default function Favorites({ navigation }) {
                 })}
               </ScrollView>
             ) : (
-              <View></View>
+              <View>
+                <ImageBackground
+                  source={require("../assets/img/recipylogo.png")}
+                  style={[styles.tempLogo]}
+                ></ImageBackground>
+              </View>
             )}
           </View>
         </View>

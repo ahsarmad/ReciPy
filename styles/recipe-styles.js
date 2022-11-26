@@ -154,7 +154,7 @@ export default StyleSheet.create({
   /* -------------- Custom  --------------*/
   navView: {
     width: width,
-    height: height / 4,
+    height: height / 8,
   },
   recipeCard: {},
   box1: {

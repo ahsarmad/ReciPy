@@ -361,7 +361,7 @@ export default StyleSheet.create({
   },
   navView: {
     width: width,
-    height: height / 8,
+    height: height / 4.5,
   },
   recipeView: {
     width: width - width / 25,

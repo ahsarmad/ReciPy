@@ -92,14 +92,12 @@ export default StyleSheet.create({
     color: "black",
     fontSize: RFPercentage(2.2),
     borderRadius: 5,
-    overflow: "hidden",
   },
 
   /* -------------- Styling --------------*/
   outline: {
     borderWidth: 1,
     borderRadius: 5,
-    overflow: "hidden",
   },
 
   /* -------------- Size --------------*/
@@ -124,7 +122,7 @@ export default StyleSheet.create({
     backgroundColor: "#2196f3",
     width: width / 6.6,
     borderWidth: 1,
-    overflow: "hidden",
+    borderRadius: 5,
   },
   searchResult: {
     width: width / 2,
