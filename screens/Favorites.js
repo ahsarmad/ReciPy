@@ -1,46 +1,4 @@
-// import React from "react";
-// import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
-// import styles from "../styles/favorite-styles";
-// import { useStoreState, useStoreActions } from "easy-peasy";
-
-// export default function Favorites({ navigation }) {
-//   /* -------------------- Redux State Variables -------------------- */
-
-//   /* -------------------- Redux State Colors -------------------- */
-//   const headerColor = useStoreState((state) => state.headerColor);
-//   const pageColor = useStoreState((state) => state.pageColor);
-//   const bannerColor = useStoreState((state) => state.bannerColor);
-
-//   /* -------------------- Render Method -------------------- */
-//   return (
-//     <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
-//       <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
-
-//       <View style={[styles.header, { backgroundColor: headerColor }]}>
-//         <Text style={[styles.headerText]}>Favorites</Text>
-//         <TouchableOpacity
-//           onPress={() => {
-//             navigation.goBack();
-//           }}
-//           style={[styles.backIconTouch]}
-//         >
-//           <Image
-//             source={require("../assets/icons/go-back.png")}
-//             style={[styles.backIcon, { tintColor: bannerColor }]}
-//           />
-//           {/* <Ionicons
-//               name="ios-home"
-//               color={"white"}
-//               size={35}
-//               style={styles.backIcon}
-//             /> */}
-//         </TouchableOpacity>
-//       </View>
-//     </View>
-//   );
-// }
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -53,16 +11,27 @@ import {
 import styles from "../styles/favorite-styles";
 import { useStoreState, useStoreActions } from "easy-peasy";
 const { height, width } = Dimensions.get("window");
+import axios from "axios";
 
 export default function Favorites({ navigation }) {
+  /* -------------------- Local State Variables -------------------- */
+  const [showRecommended, setShowRecommended] = useState(false);
+
   /* -------------------- Redux State Variables -------------------- */
   const refresh = useStoreState((state) => state.refresh);
   const setRefresh = useStoreActions((actions) => actions.setRefresh);
 
   const likedRecipes = useStoreState((state) => state.likedRecipes);
+  const pantryItems = useStoreState((state) => state.pantryItems);
   const recommendedRecipes = useStoreState((state) => state.recommendedRecipes);
   const renderedRecommended = useStoreState(
     (state) => state.renderedRecommended
+  );
+  const setRecommendedRecipes = useStoreActions(
+    (actions) => actions.setRecommendedRecipes
+  );
+  const setRenderedRecommended = useStoreActions(
+    (actions) => actions.setRenderedRecommended
   );
 
   const setCurrentRecipeMacros = useStoreActions(
@@ -90,6 +59,13 @@ export default function Favorites({ navigation }) {
   const bannerColor = useStoreState((state) => state.bannerColor);
 
   /* -------------------- Handler Functions -------------------- */
+  const returnIngredientString = (ingredients, attr) => {
+    let output = [];
+    for (let i = 0; i < ingredients.length; i++) {
+      output.push(ingredients[i][attr]);
+    }
+    return output.join(",");
+  };
 
   const likedRecipePress = (
     title = "Loading...",
@@ -116,13 +92,46 @@ export default function Favorites({ navigation }) {
     navigation.navigate("LikedRecipe");
   };
 
+  const generateRecommended = () => {
+    if (likedRecipes.length > 0 && pantryItems.length > 0) {
+      axios({
+        method: "get",
+        url: `http://recipy-ingredients-backend.herokuapp.com/recommend/${returnIngredientString(
+          likedRecipes,
+          "id"
+        )}/${returnIngredientString(pantryItems, "name")}`,
+      })
+        .then((response) => {
+          setRecommendedRecipes(response.data);
+        })
+        .then(() => {
+          console.log("Response: ", recommendedRecipes);
+          setRefresh(!refresh);
+        });
+      setRefresh(!refresh);
+      setRenderedRecommended(true);
+    }
+    setShowRecommended(!showRecommended);
+  };
+
   /* -------------------- Render Method -------------------- */
   return (
-    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
-      {/* <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View> */}
+    <View
+      style={[
+        styles.wholeScreen,
+        { backgroundColor: pageColor, marginTop: 10 },
+      ]}
+    >
+      {/* <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
 
-      {/* <View style={[styles.header, { backgroundColor: "#b71282" }]}>
-        <Text style={[styles.headerText]}>Recommendations</Text>
+      <View style={[styles.header, { backgroundColor: headerColor }]}>
+        <ImageBackground
+          source={require("../assets/img/banner81.png")}
+          style={[styles.bannerImage]}
+          imageStyle={[{ tintColor: "white" }]}
+        >
+          <Text style={[styles.headerText]}>Favorites</Text>
+        </ImageBackground>
       </View> */}
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -159,7 +168,7 @@ export default function Favorites({ navigation }) {
                   >
                     <ImageBackground
                       source={require("../assets/img/banner71.png")}
-                      style={[styles.recipeBack]}
+                      style={[styles.recipeBack2]}
                     >
                       <Text
                         style={[
@@ -177,19 +186,102 @@ export default function Favorites({ navigation }) {
             </ScrollView>
           </View>
 
+          <Pressable
+            onPress={generateRecommended}
+            style={[styles.generateButton, styles.outline]}
+          >
+            <Text style={[styles.fontMedium, styles.AmaticSCBold]}>
+              Generate Recommended Recipes
+            </Text>
+          </Pressable>
+
           <View>
             <Text style={[styles.AmaticSCBold, styles.fontLarge]}>
               Recommended Recipes: {renderedRecommended ? "TRUE" : "FALSE"}
             </Text>
           </View>
 
-          {renderedRecommended ? (
-            <View style={[styles.outline, styles.recommededScrollView]}>
-              <ScrollView horizontal={true}></ScrollView>
-            </View>
-          ) : (
-            <View></View>
-          )}
+          <View style={[styles.outline, styles.recommededScrollView]}>
+            {renderedRecommended && showRecommended ? (
+              <ScrollView horizontal={true}>
+                {Object.keys(
+                  Object.values(Object.values(recommendedRecipes))[0]["CARBS"]
+                ).map((key, index) => {
+                  return (
+                    <Pressable
+                      style={[styles.outline]}
+                      key={key}
+                      onPress={() =>
+                        likedRecipePress(
+                          Object.values(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "TITLE"
+                            ]
+                          )[index],
+                          Object.values(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "DESCRIPTION"
+                            ]
+                          )[index],
+                          Object.values(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "MACROS"
+                            ]
+                          )
+                            [index].split("\n")
+                            .join(" ")
+                            .split(",")
+                            .join(", "),
+                          Object.values(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "has_ingredients"
+                            ]
+                          )[index],
+                          Object.values(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "INGREDIENTS_LIST"
+                            ]
+                          )[index],
+                          Object.values(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "DIRECTIONS"
+                            ]
+                          )[index],
+                          Object.values(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "LINK"
+                            ]
+                          )[index],
+                          Object.keys(
+                            Object.values(Object.values(recommendedRecipes))[0][
+                              "TITLE"
+                            ]
+                          )[index]
+                        )
+                      }
+                    >
+                      <ImageBackground
+                        source={require("../assets/img/recipe2.png")}
+                        style={[styles.recipeBack]}
+                      >
+                        <Text style={[styles.recipePressableText]}>
+                          {
+                            Object.values(
+                              Object.values(
+                                Object.values(recommendedRecipes)
+                              )[0]["TITLE"]
+                            )[index]
+                          }
+                        </Text>
+                      </ImageBackground>
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            ) : (
+              <View></View>
+            )}
+          </View>
         </View>
         <View style={[styles.navView]}></View>
       </ScrollView>

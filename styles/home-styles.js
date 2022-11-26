@@ -190,6 +190,7 @@ export default StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontFamily: "AmaticSC-Bold",
+    overflow: "hidden",
   },
   recipePressableText: {
     fontFamily: "AmaticSC-Bold",
@@ -198,6 +199,7 @@ export default StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 1,
     borderRadius: 10,
+    overflow: "hidden",
   },
 
   /* -------------- Images --------------*/
@@ -268,6 +270,7 @@ export default StyleSheet.create({
   outline: {
     borderWidth: 1,
     borderRadius: 5,
+    overflow: "hidden",
   },
 
   /* -------------- Size --------------*/
@@ -318,6 +321,7 @@ export default StyleSheet.create({
     marginRight: wp("2%"),
     marginLeft: wp("2%"),
     marginVertical: wp("2%"),
+    overflow: "hidden",
   },
   categoryButton: {
     borderWidth: 1,
@@ -325,6 +329,7 @@ export default StyleSheet.create({
     width: width / 4.3,
     height: width / 9,
     textAlign: "center",
+    overflow: "hidden",
   },
   roundBTN: {
     borderWidth: 2,
@@ -336,6 +341,7 @@ export default StyleSheet.create({
     marginTop: 2,
     height: width / 12,
     backgroundColor: "#60DEF7",
+    overflow: "hidden",
   },
 
   /* -------------- Custom  --------------*/
@@ -345,6 +351,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: "black",
+    overflow: "hidden",
   },
   selectedIngredients: {
     width: width - RFPercentage(2.2),
@@ -362,6 +369,7 @@ export default StyleSheet.create({
     marginHorizontal: width / 50,
     borderWidth: 2,
     borderRadius: 5,
+    overflow: "hidden",
   },
   recipeText: {
     fontFamily: "AmaticSC-Bold",

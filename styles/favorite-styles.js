@@ -22,7 +22,6 @@ export default StyleSheet.create({
     fontFamily: "Festive-Regular",
     fontSize: RFPercentage(7),
     textAlign: "center",
-    color: "white",
   },
   AmaticSCRegular: {
     fontFamily: "AmaticSC-Regular",
@@ -67,6 +66,16 @@ export default StyleSheet.create({
   outline: {
     borderWidth: 1,
     borderRadius: 5,
+  },
+
+  /* -------------- Buttons --------------*/
+  generateButton: {
+    width: width / 1.6,
+    height: height / 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
   /* -------------- Size --------------*/

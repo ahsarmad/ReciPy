@@ -93,7 +93,7 @@ const MainTab = () => (
         tabBarStyle: { background: "transparent" },
         labelStyle: { paddingTop: 10 },
         tabBarLabel: "Favorites",
-        tabBarColor: "#970449",
+        tabBarColor: "#b71282",
         tabBarIcon: ({ color }) => (
           <FontAwesome
             name="heart"

@@ -110,11 +110,9 @@ export default function LikedRecipe({ navigation }) {
   /* -------------------- Render Method -------------------- */
   return (
     <View>
-      <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
+      <View style={[styles.pushDown, { backgroundColor: "#b71282" }]}></View>
 
-      <View
-        style={[styles.backButtonSection, { backgroundColor: headerColor }]}
-      >
+      <View style={[styles.backButtonSection, { backgroundColor: "#b71282" }]}>
         <ImageBackground
           source={require("../assets/img/banner1.png")}
           style={[styles.banner, { overflow: "hidden" }]}
@@ -123,7 +121,7 @@ export default function LikedRecipe({ navigation }) {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("FavoriteScreen");
+              navigation.goBack();
             }}
             style={[styles.backIconTouch]}
           >

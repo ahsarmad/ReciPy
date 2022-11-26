@@ -15,6 +15,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     opacity: 0.8,
   },
+  // shadowProp: {
+  //   shadowColor: "#000",
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 12,
+  //   },
+  //   shadowOpacity: 0.58,
+  //   shadowRadius: 16.0,
+
+  //   elevation: 24,
+  // },
 });
 
 export default styles;

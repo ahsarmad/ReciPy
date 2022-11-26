@@ -14,7 +14,11 @@ const NewPostButton = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={onPress}
+      activeOpacity={0.4}
+    >
       <FontAwesome5 name="pen" size={22} color="#fff" />
     </TouchableOpacity>
   );

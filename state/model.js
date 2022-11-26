@@ -5778,8 +5778,8 @@ export default {
     state.recommendedRecipes = recipes;
   }),
   renderedRecommended: false,
-  setRenderedRecommended: action((state) => {
-    state.renderedRecommended = true;
+  setRenderedRecommended: action((state, bool) => {
+    state.renderedRecommended = bool;
   }),
 
   /* -------------------- Shopping List -------------------- */
