@@ -127,7 +127,10 @@ export default function LikedRecipe({ navigation }) {
           >
             <Image
               source={require("../assets/icons/go-back.png")}
-              style={[styles.backIcon, { tintColor: bannerColor }]}
+              style={[
+                styles.backIcon,
+                { tintColor: bannerColor, marginLeft: 0, marginLeft: 5 },
+              ]}
             />
           </TouchableOpacity>
         </ImageBackground>

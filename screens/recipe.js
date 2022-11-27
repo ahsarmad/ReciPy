@@ -110,11 +110,9 @@ export default function Recipe({ navigation }) {
   /* -------------------- Render Method -------------------- */
   return (
     <View>
-      <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
+      <View style={[styles.pushDown, { backgroundColor: "#2694f9" }]}></View>
 
-      <View
-        style={[styles.backButtonSection, { backgroundColor: headerColor }]}
-      >
+      <View style={[styles.backButtonSection, { backgroundColor: "#2694f9" }]}>
         <ImageBackground
           source={require("../assets/img/banner1.png")}
           style={[styles.banner, { overflow: "hidden" }]}
@@ -129,7 +127,10 @@ export default function Recipe({ navigation }) {
           >
             <Image
               source={require("../assets/icons/go-back.png")}
-              style={[styles.backIcon, { tintColor: bannerColor }]}
+              style={[
+                styles.backIcon,
+                { tintColor: bannerColor, marginLeft: 5 },
+              ]}
             />
           </TouchableOpacity>
         </ImageBackground>

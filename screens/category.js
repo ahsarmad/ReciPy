@@ -117,7 +117,10 @@ export default function Category({ navigation }) {
           >
             <Image
               source={require("../assets/icons/go-back.png")}
-              style={[styles.backIcon, { tintColor: bannerColor }]}
+              style={[
+                styles.backIcon,
+                { tintColor: bannerColor, marginLeft: 5, marginTop: -8 },
+              ]}
             />
           </TouchableOpacity>
         </ImageBackground>
