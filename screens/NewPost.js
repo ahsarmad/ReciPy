@@ -1,14 +1,12 @@
-import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import React from "react";
 import Feed from "../components/Feed";
 import NewPostButton from "../components/NewPostButton";
-import NewPost from "./NewPost";
 
-const Explore = (props) => {
+const NewPost = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Feed />
-      <NewPostButton />
+      <Text> Hello World</Text>
     </View>
   );
 };
@@ -21,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Explore;
+export default NewPost;

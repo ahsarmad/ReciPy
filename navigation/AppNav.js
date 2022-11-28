@@ -162,7 +162,7 @@ const AppNav = (props) => {
           console.log(e);
         }
         dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
-      }, 4000);
+      }, 3500);
     }, []);
 
   const cmAnimation = useRef();

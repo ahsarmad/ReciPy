@@ -5,6 +5,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import HomeScreen from "../screens/Home";
 import Pantry from "../screens/Pantry";
 import Explore from "../screens/Explore";
+import NewPost from "../screens/NewPost";
 import AddIngredient from "../screens/addIngredient";
 import Recipe from "../screens/recipe";
 import Category from "../screens/category";
@@ -36,6 +37,7 @@ const ShoppingListStack = createNativeStackNavigator();
 const FavoritesStack = createNativeStackNavigator();
 const LikedRecipesStack = createNativeStackNavigator();
 const ExploreStack = createNativeStackNavigator();
+const NewPostStack = createNativeStackNavigator();
 const AddIngredientStack = createNativeStackNavigator();
 const RecipeStack = createNativeStackNavigator();
 const CategoryStack = createNativeStackNavigator();
@@ -387,6 +389,27 @@ const ExploreStackScreen = ({ navigation }) => (
           //   name="menu-fold"
           //   size={23}
           //   backgroundColor="#6a0dad"
+          //   onPress={() => navigation.openDrawer()}
+          // ></AntDesign.Button>
+          <TouchableOpacity
+            onPress={() => navigation.openDrawer()}
+            style={{ marginTop: -5 }}
+          >
+            <ProfilePic size={40} />
+          </TouchableOpacity>
+        ),
+      }}
+    />
+    <NewPostStack.Screen
+      name="NewPost"
+      component={NewPost}
+      options={{
+        title: "New Post",
+        headerLeft: () => (
+          // <AntDesign.Button
+          //   name="menu-fold"
+          //   size={23}
+          //   backgroundColor="#2694F9"
           //   onPress={() => navigation.openDrawer()}
           // ></AntDesign.Button>
           <TouchableOpacity

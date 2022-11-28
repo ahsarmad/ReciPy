@@ -1,16 +1,19 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Button } from "react-native";
 import {
   Ionicons,
   AntDesign,
   SimpleLineIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+
 import styles from "./styles";
 
 const NewPostButton = () => {
+  const navigation = useNavigation();
   const onPress = () => {
-    alert("New Post");
+    navigation.navigate("NewPost");
   };
 
   return (
