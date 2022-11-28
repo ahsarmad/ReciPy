@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image } from "react-native";
 import { PostType } from "../../../types";
 import moment from "moment";
+import { AuthContext } from "../../../Context/AuthContext";
 
 import styles from "./styles";
 
@@ -10,6 +11,7 @@ export type MainContainerProps = {
 };
 
 const MainContainer = ({ post }: MainContainerProps) => (
+  // const { userInfo } = useContext(AuthContext);
   <View style={styles.container}>
     <View style={styles.postHeaderContainer}>
       <Text style={styles.name}>{post.user.name}</Text>
