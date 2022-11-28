@@ -131,16 +131,22 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React from "react";
-import Feed from "../components/Feed";
-import NewPostButton from "../components/NewPostButton";
+import React, { useCallback, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import ProfilePic from "../components/ProfilePic";
 import styles from "../styles/new-post-styles";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from "axios";
+import baseURL from "../assets/common/baseUrl";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const NewPost = ({ navigation }) => {
+  const [name, setName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
   const onPostButton = () => {
-    Alert.alert("Cancel Pressed");
+    console.log(`Posting the post: ${name} Image: ${imageUrl}`);
+    Alert.alert("Check console");
   };
   const onBack = () => {
     navigation.goBack();
@@ -167,12 +173,16 @@ const NewPost = ({ navigation }) => {
 
           <View style={styles.inputsContainer}>
             <TextInput
+              value={name}
+              onChangeText={(value) => setName(value)}
               multiline={true}
               numberOfLines={3}
               style={styles.textInput}
               placeholder={"Create a new post!"}
             />
             <TextInput
+              value={imageUrl}
+              onChangeText={(imageUrl) => setImageUrl(imageUrl)}
               style={styles.imageInput}
               placeholder={"Image url: (optional)"}
             />
