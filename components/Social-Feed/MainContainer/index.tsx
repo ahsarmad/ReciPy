@@ -10,8 +10,9 @@ export type MainContainerProps = {
   post: PostType;
 };
 
+// const { userInfo } = useContext(AuthContext);
+
 const MainContainer = ({ post }: MainContainerProps) => (
-  // const { userInfo } = useContext(AuthContext);
   <View style={styles.container}>
     <View style={styles.postHeaderContainer}>
       <Text style={styles.name}>{post.user.name}</Text>

@@ -273,6 +273,7 @@ export default StyleSheet.create({
     shadowRadius: 4.65,
 
     elevation: 6,
+    activeOpacity: 0.7,
   },
   doneText: {
     fontSize: 18,

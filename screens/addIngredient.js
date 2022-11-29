@@ -261,12 +261,13 @@ export default function AddIngredient({ navigation }) {
               </ScrollView>
             </View>
             <View style={styles.doneButtonContainer}>
-              <Pressable
+              <TouchableOpacity
                 style={styles.doneButton}
+                activeOpacity={0.4}
                 onPress={() => navigation.goBack()}
               >
                 <Text style={styles.doneText}>Done</Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
             <Text
               style={[

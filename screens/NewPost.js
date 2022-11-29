@@ -66,11 +66,12 @@ const NewPost = (props) => {
     <ScrollView>
       <SafeAreaView style={styles.container}>
         <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={onBack}>
+          <TouchableOpacity activeOpacity={0.4} onPress={onBack}>
             <Ionicons name="close" size={32} color="#3E92CC" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
+            activeOpacity={0.4}
             onPress={() => [
               makeNewPost(),
               console.log(`Posting the post: ${name} Image: ${imageUrl}`),
