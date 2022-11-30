@@ -13,6 +13,7 @@ import {
 import PieChart from "react-native-expo-pie-chart";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import styles from "../styles/recipe-styles";
+import * as Animatable from "react-native-animatable";
 
 export default function LikedRecipe({ navigation }) {
   /* -------------------- Redux State Variables -------------------- */
@@ -109,7 +110,7 @@ export default function LikedRecipe({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View>
+    <Animatable.View animation="fadeInRight">
       <View style={[styles.pushDown, { backgroundColor: "#b71282" }]}></View>
 
       <View style={[styles.backButtonSection, { backgroundColor: "#b71282" }]}>
@@ -245,6 +246,6 @@ export default function LikedRecipe({ navigation }) {
 
         <View style={[styles.navView]}></View>
       </ScrollView>
-    </View>
+    </Animatable.View>
   );
 }

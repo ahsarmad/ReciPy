@@ -110,7 +110,7 @@ export default function Recipe({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <Animatable.View animation="fadeInUp">
+    <Animatable.View animation="fadeInRight">
       <View style={[styles.pushDown, { backgroundColor: "#2694f9" }]}></View>
 
       <View style={[styles.backButtonSection, { backgroundColor: "#2694f9" }]}>
