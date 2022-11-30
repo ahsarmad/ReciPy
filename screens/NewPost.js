@@ -22,6 +22,7 @@ import axios from "axios";
 import baseURL from "../assets/common/baseUrl";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
+import * as Animatable from "react-native-animatable";
 
 const NewPost = (props) => {
   const [name, setName] = useState("");
@@ -68,54 +69,58 @@ const NewPost = (props) => {
 
   return (
     <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity activeOpacity={0.4} onPress={onBack}>
-            <Ionicons name="close" size={32} color="#3E92CC" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            activeOpacity={0.4}
-            onPress={() => [
-              makeNewPost(),
-              console.log(`Posting the post: ${name} Image: ${imageUrl}`),
-            ]}
-          >
-            <Text style={styles.buttonText}> POST! </Text>
-          </TouchableOpacity>
-        </View>
+      <Animatable.View animation="fadeInRight">
+        <SafeAreaView style={styles.container}>
+          <View style={styles.headerContainer}>
+            <TouchableOpacity activeOpacity={0.4} onPress={onBack}>
+              <Ionicons name="close" size={32} color="#3E92CC" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.4}
+              onPress={() => [
+                makeNewPost(),
+                console.log(`Posting the post: ${name} Image: ${imageUrl}`),
+              ]}
+            >
+              <Text style={styles.buttonText}> POST! </Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.entirePostContainer}>
-          <View>
-            <View style={styles.profilePic}>
-              <ProfilePic source={require("../assets/img/chef-profile.png")} />
+          <View style={styles.entirePostContainer}>
+            <View>
+              <View style={styles.profilePic}>
+                <ProfilePic
+                  source={require("../assets/img/chef-profile.png")}
+                />
+              </View>
+            </View>
+
+            <View style={styles.inputsContainer}>
+              <TextInput
+                value={name}
+                onChangeText={(value) => setName(value)}
+                // name={"name"}
+                // id={"name"}
+                // onChangeText={(text) => [setName(text)]}
+                multiline={true}
+                style={[styles.PostContentInput, styles.action]}
+                placeholder={"Create a new post!"}
+              />
+              <TextInput
+                value={imageUrl}
+                onChangeText={(imageUrl) => setImageUrl(imageUrl)}
+                // name={"imageUrl"}
+                // id={"imageUrl"}
+                // onChangeText={(text) => [setImageUrl(text)]}
+                multiline={true}
+                style={[styles.imageUrlContent, styles.action]}
+                placeholder={"Image url: (optional)"}
+              />
             </View>
           </View>
-
-          <View style={styles.inputsContainer}>
-            <TextInput
-              value={name}
-              onChangeText={(value) => setName(value)}
-              // name={"name"}
-              // id={"name"}
-              // onChangeText={(text) => [setName(text)]}
-              multiline={true}
-              style={[styles.PostContentInput, styles.action]}
-              placeholder={"Create a new post!"}
-            />
-            <TextInput
-              value={imageUrl}
-              onChangeText={(imageUrl) => setImageUrl(imageUrl)}
-              // name={"imageUrl"}
-              // id={"imageUrl"}
-              // onChangeText={(text) => [setImageUrl(text)]}
-              multiline={true}
-              style={[styles.imageUrlContent, styles.action]}
-              placeholder={"Image url: (optional)"}
-            />
-          </View>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </Animatable.View>
     </ScrollView>
     // </TouchableWithoutFeedback>
   );
