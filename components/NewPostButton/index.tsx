@@ -22,7 +22,7 @@ const NewPostButton = () => {
       onPress={onPress}
       activeOpacity={0.4}
     >
-      <FontAwesome5 name="pen" size={22} color="#fff" />
+      <FontAwesome5 name="pencil-alt" size={23} color="#fff" />
     </TouchableOpacity>
   );
 };

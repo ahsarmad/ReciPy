@@ -13,6 +13,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 15,
+    marginBottom: 10,
   },
 
   button: {
@@ -33,9 +34,9 @@ export default StyleSheet.create({
   buttonText: {
     color: "#fff",
     paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingVertical: 12,
     fontFamily: "Quicksand-SemiBold",
-    fontSize: 17,
+    fontSize: 18,
   },
   profilePic: {
     backgroundColor: "#b1f2ff",
@@ -50,22 +51,38 @@ export default StyleSheet.create({
     shadowRadius: 4.65,
 
     elevation: 7,
+    marginLeft: 0,
   },
   inputsContainer: {
-    marginLeft: 10,
+    marginTop: -15,
+    marginLeft: 20,
   },
-  textInput: {
-    height: 100,
-    maxHeight: 300,
-    fontSize: 18,
+  PostContentInput: {
+    maxHeight: 200,
+    maxWidth: 320,
+    width: 320,
+    fontSize: 20,
+    fontFamily: "Quicksand-SemiBold",
+    marginBottom: 65,
+  },
+
+  imageUrlContent: {
+    maxHeight: 100,
+    maxWidth: 320,
+    fontSize: 16,
     fontFamily: "Quicksand-SemiBold",
   },
 
-  imageInput: {
-    fontFamily: "Quicksand-SemiBold",
-  },
   entirePostContainer: {
     flexDirection: "row",
     padding: 15,
+  },
+  action: {
+    flexDirection: "row",
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgray",
+    paddingBottom: 4,
+    width: 300,
   },
 });

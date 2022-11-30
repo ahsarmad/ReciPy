@@ -2,7 +2,11 @@ import {
   Text,
   StyleSheet,
   View,
+  KeyboardAvoidingView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Platform,
+  Keyboard,
   Alert,
   SafeAreaView,
   Image,
@@ -40,7 +44,7 @@ const NewPost = (props) => {
           });
           setTimeout(() => {
             props.navigation.goBack();
-          }, 500);
+          }, 300);
         }
       })
       .catch((error) => {
@@ -96,8 +100,7 @@ const NewPost = (props) => {
               // id={"name"}
               // onChangeText={(text) => [setName(text)]}
               multiline={true}
-              numberOfLines={3}
-              style={styles.textInput}
+              style={[styles.PostContentInput, styles.action]}
               placeholder={"Create a new post!"}
             />
             <TextInput
@@ -106,13 +109,15 @@ const NewPost = (props) => {
               // name={"imageUrl"}
               // id={"imageUrl"}
               // onChangeText={(text) => [setImageUrl(text)]}
-              style={styles.imageInput}
+              multiline={true}
+              style={[styles.imageUrlContent, styles.action]}
               placeholder={"Image url: (optional)"}
             />
           </View>
         </View>
       </SafeAreaView>
     </ScrollView>
+    // </TouchableWithoutFeedback>
   );
 };
 
