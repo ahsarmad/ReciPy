@@ -16,6 +16,7 @@ import styles from "../styles/pantry-styles";
 import matchFunction from "../components/matchFunction";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import uuid from "react-native-uuid";
+import * as Animatable from "react-native-animatable";
 
 /* -------------------- Components -------------------- */
 import { SearchBar } from "react-native-screens";
@@ -145,7 +146,10 @@ export default function Pantry() {
   /* -------------------- Render Method -------------------- */
 
   return (
-    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
+    <Animatable.View
+      style={[styles.wholeScreen, { backgroundColor: pageColor }]}
+      animation="fadeInRightBig"
+    >
       <ScrollView showsVerticalScrollIndicator={false} style={[]}>
         <Pressable
           keyboardShouldPersistTaps="always"
@@ -290,50 +294,53 @@ export default function Pantry() {
                 >
                   {pantryItems.map((ingredient) => {
                     return (
-                      <TouchableOpacity
-                        style={[]}
-                        key={ingredient.key}
-                        onPress={() => {
-                          pantryPressHandler(ingredient.key);
-                        }}
-                      >
-                        <ImageBackground
-                          source={require("../assets/img/glassjar.png")}
-                          style={[styles.jar]}
+                      <Animatable.View animation="fadeInUpBig">
+                        <TouchableOpacity
+                          style={[]}
+                          key={ingredient.key}
+                          onPress={() => {
+                            pantryPressHandler(ingredient.key);
+                          }}
                         >
-                          <Text
-                            style={[
-                              styles.fontSmall,
-                              styles.jarLabel,
-                              {
-                                backgroundColor:
-                                  ingredient.date < Date.now()
-                                    ? "red"
-                                    : "#25AEF3",
-                              },
-                            ]}
+                          <ImageBackground
+                            source={require("../assets/img/glassjar.png")}
+                            style={[styles.jar]}
                           >
-                            {ingredient.name.length > 8
-                              ? ingredient.name.slice(0, 8).replace("_", " ") +
-                                ".."
-                              : ingredient.name.replace("_", " ")}
-                          </Text>
-                          <Text
-                            style={[
-                              styles.fontSmall,
-                              styles.jarLabel,
-                              {
-                                backgroundColor:
-                                  ingredient.date < Date.now()
-                                    ? "red"
-                                    : "#25AEF3",
-                              },
-                            ]}
-                          >
-                            {ingredient.date.toLocaleDateString()}
-                          </Text>
-                        </ImageBackground>
-                      </TouchableOpacity>
+                            <Text
+                              style={[
+                                styles.fontSmall,
+                                styles.jarLabel,
+                                {
+                                  backgroundColor:
+                                    ingredient.date < Date.now()
+                                      ? "red"
+                                      : "#25AEF3",
+                                },
+                              ]}
+                            >
+                              {ingredient.name.length > 8
+                                ? ingredient.name
+                                    .slice(0, 8)
+                                    .replace("_", " ") + ".."
+                                : ingredient.name.replace("_", " ")}
+                            </Text>
+                            <Text
+                              style={[
+                                styles.fontSmall,
+                                styles.jarLabel,
+                                {
+                                  backgroundColor:
+                                    ingredient.date < Date.now()
+                                      ? "red"
+                                      : "#25AEF3",
+                                },
+                              ]}
+                            >
+                              {ingredient.date.toLocaleDateString()}
+                            </Text>
+                          </ImageBackground>
+                        </TouchableOpacity>
+                      </Animatable.View>
                     );
                   })}
                 </View>
@@ -344,6 +351,6 @@ export default function Pantry() {
           <View style={[styles.navView]}></View>
         </Pressable>
       </ScrollView>
-    </View>
+    </Animatable.View>
   );
 }

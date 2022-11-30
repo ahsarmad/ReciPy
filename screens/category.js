@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import styles from "../styles/category-styles";
 import { useStoreState, useStoreActions } from "easy-peasy";
+import * as Animatable from "react-native-animatable";
 
 export default function Category({ navigation }) {
   /* -------------------- Redux State Variables -------------------- */
@@ -92,7 +93,10 @@ export default function Category({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
+    <Animatable.View
+      style={[styles.wholeScreen, { backgroundColor: pageColor }]}
+      animation="fadeInRight"
+    >
       <View style={[styles.pushDown, { backgroundColor: headerColor }]}></View>
 
       <View
@@ -205,6 +209,6 @@ export default function Category({ navigation }) {
             })}
         </View>
       </ScrollView>
-    </View>
+    </Animatable.View>
   );
 }

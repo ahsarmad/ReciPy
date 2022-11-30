@@ -19,6 +19,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import matchFunction from "../components/matchFunction";
 import { SearchBar } from "react-native-screens";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import * as Animatable from "react-native-animatable";
 
 export default function Settings({ navigation }) {
   /* -------------------- Local State Variables -------------------- */
@@ -97,7 +98,10 @@ export default function Settings({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
+    <Animatable.View
+      style={[styles.wholeScreen, { backgroundColor: pageColor }]}
+      animation="fadeInRightBig"
+    >
       <Pressable
         keyboardShouldPersistTaps={"always"}
         onPress={() => {
@@ -363,6 +367,6 @@ export default function Settings({ navigation }) {
           <View style={[styles.navView]}></View>
         </ScrollView>
       </Pressable>
-    </View>
+    </Animatable.View>
   );
 }

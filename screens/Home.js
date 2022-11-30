@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import axios from "axios";
+import * as Animatable from "react-native-animatable";
 
 import styles from "../styles/home-styles";
 
@@ -252,7 +253,10 @@ export default function Home({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
+    <Animatable.View
+      style={[styles.wholeScreen, { backgroundColor: pageColor }]}
+      animation="fadeInRightBig"
+    >
       <ScrollView>
         <TouchableWithoutFeedback
           onPress={() => {
@@ -478,6 +482,6 @@ export default function Home({ navigation }) {
 
         <View style={[styles.navView]}></View>
       </ScrollView>
-    </View>
+    </Animatable.View>
   );
 }

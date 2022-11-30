@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import styles from "../styles/add-styles";
 import { useStoreState, useStoreActions } from "easy-peasy";
+import * as Animatable from "react-native-animatable";
 
 /* -------------------- Components -------------------- */
 import SearchBar from "../components/searchBar";
@@ -165,7 +166,10 @@ export default function AddIngredient({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View style={[styles.wholeScreen, { backgroundColor: pageColor }]}>
+    <Animatable.View
+      style={[styles.wholeScreen, { backgroundColor: pageColor }]}
+      animation="fadeInRight"
+    >
       {shouldShow ? null : (
         <Pressable
           keyboardShouldPersistTaps="always"
@@ -330,6 +334,6 @@ export default function AddIngredient({ navigation }) {
           style={StyleSheet.absoluteFillObject}
         />
       ) : null}
-    </View>
+    </Animatable.View>
   );
 }

@@ -127,7 +127,8 @@ export default function Favorite({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View
+    <Animatable.View
+      animation="fadeInRightBig"
       style={[
         styles.wholeScreen,
         { backgroundColor: pageColor, marginTop: 10 },
@@ -299,6 +300,6 @@ export default function Favorite({ navigation }) {
         </View>
         <View style={[styles.navView]}></View>
       </ScrollView>
-    </View>
+    </Animatable.View>
   );
 }

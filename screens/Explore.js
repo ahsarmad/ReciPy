@@ -3,13 +3,14 @@ import React from "react";
 import Feed from "../components/Feed";
 import NewPostButton from "../components/NewPostButton";
 import NewPost from "./NewPost";
+import * as Animatable from "react-native-animatable";
 
 const Explore = (props) => {
   return (
-    <View style={styles.container}>
+    <Animatable.View style={styles.container} animation="fadeInRightBig">
       <Feed />
       <NewPostButton />
-    </View>
+    </Animatable.View>
   );
 };
 

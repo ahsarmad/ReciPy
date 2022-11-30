@@ -14,6 +14,7 @@ import PieChart from "react-native-expo-pie-chart";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import styles from "../styles/shoppingListStyles";
 import uuid from "react-native-uuid";
+import * as Animatable from "react-native-animatable";
 
 export default function ShoppingList({ navigation }) {
   /* -------------------- Local State Variables -------------------- */
@@ -84,7 +85,7 @@ export default function ShoppingList({ navigation }) {
 
   /* -------------------- Render Method -------------------- */
   return (
-    <View style={[styles.wholeScreen]}>
+    <Animatable.View style={[styles.wholeScreen]} animation="fadeInRightBig">
       <ScrollView
         style={[styles.smallMargins]}
         keyboardShouldPersistTaps={"always"}
@@ -274,6 +275,6 @@ export default function ShoppingList({ navigation }) {
           <View style={[styles.navView]}></View>
         </Pressable>
       </ScrollView>
-    </View>
+    </Animatable.View>
   );
 }
