@@ -10,38 +10,30 @@ import { StoreProvider, createStore } from "easy-peasy";
 
 const store = createStore(model);
 
-let importedFonts = {
-  "GrandHotel-Regular": require("./assets/fonts/GrandHotel-Regular.ttf"),
-  "Festive-Regular": require("./assets/fonts/Festive-Regular.ttf"),
-  "AmaticSC-Regular": require("./assets/fonts/AmaticSC-Regular.ttf"),
-  "AmaticSC-Bold": require("./assets/fonts/AmaticSC-Bold.ttf"),
-  "Courgette-Regular": require("./assets/fonts/Courgette-Regular.ttf"),
-  "Quicksand-SemiBold": require("./assets/fonts/Quicksand-SemiBold.ttf"),
-};
-export default class App extends React.Component {
+let importedFonts = {};
+export function App() {
   /* -------------------- Async Font Loading -------------------- */
-  state = { fontsLoaded: false };
+  useEffect(() => {
+    const loadFonts = async () => {
+      await Font.loadAsync({
+        "GrandHotel-Regular": require("./assets/fonts/GrandHotel-Regular.ttf"),
+        "Festive-Regular": require("./assets/fonts/Festive-Regular.ttf"),
+        "AmaticSC-Regular": require("./assets/fonts/AmaticSC-Regular.ttf"),
+        "AmaticSC-Bold": require("./assets/fonts/AmaticSC-Bold.ttf"),
+        "Courgette-Regular": require("./assets/fonts/Courgette-Regular.ttf"),
+        "Quicksand-SemiBold": require("./assets/fonts/Quicksand-SemiBold.ttf"),
+      });
+    };
+    loadFonts();
+  }, []);
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(importedFonts);
-    this.setState({ fontsLoaded: true });
-  }
+  /* -------------------- Return Method -------------------- */
 
-  componentDidMount() {
-    this._loadFontsAsync();
-  }
-
-  /* -------------------- Render Method -------------------- */
-  render() {
-    if (!this.state.fontsLoaded) {
-      return null;
-    }
-    return (
-      <AuthProvider>
-        <StoreProvider store={store}>
-          <AppNav />
-        </StoreProvider>
-      </AuthProvider>
-    );
-  }
+  return (
+    <AuthProvider>
+      <StoreProvider store={store}>
+        <AppNav />
+      </StoreProvider>
+    </AuthProvider>
+  );
 }
