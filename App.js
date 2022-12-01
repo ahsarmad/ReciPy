@@ -1,17 +1,22 @@
 import { LogBox } from "react-native";
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
+
 import React, { useState, useEffect, useMemo, useReducer, useRef } from "react";
+import { Amplify } from "aws-amplify";
+import { StoreProvider, createStore } from "easy-peasy";
+import * as Font from "expo-font";
+
 import { AuthProvider } from "./Context/AuthContext";
 import AppNav from "./navigation/AppNav";
 import model from "./state/model";
-import * as Font from "expo-font";
-import { StoreProvider, createStore } from "easy-peasy";
+import awsconfig from "./src/aws-exports";
+
+Amplify.configure(awsconfig);
 
 const store = createStore(model);
 
-let importedFonts = {};
-export function App() {
+function App() {
   /* -------------------- Async Font Loading -------------------- */
   useEffect(() => {
     const loadFonts = async () => {
@@ -37,3 +42,5 @@ export function App() {
     </AuthProvider>
   );
 }
+
+export default App;
