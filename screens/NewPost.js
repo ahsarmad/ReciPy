@@ -61,7 +61,7 @@ const NewPost = (props) => {
 
   const onPostButton = () => {
     makeNewPost();
-    console.log(`Posting the post: ${name} Image: ${imageUrl}`);
+    console.log(`Post Content: ${name}, Image Content: ${imageUrl}`);
   };
   const onBack = () => {
     props.navigation.goBack();

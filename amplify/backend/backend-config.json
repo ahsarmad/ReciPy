@@ -24,5 +24,25 @@
         ]
       }
     }
+  },
+  "api": {
+    "navigationtest": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 40,
+              "apiKeyExpirationDate": "2023-01-11T00:49:42.559Z",
+              "description": "Backend Key"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
   }
 }

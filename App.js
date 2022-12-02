@@ -6,6 +6,7 @@ import React, { useState, useEffect, useMemo, useReducer, useRef } from "react";
 import { Amplify } from "aws-amplify";
 import { StoreProvider, createStore } from "easy-peasy";
 import * as Font from "expo-font";
+import { withAuthenticator } from "aws-amplify-react-native";
 
 import { AuthProvider } from "./Context/AuthContext";
 import AppNav from "./navigation/AppNav";
@@ -43,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
