@@ -29,8 +29,9 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   image: {
-    width: "100%",
-    height: 200,
+    // width: "100%",
+    width: 310,
+    height: 310,
     resizeMode: "cover",
     borderRadius: 15,
     overflow: "hidden",

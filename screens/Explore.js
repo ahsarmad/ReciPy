@@ -9,7 +9,7 @@ const Explore = (props) => {
   return (
     <Animatable.View style={styles.container} animation="fadeInRightBig">
       <Feed />
-      <NewPostButton />
+      {/* <NewPostButton /> */}
     </Animatable.View>
   );
 };
