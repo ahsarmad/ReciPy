@@ -3,10 +3,11 @@ LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 import React, { useState, useEffect, useMemo, useReducer, useRef } from "react";
+import { useFonts } from "expo-font";
 import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
 import { StoreProvider, createStore } from "easy-peasy";
 import * as Font from "expo-font";
-import { withAuthenticator } from "aws-amplify-react-native";
+import { withAuthenticator, AmplifyTheme } from "aws-amplify-react-native";
 
 import { AuthProvider } from "./Context/AuthContext";
 import AppNav from "./navigation/AppNav";
@@ -19,6 +20,12 @@ import { CreateUserInput } from "./src/API";
 Amplify.configure(awsconfig);
 
 const store = createStore(model);
+
+Font.loadAsync({
+  // The following fonts are loaded successfully
+  Quicksand: require("./assets/fonts/Quicksand-SemiBold.ttf"),
+  Quicksand_Light: require("./assets/fonts/Quicksand-Light.ttf"),
+});
 
 function App() {
   const getRandImg = () => {
@@ -90,6 +97,7 @@ function App() {
     </AuthProvider>
   );
 }
+
 const signUpConfig = {
   header: "Create a new account!",
   hideAllDefaults: true,
@@ -125,4 +133,78 @@ const signUpConfig = {
   ],
 };
 
-export default withAuthenticator(App, { signUpConfig });
+const customTheme = {
+  ...AmplifyTheme,
+
+  button: {
+    ...AmplifyTheme.button,
+    backgroundColor: "#2694F9",
+    width: 330,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+    flexDirection: "row",
+    marginLeft: 18,
+    shadowColor: "#171717",
+    shadowOffset: { width: -3, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+  buttonDisabled: {
+    backgroundColor: "#2694f9",
+    width: 300,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+    flexDirection: "row",
+    marginLeft: 35,
+    shadowColor: "#171717",
+    shadowOffset: { width: -3, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    opacity: 0.5,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 22,
+    fontFamily: "Quicksand",
+  },
+  sectionFooterLink: {
+    fontSize: 16,
+    color: "#2694f9",
+    alignItems: "baseline",
+    textAlign: "center",
+    fontFamily: "Quicksand",
+    opacity: 0.9,
+  },
+  sectionHeaderText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "500",
+  },
+  sectionFooter: {
+    width: "100%",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 15,
+    marginBottom: 20,
+    backgroundColor: "#fff",
+  },
+  sectionFooterLinkDisabled: {
+    fontSize: 14,
+    color: "#2694f9",
+    alignItems: "baseline",
+    textAlign: "center",
+    opacity: 0.5,
+  },
+};
+
+export default withAuthenticator(App, {
+  signUpConfig,
+  theme: customTheme,
+});
