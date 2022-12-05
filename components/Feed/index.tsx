@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Dimensions } from "react-native";
 import { API, graphqlOperation } from "aws-amplify";
 
 // import posts from "../../data/posts";
@@ -7,6 +7,8 @@ import NewPostButton from "../NewPostButton";
 import Post from "../Social-Feed";
 import { listPosts } from "../../src/graphql/queries";
 import { sortFunction } from "../Social-Feed/MainContainer";
+
+const { height, width } = Dimensions.get("window");
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -30,7 +32,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <View style={{ width: "100%" }}>
+    <View style={{ width: "100%", marginTop: -5, marginBottom: 82.5 }}>
       <FlatList
         // data={posts}
         // data={posts.sort()}

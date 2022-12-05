@@ -103,7 +103,7 @@ export default StyleSheet.create({
   },
   navView: {
     width: width,
-    height: height / 15,
+    height: height / 50,
   },
 
   /* -------------- Images --------------*/

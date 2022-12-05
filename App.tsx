@@ -70,6 +70,7 @@ function App() {
         "AmaticSC-Bold": require("./assets/fonts/AmaticSC-Bold.ttf"),
         "Courgette-Regular": require("./assets/fonts/Courgette-Regular.ttf"),
         "Quicksand-SemiBold": require("./assets/fonts/Quicksand-SemiBold.ttf"),
+        "Quicksand-Bold": require("./assets/fonts/Quicksand-Bold.ttf"),
         "Quicksand-Regular": require("./assets/fonts/Quicksand-Regular.ttf"),
         "Nunito-Medium": require("./assets/fonts/Nunito-Medium.ttf"),
         "Nunito-SemiBold": require("./assets/fonts/Nunito-SemiBold.ttf"),
@@ -89,5 +90,39 @@ function App() {
     </AuthProvider>
   );
 }
+const signUpConfig = {
+  header: "Create a new account!",
+  hideAllDefaults: true,
+  signUpFields: [
+    {
+      label: "Name",
+      key: "name",
+      required: true,
+      displayOrder: 1,
+      type: "string",
+    },
+    {
+      label: "Email",
+      key: "email",
+      required: true,
+      displayOrder: 2,
+      type: "string",
+    },
+    {
+      label: "Username",
+      key: "preferred_username",
+      required: true,
+      displayOrder: 3,
+      type: "string",
+    },
+    {
+      label: "Password",
+      key: "password",
+      required: true,
+      displayOrder: 4,
+      type: "password",
+    },
+  ],
+};
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, { signUpConfig });

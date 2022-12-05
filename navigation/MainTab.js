@@ -46,14 +46,15 @@ const Tab = createMaterialBottomTabNavigator();
 const MainTab = () => (
   <Tab.Navigator
     initialRouteName="Home"
-    barStyle={
-      {
-        // overflow: "hidden",
-        // borderTopLeftRadius: 35,
-        // borderTopRightRadius: 35,
-        // background: Colors.transparent,
-      }
-    }
+    barStyle={{
+      backgroundColor: "transparent",
+      position: "absolute",
+      overflow: "hidden",
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+
+      background: "transparent",
+    }}
   >
     <Tab.Screen
       name="Overview"

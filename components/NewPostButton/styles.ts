@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     width: 65,
     height: 65,
     bottom: 80,
-    left: 340,
+    left: 335,
     backgroundColor: "#6a0dad",
     overflow: "hidden",
     alignItems: "center",

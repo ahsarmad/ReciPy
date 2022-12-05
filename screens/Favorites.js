@@ -129,10 +129,7 @@ export default function Favorite({ navigation }) {
   return (
     <Animatable.View
       animation="fadeInRightBig"
-      style={[
-        styles.wholeScreen,
-        { backgroundColor: pageColor, marginTop: 10 },
-      ]}
+      style={[styles.wholeScreen, { backgroundColor: pageColor }]}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[styles.pageMargins]}>

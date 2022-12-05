@@ -1,5 +1,5 @@
 import { StyleSheet, View, Button } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Avatar,
   Title,
@@ -21,6 +21,9 @@ import {
   Feather,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
+import { getUser } from "../src/graphql/queries";
+
 import { AuthContext } from "../Context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -35,6 +38,36 @@ export function DrawerContent(props) {
 
   const { userInfo } = useContext(AuthContext);
 
+  // useEffect(() => {
+  //   const updateUser = async () => {
+  //     // Get the current user thats authenticated
+  //     const userInfo = await Auth.currentAuthenticatedUser({
+  //       bypassCache: true,
+  //     });
+
+  //     // Check if the user is already in the db
+  //     if (userInfo) {
+  //       const userData = await API.graphql(
+  //         graphqlOperation(getUser, { id: userInfo.attributes.sub })
+  //       );
+  //       console.log(userData);
+  //       if (!userData.data.getUser) {
+  //         const user = {
+  //           id: userInfo.attributes.sub,
+  //           name: userInfo.attributes.name,
+  //           email: userInfo.attributes.email,
+  //           username: userInfo.username,
+  //           image: getRandImg(),
+  //         };
+  //         await saveUser(user);
+  //       } else {
+  //         console.log("User already in db");
+  //       }
+  //     }
+  //     // If they dont, add them
+  //   };
+  //   updateUser();
+  // }, []);
   return (
     /**  Creating a base user profile display in a drawer menu
      *
@@ -59,13 +92,11 @@ export function DrawerContent(props) {
                   marginTop: 10, // subject to change
                 }}
               >
-                <Title style={styles.title}>{userInfo.name}</Title>
-                <Caption style={styles.userNameCaption}>
-                  @{userInfo.username}
-                </Caption>
+                <Text style={styles.title}>Welcome,</Text>
+                <Text style={styles.title}>Chef!</Text>
               </View>
             </View>
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <View style={styles.section}>
                 <Paragraph style={[styles.paragraph, styles.caption]}>
                   0
@@ -78,7 +109,7 @@ export function DrawerContent(props) {
                 </Paragraph>
                 <Caption style={[styles.caption]}>Followers</Caption>
               </View>
-            </View>
+            </View> */}
           </View>
 
           <Drawer.Section style={styles.drawerSection}>
@@ -161,8 +192,11 @@ export function DrawerContent(props) {
           )}
           label="Sign Out"
           labelStyle={{ fontSize: 17, color: colors.text }}
+          // onPress={() => {
+          //   logout();
+          // }}
           onPress={() => {
-            logout();
+            Auth.signOut();
           }}
         />
       </Drawer.Section>
@@ -179,9 +213,10 @@ const styles = StyleSheet.create({
   },
   title: {
     marginLeft: 0,
-    fontSize: 16,
-    marginTop: 0,
-    fontWeight: "bold",
+    fontSize: 26,
+    marginTop: -12,
+    fontFamily: "Quicksand-Bold",
+    lineHeight: 50,
   },
   userNameCaption: {
     marginLeft: 0,

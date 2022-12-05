@@ -11,7 +11,6 @@ export type MainContainerProps = {
   post: PostType;
 };
 
-// const { userInfo } = useContext(AuthContext);
 export const sortFunction = (a: PostType, b: PostType) => {
   var dateA = new Date(a.createdAt).getTime();
   var dateB = new Date(b.createdAt).getTime();
@@ -23,7 +22,7 @@ const MainContainer = ({ post }: MainContainerProps) => (
     <View style={styles.postHeaderContainer}>
       <Text style={styles.name}>{post.user.name}</Text>
       <Text style={styles.username}>@{post.user.username}</Text>
-      {/* <Text>{post.createdAt}</Text> */}
+
       <Text style={styles.smallDot}> • </Text>
       <Text style={styles.createdAt}> {moment(post.createdAt).fromNow()} </Text>
     </View>
