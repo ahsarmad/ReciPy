@@ -14,8 +14,8 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     axios
       .post(`${baseURL}users/login`, {
-        email,
-        password,
+        email: "sarmad@aol.com",
+        password: "halalboy123",
       })
       .then((res) => {
         let userInfo = res.data;
@@ -31,6 +31,9 @@ export const AuthProvider = ({ children }) => {
       .catch((e) => {
         console.log("Login error");
       });
+
+    //////
+
     // setUserToken("pw123");
     // AsyncStorage.setItem("userToken", "pw123");
     setIsLoading(false);

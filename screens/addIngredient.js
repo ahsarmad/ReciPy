@@ -11,11 +11,13 @@ import {
   Keyboard,
   ScrollView,
   ImageBackground,
+  Dimensions,
   Pressable,
 } from "react-native";
 import styles from "../styles/add-styles";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import * as Animatable from "react-native-animatable";
+const { height, width } = Dimensions.get("window");
 
 /* -------------------- Components -------------------- */
 import SearchBar from "../components/searchBar";
@@ -329,10 +331,28 @@ export default function AddIngredient({ navigation }) {
         </Pressable>
       )}
       {shouldShow ? (
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
+        <>
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={StyleSheet.absoluteFillObject}
+          />
+          <Pressable
+            style={[styles.barcodeCloseButton]}
+            onPress={() => setShouldShow(!shouldShow)}
+          >
+            <View style={[styles.barcodeButtonText]}>
+              <Text
+                style={[
+                  styles.AmaticSCBold,
+                  { fontSize: 38 },
+                  { color: "white" },
+                ]}
+              >
+                Go Back
+              </Text>
+            </View>
+          </Pressable>
+        </>
       ) : null}
     </Animatable.View>
   );

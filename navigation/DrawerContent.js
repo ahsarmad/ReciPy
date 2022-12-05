@@ -196,7 +196,7 @@ export function DrawerContent(props) {
           //   logout();
           // }}
           onPress={() => {
-            Auth.signOut();
+            [Auth.signOut(), logout()];
           }}
         />
       </Drawer.Section>

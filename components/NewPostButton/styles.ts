@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    opacity: 0.85,
+    opacity: 0.8,
     marginBottom: -65,
   },
   // shadowProp: {

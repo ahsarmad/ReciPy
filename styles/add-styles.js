@@ -253,6 +253,19 @@ export default StyleSheet.create({
     backgroundColor: "#E8E8E8",
     alignItems: "flex-start",
   },
+
+  barcodeCloseButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 40,
+    overflow: "hidden",
+    marginLeft: 135,
+    marginTop: -5,
+    width: 120,
+    height: height / 14,
+    bottom: -height / 1.4,
+    backgroundColor: "#2694f9",
+  },
   doneButtonContainer: {
     alignItems: "center",
     justifyContent: "center",

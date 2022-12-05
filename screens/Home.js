@@ -10,7 +10,11 @@ import {
   TouchableOpacity,
   ImageBackground,
   FlatList,
+  TextInput,
 } from "react-native";
+
+import uuid from "react-native-uuid";
+
 import { useStoreState, useStoreActions } from "easy-peasy";
 import axios from "axios";
 import * as Animatable from "react-native-animatable";
@@ -20,6 +24,12 @@ import styles from "../styles/home-styles";
 export default function Home({ navigation }) {
   /* -------------------- Local State Variables -------------------- */
   const [recievedData, setRecievedData] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [showRecipeSearch, setShowRecipeSearch] = useState(false);
+  const [recievedRecipeSearchData, setRecievedRecipeSearchData] =
+    useState(false);
+  const [recipeSearchData, setRecipeSearchData] = useState([]);
+  const [recipeSearchFailed, setRecipeSearchFailed] = useState(false);
 
   /* -------------------- Redux State Variables -------------------- */
   const refresh = useStoreState((state) => state.refresh);
@@ -101,9 +111,20 @@ export default function Home({ navigation }) {
   const getRecipes = async (ingredients) => {
     await axios({
       method: "get",
-      url:
-        "https://recipy-ingredients-backend.herokuapp.com/search/" +
-        ingredients,
+      url: `https://recipy-ingredients-backend.herokuapp.com/search/${ingredients}/${
+        dietOption === "vegan"
+          ? "isVegan"
+          : dietOption === "vegetarian"
+          ? "isVegetarian"
+          : dietOption === "keto"
+          ? "isKeto"
+          : "x"
+      }
+      /${
+        removedIngredients.length === 0
+          ? "x"
+          : returnIngredientString(removedIngredients, "name")
+      }`,
     })
       .then((response) => {
         setRecipes(response.data);
@@ -234,13 +255,21 @@ export default function Home({ navigation }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://recipy-ingredients-backend.herokuapp.com/recommend/1538,6,43/rice,lemon",
+      url: `http://recipy-ingredients-backend.herokuapp.com/recommend/${
+        likedRecipes.length === 0
+          ? "1538,6,43"
+          : returnIngredientString(likedRecipes, "id")
+      }/${
+        pantryItems.length === 0
+          ? "rice,lemon"
+          : returnIngredientString(pantryItems, "name")
+      }`,
     })
       .then((response) => {
         setRecommendedRecipes(response.data);
       })
       .then(() => {
-        console.log("Response: ", recommendedRecipes);
+        // console.log("Response: ", recommendedRecipes)
         setRefresh(!refresh);
       });
     setRefresh(!refresh);
@@ -250,6 +279,35 @@ export default function Home({ navigation }) {
     }
     setRefresh(!refresh);
   }, []);
+
+  const getSearchRecipes = async (text) => {
+    await axios({
+      method: "get",
+      url: `https://recipy-ingredients-backend.herokuapp.com/key_word_search/${text}`,
+    })
+      .then((response) => {
+        setRecipeSearchData(response.data);
+      })
+      .then(() => {
+        console.log(recipeSearchData);
+        setRefresh(!refresh);
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setRecipeSearchFailed(true);
+        }
+      });
+    setRefresh(!refresh);
+  };
+
+  const recipeSearchEnterPress = async (text) => {
+    await getSearchRecipes(text);
+    setRecievedRecipeSearchData(true);
+    setShowRecipeSearch(true);
+  };
 
   /* -------------------- Render Method -------------------- */
   return (
@@ -277,15 +335,6 @@ export default function Home({ navigation }) {
                 source={require("../assets/img/recipylogo.png")}
                 style={[styles.logo]}
               />
-              {/* <TouchableOpacity
-                onPress={profilePressHandler}
-                style={[styles.absolute]}
-              >
-                <Image
-                  source={require("../assets/icons/chef6.png")}
-                  style={[styles.accountIcon]}
-                />
-              </TouchableOpacity> */}
             </ImageBackground>
 
             <View style={[styles.container]}>
@@ -426,18 +475,6 @@ export default function Home({ navigation }) {
 
                 <View style={[styles.recipeView]}>
                   <ScrollView horizontal={true}>
-                    {/* <Pressable 
-                  style={[styles.outline, styles.card]}
-                  onPress={() => recipePressHandler('Title Loading...', 'Desc Loading...', 'Macros Loading...', 'Reqs Loading...', 'Steps Loading...', 'Recipe Loading...')}
-                >
-                  <ImageBackground
-                    source={require('../img/recipeBack.jpg')}
-                    style={[styles.recipeBack]}
-                  >
-                    <Text style={[styles.recipePressableText]}>Recipe Title</Text>
-                  </ImageBackground>
-                </Pressable> */}
-
                     {Object.values(Recipes["TITLE"]).map((recipe, index) => {
                       return (
                         <Pressable
@@ -477,6 +514,132 @@ export default function Home({ navigation }) {
             ) : (
               <View style={[styles.outline, styles.selectedIngredients]}></View>
             )}
+
+            <View>
+              <View>
+                <Text style={[styles.fontLarge, styles.recipeText]}>
+                  Search for recipes:
+                </Text>
+              </View>
+
+              <View style={[styles.recipeSearchInput]}>
+                <TextInput
+                  placeholder=" search for recipe by name..."
+                  style={[styles.outline, styles.recipeSearchTextInput]}
+                  value={searchText}
+                  onChangeText={(text) => {
+                    setSearchText(text);
+                  }}
+                  searchText={searchText}
+                  setSearchText={setSearchText}
+                />
+
+                <Pressable
+                  style={[styles.outline, styles.recipeButton]}
+                  onPress={() => {
+                    setSearchText("");
+                    Keyboard.dismiss();
+                  }}
+                >
+                  <Text
+                    style={[
+                      styles.AmaticSCBold,
+                      styles.fontLarge,
+                      { color: "white" },
+                    ]}
+                  >
+                    Clear
+                  </Text>
+                </Pressable>
+
+                <Pressable
+                  style={[styles.outline, styles.recipeButton]}
+                  onPress={() => {
+                    recipeSearchEnterPress(searchText);
+                    Keyboard.dismiss();
+                  }}
+                >
+                  <Text
+                    style={[
+                      styles.AmaticSCBold,
+                      styles.fontLarge,
+                      { color: "white" },
+                    ]}
+                  >
+                    Enter
+                  </Text>
+                </Pressable>
+              </View>
+
+              {showRecipeSearch && recievedRecipeSearchData ? (
+                <View>
+                  <View>
+                    <Text style={[styles.fontLarge, styles.recipeText]}>
+                      You have {Object.values(recipeSearchData["TITLE"]).length}{" "}
+                      Recipe(s):{" "}
+                    </Text>
+                  </View>
+
+                  <View style={[styles.recipeView]}>
+                    <ScrollView horizontal={true}>
+                      {Object.values(recipeSearchData["TITLE"]).map(
+                        (searchRecipe, index) => {
+                          return (
+                            <Pressable
+                              key={uuid.v4()}
+                              style={[styles.outline, styles.card]}
+                              onPress={() =>
+                                recipePressHandler(
+                                  Object.values(recipeSearchData["TITLE"])[
+                                    index
+                                  ],
+                                  Object.values(
+                                    recipeSearchData["DESCRIPTION"]
+                                  )[index],
+                                  Object.values(recipeSearchData["MACROS"])
+                                    [index].split("\n")
+                                    .join(" ")
+                                    .split(",")
+                                    .join(", "),
+                                  Object.values(
+                                    recipeSearchData["has_ingredients"]
+                                  )[index],
+                                  Object.values(
+                                    recipeSearchData["INGREDIENTS"]
+                                  )[index],
+                                  Object.values(recipeSearchData["DIRECTIONS"])[
+                                    index
+                                  ],
+                                  Object.values(recipeSearchData["LINK"])[
+                                    index
+                                  ],
+                                  Object.keys(recipeSearchData["LINK"])[index]
+                                )
+                              }
+                            >
+                              <ImageBackground
+                                source={require("../assets/img/recipe2.png")}
+                                style={[styles.recipeBack]}
+                              >
+                                <Text style={[styles.recipePressableText]}>
+                                  {
+                                    Object.values(recipeSearchData["TITLE"])[
+                                      index
+                                    ]
+                                  }
+                                </Text>
+                              </ImageBackground>
+                            </Pressable>
+                          );
+                        }
+                      )}
+                    </ScrollView>
+                  </View>
+                </View>
+              ) : null}
+
+              {recipeSearchFailed ? <Text>Search Failed!</Text> : null}
+            </View>
           </View>
         </TouchableWithoutFeedback>
 

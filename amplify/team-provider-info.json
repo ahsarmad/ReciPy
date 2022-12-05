@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "navigationtest70fe9091": {}
+        "navigationtest70fe9091": {},
+        "userPoolGroups": {}
       },
       "api": {
         "navigationtest": {}

@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   content: {
-    marginTop: 15,
-    lineHeight: 20,
+    marginTop: 10,
+    lineHeight: 22,
     fontSize: 17,
     fontFamily: "Nunito-Regular",
   },

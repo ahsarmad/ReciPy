@@ -6,21 +6,27 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { AuthContext } from "../Context/AuthContext";
 
 const Splash = ({ navigation }) => {
   // useFont hook to extract and use custom fonts
 
-  const [loaded] = useFonts({
-    Quicksand: require("../assets/fonts/Quicksand-SemiBold.ttf"),
-  });
-  if (!loaded) {
-    return null;
-  }
+  const { login } = useContext(AuthContext);
+
+  // const [loaded] = useFonts({
+  //   Quicksand: require("../assets/fonts/Quicksand-SemiBold.ttf"),
+  // });
+  // if (!loaded) {
+  //   return null;
+  // }
+
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   return (
     /**
@@ -83,16 +89,16 @@ const Splash = ({ navigation }) => {
       </View>
       <Animatable.View animation="fadeInUpBig">
         <TouchableOpacity
-          onPress={() => navigation.navigate("SignIn")} // setting navigation route to sign in page from pressable
+          onPress={() => login()}
           style={[styles.signInButton, styles.shadowProp]} // here we are using a shadow prop to create an underlying shadow effect on the buttons
         >
           <LinearGradient colors={["#ffffff", "#ffffff"]} style={styles.signIn}>
-            <Text style={styles.textSign}>Sign In </Text>
+            <Text style={styles.textSign}>Let's Go</Text>
             <MaterialIcons name="navigate-next" color="#2694F9" size={20} />
           </LinearGradient>
         </TouchableOpacity>
       </Animatable.View>
-      <Animatable.View animation="fadeInUpBig">
+      {/* <Animatable.View animation="fadeInUpBig">
         <TouchableOpacity
           onPress={() => navigation.navigate("SignUp")}
           style={[styles.signUpButton, styles.shadowProp]}
@@ -102,7 +108,7 @@ const Splash = ({ navigation }) => {
             <MaterialIcons name="navigate-next" color="#2694F9" size={20} />
           </LinearGradient>
         </TouchableOpacity>
-      </Animatable.View>
+      </Animatable.View> */}
     </View>
   );
 };

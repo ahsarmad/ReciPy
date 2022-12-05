@@ -18,6 +18,12 @@ export default StyleSheet.create({
   fontLarge: {
     fontSize: RFPercentage(5),
   },
+  AmaticSCRegular: {
+    fontFamily: "AmaticSC-Regular",
+  },
+  AmaticSCBold: {
+    fontFamily: "AmaticSC-Bold",
+  },
   categoryText: {
     color: "black",
     textAlign: "center",
@@ -187,6 +193,13 @@ export default StyleSheet.create({
     backgroundColor: "#60DEF7",
     overflow: "hidden",
   },
+  recipeButton: {
+    width: width / 6,
+    height: height / 13,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#2196F3",
+  },
 
   /* -------------- Custom  --------------*/
   card: {
@@ -219,5 +232,19 @@ export default StyleSheet.create({
     fontFamily: "AmaticSC-Bold",
     marginHorizontal: width / 50,
     textAlign: "center",
+  },
+  recipeSearchInput: {
+    width: width,
+    height: height / 13,
+    display: "flex",
+    flexDirection: "row",
+    marginVertical: height / 50,
+  },
+  recipeSearchTextInput: {
+    width: width / 1.6,
+    height: height / 13,
+    marginLeft: width / 50,
+    fontFamily: "AmaticSC-Bold",
+    fontSize: RFPercentage(4),
   },
 });
