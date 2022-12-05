@@ -7,7 +7,7 @@ import * as Animatable from "react-native-animatable";
 
 const Explore = (props) => {
   return (
-    <Animatable.View style={styles.container} animation="fadeInRightBig">
+    <Animatable.View style={styles.container} animation="fadeInUpBig">
       <Feed />
       {/* <NewPostButton /> */}
     </Animatable.View>

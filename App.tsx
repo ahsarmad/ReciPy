@@ -71,6 +71,9 @@ function App() {
         "Courgette-Regular": require("./assets/fonts/Courgette-Regular.ttf"),
         "Quicksand-SemiBold": require("./assets/fonts/Quicksand-SemiBold.ttf"),
         "Quicksand-Regular": require("./assets/fonts/Quicksand-Regular.ttf"),
+        "Nunito-Medium": require("./assets/fonts/Nunito-Medium.ttf"),
+        "Nunito-SemiBold": require("./assets/fonts/Nunito-SemiBold.ttf"),
+        "Nunito-Regular": require("./assets/fonts/Nunito-Regular.ttf"),
       });
     };
     loadFonts();

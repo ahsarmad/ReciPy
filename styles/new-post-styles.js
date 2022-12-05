@@ -63,7 +63,7 @@ export default StyleSheet.create({
     width: 320,
     fontSize: 20,
     fontFamily: "Quicksand-SemiBold",
-    marginBottom: 65,
+    marginBottom: 40,
   },
 
   imageUrlContent: {
@@ -85,42 +85,7 @@ export default StyleSheet.create({
     paddingBottom: 4,
     width: 300,
   },
-  pie_container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  pie: {
-    width: 210,
-    height: 230,
-    marginLeft: 310,
-    marginBottom: 10,
-    marginTop: 180,
-  },
-  salad_container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  salad: {
-    width: 45,
-    height: 55,
-    marginRight: 359,
-    marginLeft: -0,
-    marginBottom: 425,
-    marginTop: 340,
-  },
-  apple_container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  apple: {
-    width: 60,
-    height: 65,
-    marginTop: 50,
-    marginRight: 235,
-  },
+
   imageSelectInput: {
     fontSize: 20,
     fontFamily: "Quicksand-SemiBold",
@@ -129,10 +94,14 @@ export default StyleSheet.create({
   },
 
   imagePreview: {
-    marginLeft: -90,
-    width: 400,
-    height: 300,
+    marginLeft: -83,
+    width: 390,
+    height: 310,
     borderRadius: 20,
     overflow: "hidden",
+  },
+  imageSelectPic: {
+    marginLeft: 25,
+    marginBottom: 30,
   },
 });

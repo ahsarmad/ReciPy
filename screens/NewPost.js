@@ -100,41 +100,6 @@ const NewPost = (props) => {
     /*--------------------------------------- ^making api callˇ --------------------------------------------- */
   }
 
-  // const makeNewPost = () => {
-  //   let posts = {
-  //     name: name,
-  //     imageUrl: imageUrl,
-  //   };
-
-  // axios
-  //   .post(`${baseURL}posts`, posts)
-  //   .then((res) => {
-  //     if (res.status == 200) {
-  //       Toast.show({
-  //         topOffset: 60,
-  //         type: "success",
-  //         text1: "Posted Successfully!",
-  //       });
-  //       setTimeout(() => {
-  //         props.navigation.goBack();
-  //       }, 300);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     Toast.show({
-  //       topOffset: 60,
-  //       type: "error",
-  //       text1: "Something went wrong",
-  //       text2: "Please try again",
-  //     });
-  //     console.log(error.response);
-  //   });
-  // };
-
-  // const onPostButton = () => {
-  //   onPostContent();
-  //   console.log(`Post Content: ${name}, Image Content: ${imageUrl}`);
-  // };
   const onBack = () => {
     props.navigation.goBack();
   };
@@ -182,17 +147,12 @@ const NewPost = (props) => {
 
               <TouchableOpacity onPress={pickImage}>
                 <Text style={styles.imageSelectInput}>Select an image!</Text>
+                <Image
+                  source={require("../assets/img/image-vec.png")}
+                  style={styles.imageSelectPic}
+                  activeOpacity={0.4}
+                />
               </TouchableOpacity>
-              {/* <TextInput
-                value={imageUrl}
-                onChangeText={(imageUrl) => setImageUrl(imageUrl)}
-                // name={"imageUrl"}
-                // id={"imageUrl"}
-                // onChangeText={(text) => [setImageUrl(text)]}
-                multiline={true}
-                style={[styles.imageUrlContent, styles.action]}
-                placeholder={"Image url: (optional)"}
-              /> */}
 
               <Image source={{ uri: imageUrl }} style={styles.imagePreview} />
             </View>
