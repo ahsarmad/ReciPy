@@ -15,13 +15,14 @@ import {
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
+import { Amplify, Auth, API, graphqlOperation, Storage } from "aws-amplify";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
 // import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
+import uuid from "react-native-uuid";
 
 import ProfilePic from "../components/ProfilePic";
 import styles from "../styles/new-post-styles";
@@ -30,18 +31,9 @@ import * as Animatable from "react-native-animatable";
 import { createPost } from "../src/graphql/mutations";
 
 const NewPost = (props) => {
-  // const getPermissionsAsync = async () => {
-  //   if (Platform.OS !== "web") {
-  //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  //     if (status !== "granted") {
-  //       alert("Sorry, we need camera roll permissions to make this work!");
-  //     }
-  //   }
-  // };
+  const [post, setPost] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
-  // useEffect(() => {
-  //   getPermissionsAsync();
-  // }, []);
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     try {
@@ -62,10 +54,28 @@ const NewPost = (props) => {
     }
   };
 
-  const [post, setPost] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const uploadImage = async () => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const urlParts = imageUrl.split(".");
+      const extension = urlParts[urlParts.length - 1];
+      const key = `${uuid.v4()}.${extension}`;
+
+      await Storage.put(key, blob);
+
+      return key;
+    } catch (e) {
+      console.log(e);
+    }
+    return "";
+  };
 
   const onPostContent = async () => {
+    let image;
+    if (!!imageUrl) {
+      image = await uploadImage();
+    }
     try {
       const currentUser = await Auth.currentAuthenticatedUser({
         bypassCache: true,
@@ -73,7 +83,7 @@ const NewPost = (props) => {
 
       const newPost = {
         content: post,
-        image: imageUrl,
+        image,
         userID: currentUser.attributes.sub,
       };
       await API.graphql(graphqlOperation(createPost, { input: newPost }));

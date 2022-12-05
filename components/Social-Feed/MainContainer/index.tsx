@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text, Image } from "react-native";
+import { S3Image } from "aws-amplify-react-native";
 import { PostType } from "../../../types";
 import moment from "moment";
 import { AuthContext } from "../../../Context/AuthContext";
@@ -11,6 +12,11 @@ export type MainContainerProps = {
 };
 
 // const { userInfo } = useContext(AuthContext);
+export const sortFunction = (a: PostType, b: PostType) => {
+  var dateA = new Date(a.createdAt).getTime();
+  var dateB = new Date(b.createdAt).getTime();
+  return dateA > dateB ? 1 : -1;
+};
 
 const MainContainer = ({ post }: MainContainerProps) => (
   <View style={styles.container}>
@@ -23,9 +29,7 @@ const MainContainer = ({ post }: MainContainerProps) => (
     </View>
     <View>
       <Text style={styles.content}>{post.content}</Text>
-      {!!post.image && (
-        <Image style={styles.image} source={{ uri: post.image }} />
-      )}
+      {!!post.image && <S3Image style={styles.image} imgKey={post.image} />}
     </View>
   </View>
 );

@@ -6,6 +6,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import NewPostButton from "../NewPostButton";
 import Post from "../Social-Feed";
 import { listPosts } from "../../src/graphql/queries";
+import { sortFunction } from "../Social-Feed/MainContainer";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -31,7 +32,9 @@ const Feed = () => {
   return (
     <View style={{ width: "100%" }}>
       <FlatList
-        data={posts}
+        // data={posts}
+        // data={posts.sort()}
+        data={posts.sort((a, b) => sortFunction(b, a))}
         renderItem={({ item }) => <Post post={item} />}
         keyExtractor={(item) => item.id}
         refreshing={loading}
