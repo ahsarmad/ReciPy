@@ -70,6 +70,7 @@ function App() {
         "AmaticSC-Bold": require("./assets/fonts/AmaticSC-Bold.ttf"),
         "Courgette-Regular": require("./assets/fonts/Courgette-Regular.ttf"),
         "Quicksand-SemiBold": require("./assets/fonts/Quicksand-SemiBold.ttf"),
+        "Quicksand-Regular": require("./assets/fonts/Quicksand-Regular.ttf"),
       });
     };
     loadFonts();

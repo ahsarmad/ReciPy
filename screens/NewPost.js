@@ -13,13 +13,15 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
+// import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
 
 import ProfilePic from "../components/ProfilePic";
 import styles from "../styles/new-post-styles";
@@ -28,6 +30,38 @@ import * as Animatable from "react-native-animatable";
 import { createPost } from "../src/graphql/mutations";
 
 const NewPost = (props) => {
+  // const getPermissionsAsync = async () => {
+  //   if (Platform.OS !== "web") {
+  //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  //     if (status !== "granted") {
+  //       alert("Sorry, we need camera roll permissions to make this work!");
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getPermissionsAsync();
+  // }, []);
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setImageUrl(result.uri);
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
   const [post, setPost] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
@@ -145,7 +179,11 @@ const NewPost = (props) => {
                 style={[styles.PostContentInput, styles.action]}
                 placeholder={"Create a new post!"}
               />
-              <TextInput
+
+              <TouchableOpacity onPress={pickImage}>
+                <Text style={styles.imageSelectInput}>Select an image!</Text>
+              </TouchableOpacity>
+              {/* <TextInput
                 value={imageUrl}
                 onChangeText={(imageUrl) => setImageUrl(imageUrl)}
                 // name={"imageUrl"}
@@ -154,7 +192,9 @@ const NewPost = (props) => {
                 multiline={true}
                 style={[styles.imageUrlContent, styles.action]}
                 placeholder={"Image url: (optional)"}
-              />
+              /> */}
+
+              <Image source={{ uri: imageUrl }} style={styles.imagePreview} />
             </View>
           </View>
         </SafeAreaView>

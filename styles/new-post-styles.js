@@ -121,4 +121,18 @@ export default StyleSheet.create({
     marginTop: 50,
     marginRight: 235,
   },
+  imageSelectInput: {
+    fontSize: 20,
+    fontFamily: "Quicksand-SemiBold",
+    color: "#6a0dad",
+    marginVertical: 15,
+  },
+
+  imagePreview: {
+    marginLeft: -90,
+    width: 400,
+    height: 300,
+    borderRadius: 20,
+    overflow: "hidden",
+  },
 });

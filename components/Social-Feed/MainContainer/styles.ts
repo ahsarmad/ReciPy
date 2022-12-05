@@ -25,17 +25,20 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   content: {
-    marginTop: 5,
+    marginTop: 10,
     lineHeight: 18,
+    fontSize: 15,
+    fontFamily: "Quicksand-Regular",
   },
   image: {
     // width: "100%",
-    width: 310,
+    marginLeft: -80,
+    width: 390,
     height: 310,
     resizeMode: "cover",
     borderRadius: 15,
     overflow: "hidden",
-    marginVertical: 10,
+    marginTop: 30,
   },
 });
 
