@@ -12,18 +12,12 @@ import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { AuthContext } from "../Context/AuthContext";
+import * as Font from "expo-font";
 
 const Splash = ({ navigation }) => {
   // useFont hook to extract and use custom fonts
 
   const { login } = useContext(AuthContext);
-
-  // const [loaded] = useFonts({
-  //   Quicksand: require("../assets/fonts/Quicksand-SemiBold.ttf"),
-  // });
-  // if (!loaded) {
-  //   return null;
-  // }
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -43,7 +37,7 @@ const Splash = ({ navigation }) => {
           <View style={styles.pie_container}>
             {/*       using animatable styles in order to create fading and bouncing animations         */}
             <Animatable.Image
-              animation="bounceIn"
+              animation="fadeInUpBig"
               /**
                * Pie vector image from Figma plugin
                * Author: GameIcons
@@ -56,7 +50,7 @@ const Splash = ({ navigation }) => {
           </View>
           <View style={styles.salad_container}>
             <Animatable.Image
-              animation="bounceIn"
+              animation="fadeInUpBig"
               /**
                * Salad bowl vector image from Figma plugin
                * Author: Microsoft Corporation
@@ -69,7 +63,7 @@ const Splash = ({ navigation }) => {
           </View>
           <View style={styles.apple_container}>
             <Animatable.Image
-              animation="bounceIn"
+              animation="fadeInUpBig"
               /**
                * Apple vector image from Figma plugin
                * Author: Microsoft Corporation
@@ -81,7 +75,7 @@ const Splash = ({ navigation }) => {
             />
           </View>
         </View>
-        <Animatable.View animation="bounceIn">
+        <Animatable.View animation="fadeInUpBig">
           <Text style={styles.title}>Welcome to</Text>
           <Text style={styles.title2}> Recipy!</Text>
           <Text style={styles.text}>The meal generator that cares</Text>
@@ -89,6 +83,7 @@ const Splash = ({ navigation }) => {
       </View>
       <Animatable.View animation="fadeInUpBig">
         <TouchableOpacity
+          activeOpacity={0.6}
           onPress={() => login()}
           style={[styles.signInButton, styles.shadowProp]} // here we are using a shadow prop to create an underlying shadow effect on the buttons
         >
@@ -185,23 +180,24 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 60,
     fontWeight: "bold",
-    fontFamily: "Quicksand",
+    fontFamily: "Quicksand-SemiBold",
   },
   title2: {
     color: "#fff",
     fontSize: 60,
     fontWeight: "bold",
-    fontFamily: "Quicksand",
+    fontFamily: "Quicksand-SemiBold",
     marginLeft: 50,
   },
   text: {
     color: "#fff",
-    marginBottom: -80,
-    marginLeft: 18,
+    marginBottom: -90,
+    paddingBottom: 20,
+    marginLeft: 6,
     marginTop: 55,
     fontWeight: "bold",
-    fontSize: 20,
-    fontFamily: "Quicksand",
+    fontSize: 22,
+    fontFamily: "Quicksand-SemiBold",
   },
 
   button: {
@@ -210,8 +206,7 @@ const styles = StyleSheet.create({
   },
   signInButton: {
     alignItems: "center",
-    marginBottom: 160,
-    marginTop: -210,
+    marginTop: -160,
   },
   signUpButton: {
     alignItems: "center",
@@ -236,6 +231,6 @@ const styles = StyleSheet.create({
     color: "#2694F9",
     fontWeight: "bold",
     fontSize: 20,
-    fontFamily: "Quicksand",
+    fontFamily: "Quicksand-SemiBold",
   },
 });
