@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
   ScrollView,
   Pressable,
   ImageBackground,
-  Image,
   Dimensions,
 } from "react-native";
 import * as Animatable from "react-native-animatable";

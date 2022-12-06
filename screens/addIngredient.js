@@ -336,22 +336,24 @@ export default function AddIngredient({ navigation }) {
             onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
             style={StyleSheet.absoluteFillObject}
           />
-          <Pressable
-            style={[styles.barcodeCloseButton]}
-            onPress={() => setShouldShow(!shouldShow)}
-          >
-            <View style={[styles.barcodeButtonText]}>
-              <Text
-                style={[
-                  styles.AmaticSCBold,
-                  { fontSize: 38 },
-                  { color: "white" },
-                ]}
-              >
-                Go Back
-              </Text>
-            </View>
-          </Pressable>
+          <View style={styles.barcodeCloseContainer}>
+            <Pressable
+              style={[styles.barcodeCloseButton]}
+              onPress={() => setShouldShow(!shouldShow)}
+            >
+              <View style={[styles.barcodeButtonText]}>
+                <Text
+                  style={[
+                    styles.AmaticSCBold,
+                    { fontSize: 38 },
+                    { color: "white" },
+                  ]}
+                >
+                  Go Back
+                </Text>
+              </View>
+            </Pressable>
+          </View>
         </>
       ) : null}
     </Animatable.View>

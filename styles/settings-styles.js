@@ -121,7 +121,7 @@ export default StyleSheet.create({
   /* -------------- Custom  --------------*/
   navView: {
     width: width,
-    height: height / 2,
+    height: height / 7,
   },
   dietOptions: {
     alignItems: "center",

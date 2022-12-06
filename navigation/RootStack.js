@@ -1,9 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Splash from "./Splash";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
+import Splash from "../screens/Splash";
 
 /* Creating navigation structure for Splash, Sign in, and Sign Up Screens */
 
@@ -15,7 +13,7 @@ const RootStack = ({ navigation }) => (
       component={Splash}
       options={{ headerShown: false }}
     />
-    <Root.Screen
+    {/* <Root.Screen
       name="SignIn"
       component={SignIn}
       options={{ headerShown: false }}
@@ -24,7 +22,7 @@ const RootStack = ({ navigation }) => (
       name="SignUp"
       component={SignUp}
       options={{ headerShown: false }}
-    />
+    /> */}
   </Root.Navigator>
 );
 

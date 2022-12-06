@@ -1,32 +1,21 @@
 import {
   Text,
-  StyleSheet,
   View,
-  KeyboardAvoidingView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Platform,
-  Keyboard,
-  Alert,
   SafeAreaView,
   Image,
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { Amplify, Auth, API, graphqlOperation, Storage } from "aws-amplify";
-import { useFocusEffect } from "@react-navigation/native";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Auth, API, graphqlOperation, Storage } from "aws-amplify";
 import Toast from "react-native-toast-message";
-// import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import uuid from "react-native-uuid";
 
 import ProfilePic from "../components/ProfilePic";
 import styles from "../styles/new-post-styles";
-import baseURL from "../assets/common/baseUrl";
 import * as Animatable from "react-native-animatable";
 import { createPost } from "../src/graphql/mutations";
 
@@ -147,9 +136,6 @@ const NewPost = (props) => {
               <TextInput
                 value={post}
                 onChangeText={(value) => setPost(value)}
-                // name={"name"}
-                // id={"name"}
-                // onChangeText={(text) => [setName(text)]}
                 multiline={true}
                 style={[styles.PostContentInput, styles.action]}
                 placeholder={"Create a new post!"}
@@ -170,7 +156,6 @@ const NewPost = (props) => {
         </SafeAreaView>
       </Animatable.View>
     </ScrollView>
-    // </TouchableWithoutFeedback>
   );
 };
 

@@ -10,7 +10,6 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView,
 } from "react-native";
 import styles from "../styles/settings-styles";
 import { useStoreState, useStoreActions } from "easy-peasy";

@@ -145,6 +145,7 @@ export default function Recipe({ navigation }) {
           <Text style={[styles.recipeDataText]}>{recipeDescription}</Text>
 
           <Text style={[styles.recipeHeaderText]}>Recipe Macros:</Text>
+
           <Text style={[styles.recipeDataText]}>{currentRecipeMacros}</Text>
 
           <View style={[styles.macrosView, styles.outline]}>

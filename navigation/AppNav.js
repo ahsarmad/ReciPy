@@ -36,10 +36,9 @@ import {
 
 import { DrawerContent } from "./DrawerContent";
 
-// Implementing Root Stack Structure for splash - sign in - sign up navigation
+// Implementing Root Stack Structure for splash
 
-import RootStack from "../screens/RootStack";
-import { ActivityIndicator } from "react-native-paper";
+import RootStack from "./RootStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -82,7 +81,7 @@ const AppNav = (props) => {
     ),
   };
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  // const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const initLoginState = {
     isLoading: true,
@@ -90,29 +89,29 @@ const AppNav = (props) => {
     userToken: null,
   };
 
-  const CustomDefaultTheme = {
-    ...NavigationDefaultTheme,
-    ...PaperDefaultTheme,
-    colors: {
-      ...NavigationDefaultTheme.colors,
-      ...PaperDefaultTheme.colors,
-      background: "#ffffff",
-      text: "#333333",
-    },
-  };
+  // const CustomDefaultTheme = {
+  //   ...NavigationDefaultTheme,
+  //   ...PaperDefaultTheme,
+  //   colors: {
+  //     ...NavigationDefaultTheme.colors,
+  //     ...PaperDefaultTheme.colors,
+  //     background: "#ffffff",
+  //     text: "#333333",
+  //   },
+  // };
 
-  const CustomDarkTheme = {
-    ...NavigationDarkTheme,
-    ...PaperDarkTheme,
-    colors: {
-      ...NavigationDarkTheme.colors,
-      ...PaperDarkTheme.colors,
-      background: "#333333",
-      text: "#ffffff",
-    },
-  };
+  // const CustomDarkTheme = {
+  //   ...NavigationDarkTheme,
+  //   ...PaperDarkTheme,
+  //   colors: {
+  //     ...NavigationDarkTheme.colors,
+  //     ...PaperDarkTheme.colors,
+  //     background: "#333333",
+  //     text: "#ffffff",
+  //   },
+  // };
 
-  const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
+  // const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
   const loginReducer = (prevState, action) => {
     switch (action.type) {
@@ -148,22 +147,22 @@ const AppNav = (props) => {
 
   const [loginState, dispatch] = React.useReducer(loginReducer, initLoginState);
 
-  toggleTheme: () => {
-    setIsDarkTheme((isDarkTheme) => !isDarkTheme);
-  },
-    useEffect(() => {
-      setTimeout(async () => {
-        // setisLoading(false);
-        let userToken;
-        userToken = null;
-        try {
-          userToken = await AsyncStorage.getItem("userToken");
-        } catch (e) {
-          console.log(e);
-        }
-        dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
-      }, 3500);
-    }, []);
+  // toggleTheme: () => {
+  //   setIsDarkTheme((isDarkTheme) => !isDarkTheme);
+  // },
+  useEffect(() => {
+    setTimeout(async () => {
+      // setisLoading(false);
+      let userToken;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem("userToken");
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
+    }, 3500);
+  }, []);
 
   const cmAnimation = useRef();
 
@@ -202,8 +201,8 @@ const AppNav = (props) => {
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer theme={theme}>
+    <PaperProvider>
+      <NavigationContainer>
         {userToken !== null ? (
           <Drawer.Navigator
             drawerContent={(props) => <DrawerContent {...props} />}

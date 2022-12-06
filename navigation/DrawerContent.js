@@ -23,6 +23,7 @@ import {
 } from "@expo/vector-icons";
 import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../src/graphql/queries";
+import styles from "../styles/drawerContent-styles";
 
 import { AuthContext } from "../Context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -38,36 +39,6 @@ export function DrawerContent(props) {
 
   const { userInfo } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   const updateUser = async () => {
-  //     // Get the current user thats authenticated
-  //     const userInfo = await Auth.currentAuthenticatedUser({
-  //       bypassCache: true,
-  //     });
-
-  //     // Check if the user is already in the db
-  //     if (userInfo) {
-  //       const userData = await API.graphql(
-  //         graphqlOperation(getUser, { id: userInfo.attributes.sub })
-  //       );
-  //       console.log(userData);
-  //       if (!userData.data.getUser) {
-  //         const user = {
-  //           id: userInfo.attributes.sub,
-  //           name: userInfo.attributes.name,
-  //           email: userInfo.attributes.email,
-  //           username: userInfo.username,
-  //           image: getRandImg(),
-  //         };
-  //         await saveUser(user);
-  //       } else {
-  //         console.log("User already in db");
-  //       }
-  //     }
-  //     // If they dont, add them
-  //   };
-  //   updateUser();
-  // }, []);
   return (
     /**  Creating a base user profile display in a drawer menu
      *
@@ -96,20 +67,6 @@ export function DrawerContent(props) {
                 <Text style={styles.title}>Chef!</Text>
               </View>
             </View>
-            {/* <View style={styles.row}>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph, styles.caption]}>
-                  0
-                </Paragraph>
-                <Caption style={styles.caption}>Following</Caption>
-              </View>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph, styles.caption]}>
-                  0
-                </Paragraph>
-                <Caption style={[styles.caption]}>Followers</Caption>
-              </View>
-            </View> */}
           </View>
 
           <Drawer.Section style={styles.drawerSection}>
@@ -168,21 +125,6 @@ export function DrawerContent(props) {
               }}
             />
           </Drawer.Section>
-
-          {/* <Drawer.Section title="Theme">
-            <View style={styles.preference}>
-              <Text style={{ fontSize: 17, color: colors.text }}>
-                Dark Mode
-              </Text>
-              <View>
-                <Switch
-                  onValueChange={toggleTheme}
-                  value={paperTheme.dark}
-                  trackColor={{ false: "#f4f3f4", true: "#81b0ff" }}
-                />
-              </View>
-            </View>
-          </Drawer.Section> */}
         </View>
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
@@ -192,9 +134,6 @@ export function DrawerContent(props) {
           )}
           label="Sign Out"
           labelStyle={{ fontSize: 17, color: colors.text }}
-          // onPress={() => {
-          //   logout();
-          // }}
           onPress={() => {
             [Auth.signOut(), logout()];
           }}
@@ -203,58 +142,3 @@ export function DrawerContent(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  drawerContent: {
-    flex: 1,
-  },
-  userInfoSection: {
-    paddingLeft: 20,
-  },
-  title: {
-    marginLeft: 0,
-    fontSize: 26,
-    marginTop: -12,
-    fontFamily: "Quicksand-Bold",
-    lineHeight: 50,
-  },
-  userNameCaption: {
-    marginLeft: 0,
-    fontSize: 15,
-    lineHeight: 16,
-  },
-  caption: {
-    marginLeft: 1,
-    fontSize: 16,
-    lineHeight: 16,
-  },
-  row: {
-    marginTop: 20,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  section: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 15,
-  },
-  paragraph: {
-    fontWeight: "bold",
-    marginRight: 3,
-  },
-  drawerSection: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  bottomDrawerSection: {
-    marginBottom: 20,
-    borderTopColor: "#f4f4f4",
-    borderTopWidth: 1,
-  },
-  preference: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
-});

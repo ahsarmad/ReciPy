@@ -9,7 +9,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  FlatList,
   TextInput,
 } from "react-native";
 
@@ -322,10 +321,6 @@ export default function Home({ navigation }) {
           }}
         >
           <View>
-            {/* <View
-              style={[styles.pushDown, { backgroundColor: headerColor }]}
-            ></View> */}
-
             <ImageBackground
               source={require("../assets/img/banner3.png")}
               style={[styles.banner]}

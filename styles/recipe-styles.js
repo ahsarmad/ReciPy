@@ -28,7 +28,9 @@ export default StyleSheet.create({
     fontSize: RFPercentage(4),
     marginTop: height / 30,
   },
+
   recipeDataText: {
+    // backgroundColor: "blue",
     fontSize: RFPercentage(2.5),
   },
   macroVisualText: {
@@ -103,12 +105,12 @@ export default StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginLeft: wp("5%"),
-    marginTop: hp("1%"),
+    marginTop: hp("1.5%"),
   },
   pieChart: {
     position: "absolute",
     left: wp("60%"),
-    top: hp("1%"),
+    top: hp("2.7%"),
   },
 
   /* -------------- Styling --------------*/

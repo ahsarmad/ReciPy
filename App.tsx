@@ -24,11 +24,11 @@ const store = createStore(model);
 Font.loadAsync({
   // The following fonts are loaded successfully
   Quicksand: require("./assets/fonts/Quicksand-SemiBold.ttf"),
-  Quicksand_Light: require("./assets/fonts/Quicksand-Light.ttf"),
 });
 
 function App() {
   const getRandImg = () => {
+    // free stock image!
     return "https://images.unsplash.com/photo-1530878955558-a6c31b9c97db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bmljZXxlbnwwfHwwfHw%3D&w=1000&q=80";
   };
   const saveUser = async (user) => {
@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     const updateUser = async () => {
-      // Get the current user thats authenticated
+      // Get  current user thats authenticated
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
@@ -135,6 +135,15 @@ const signUpConfig = {
 
 const customTheme = {
   ...AmplifyTheme,
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    paddingTop: 20,
+    width: "100%",
+    backgroundColor: "#FFF",
+  },
 
   button: {
     ...AmplifyTheme.button,

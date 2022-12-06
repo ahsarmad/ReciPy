@@ -33,6 +33,9 @@ export default function Category({ navigation }) {
   const dietOption = useStoreState((state) => state.dietOption);
   const removedIngredients = useStoreState((state) => state.removedIngredients);
 
+  const recentlyUsed = useStoreState((state) => state.recentlyUsed);
+  const setRecentlyUsed = useStoreActions((actions) => actions.setRecentlyUsed);
+
   /* -------------------- Redux State Colors -------------------- */
   const headerColor = useStoreState((state) => state.headerColor);
   const pageColor = useStoreState((state) => state.pageColor);
@@ -61,6 +64,7 @@ export default function Category({ navigation }) {
     let newList = selectedIngredients;
     newList.push({ ...ingredientObj });
     setSelectedIngredients(newList);
+    setRecentlyUsed({ ...ingredientObj });
     setHaveIngredients();
     setRefresh(!refresh);
     console.log(

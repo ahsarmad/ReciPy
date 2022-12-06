@@ -1,8 +1,7 @@
-import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import Feed from "../components/Feed";
 import NewPostButton from "../components/NewPostButton";
-import NewPost from "./NewPost";
 import * as Animatable from "react-native-animatable";
 
 const Explore = (props) => {

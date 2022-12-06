@@ -257,14 +257,26 @@ export default StyleSheet.create({
   barcodeCloseButton: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 40,
+    borderRadius: 15,
     overflow: "hidden",
-    marginLeft: 135,
-    marginTop: -5,
     width: 120,
-    height: height / 14,
+    height: height / 15,
     bottom: -height / 1.4,
     backgroundColor: "#2694f9",
+  },
+  barcodeCloseContainer: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#fff",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
   doneButtonContainer: {
     alignItems: "center",
