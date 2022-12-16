@@ -323,27 +323,69 @@ export default function Home({ navigation }) {
             </ImageBackground>
 
             <View style={[styles.container]}>
-              <Pressable
+              <TouchableOpacity
                 onPress={addIngredientHandler}
-                style={[styles.addButton, { backgroundColor: headerColor }]}
+                activeOpacity={0.4}
+                style={[
+                  styles.addButton,
+                  {
+                    backgroundColor: headerColor,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  },
+                ]}
               >
                 <Text
-                  style={[styles.fontMedium, { fontFamily: "AmaticSC-Bold" }]}
+                  style={{
+                    fontFamily: "Quicksand-SemiBold",
+                    fontSize: 24,
+                    color: "white",
+                    shadowColor: "blue",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.8,
+                    shadowRadius: 1,
+
+                    elevation: 0,
+                  }}
                 >
                   Add Ingredient
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
 
-              <Pressable
+              <TouchableOpacity
                 onPress={pressGenerate}
-                style={[styles.addButton, { backgroundColor: generateColor }]}
+                activeOpacity={0.4}
+                style={[
+                  styles.addButton,
+                  {
+                    backgroundColor: headerColor,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  },
+                ]}
               >
                 <Text
-                  style={[styles.fontMedium, { fontFamily: "AmaticSC-Bold" }]}
+                  style={{
+                    fontFamily: "Quicksand-SemiBold",
+                    fontSize: 24,
+                    color: "white",
+                    shadowColor: "blue",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.8,
+                    shadowRadius: 1,
+
+                    elevation: 0,
+                  }}
                 >
-                  Generate Recipes
+                  Generate
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
 
             <View>

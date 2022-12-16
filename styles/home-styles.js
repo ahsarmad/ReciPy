@@ -25,10 +25,19 @@ export default StyleSheet.create({
     fontFamily: "AmaticSC-Bold",
   },
   categoryText: {
-    color: "black",
+    color: "white",
+    shadowColor: "blue",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 1,
+
+    elevation: 0,
     textAlign: "center",
-    fontSize: RFPercentage(4),
-    fontFamily: "AmaticSC-Bold",
+    fontSize: RFPercentage(3),
+    fontFamily: "Quicksand-Regular",
     textAlignVertical: "center",
   },
   title: {
@@ -163,23 +172,30 @@ export default StyleSheet.create({
 
   /* -------------- Buttons --------------*/
   addButton: {
-    width: wp("40%"),
+    width: wp("46%"),
+    height: hp("5"),
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 25,
     color: "black",
     alignItems: "center",
+    justifyContent: "center",
     marginRight: wp("2%"),
     marginLeft: wp("2%"),
     marginVertical: wp("2%"),
     overflow: "hidden",
+    opacity: 0.9,
   },
   categoryButton: {
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderRadius: 6,
-    width: width / 4.3,
+    borderRadius: 10,
+    marginLeft: -3,
+    width: width / 4,
     height: width / 9,
-    textAlign: "center",
+    // textAlign: "center",
     overflow: "hidden",
+    opacity: 0.9,
   },
   roundBTN: {
     borderWidth: 2,

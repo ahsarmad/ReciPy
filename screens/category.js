@@ -154,7 +154,18 @@ export default function Category({ navigation }) {
                     styles.fontMedium,
                     styles.textCenter,
                     styles.AmaticSCBold,
-                    { color: "black" },
+                    {
+                      color: "white",
+                      shadowColor: "black",
+                      shadowOffset: {
+                        width: 0,
+                        height: 2,
+                      },
+                      shadowOpacity: 0.9,
+                      shadowRadius: 1,
+
+                      elevation: 0,
+                    },
                   ]}
                 >
                   {ingredient.name.replace(/[\r_]/gm, " ")}
